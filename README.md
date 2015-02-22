@@ -6,4 +6,4 @@
 2. Install ionic `npm install -g ionic`
 2. Clone this repo
 3. Go into booleYou-client folder from command line and type 'npm install'
-4. Type 'ionic serve' to start the local dev server for dev/testing. This should automatically launch your default browser.
+4. Type `ionic serve` to start the local dev server for dev/testing. This should automatically launch your default browser.
