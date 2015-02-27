@@ -6,6 +6,7 @@
     "start": "ionic serve"
   },
   "dependencies": {
+    "express": "4.8.4",
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",
     "gulp-concat": "^2.2.0",
