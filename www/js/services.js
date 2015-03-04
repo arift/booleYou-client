@@ -49,6 +49,34 @@ angular.module('starter.services', [])
   }
 })
 
+.factory('Notifications', function() {
+  // fake testing data! we will want to query our Mongo DB to get notifications
+
+  var notifications = [{
+    following: 1,
+    reply: 0,
+    booleOutId: null,
+    userId: 1234,
+    context: userId + " followed you!",
+    notificationId: 0
+  }, {
+    following: 0,
+    reply: 1,
+    booleOutId: 3241,
+    userId: 4321,
+    content: userId + " replied to your booleOut " + booleOutId,
+    notificationId: 1
+  }];
+
+  return {
+    all: function() {
+      return notifications;
+    }
+    get: function(notificationId) {
+      return notifications[notificationId];
+    }
+  }
+})
 /**
  * A simple example service that returns some data.
  */
