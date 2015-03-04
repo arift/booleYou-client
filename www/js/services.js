@@ -1,10 +1,10 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('Following', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var chats = [{
+  var following = [{
     id: 0,
     name: 'Ben Sparrow',
     lastText: 'You on your way?',
@@ -33,15 +33,15 @@ angular.module('starter.services', [])
 
   return {
     all: function() {
-      return chats;
+      return following;
     },
     remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+      following.splice(following.indexOf(chat), 1);
     },
     get: function(chatId) {
       for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+        if (following[i].id === parseInt(chatId)) {
+          return following[i];
         }
       }
       return null;
@@ -52,11 +52,11 @@ angular.module('starter.services', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('Friends', function() {
+.factory('Followers', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var friends = [{
+  var followers = [{
     id: 0,
     name: 'Ben Sparrow',
     notes: 'Enjoys drawing things',
@@ -86,11 +86,11 @@ angular.module('starter.services', [])
 
   return {
     all: function() {
-      return friends;
+      return followers;
     },
-    get: function(friendId) {
+    get: function(followerID) {
       // Simple index lookup
-      return friends[friendId];
+      return followers[followerID];
     }
   }
 });
