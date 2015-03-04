@@ -94,6 +94,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
+  })
+
+  .state('tab.signup', {
+    url: '/signup',
+    views: {
+      'tab-signup': {
+        templateUrl: 'templates/signup.html',
+        controller: 'AccountCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
