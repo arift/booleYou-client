@@ -25,4 +25,36 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
+})
+
+.controller('PopupCtrl',function($scope, $ionicPopup, $timeout) {
+
+ // Triggered on a button click, or some other target
+ $scope.showPopup = function() {
+   $scope.data = {}
+
+   // An elaborate, custom popup
+   var myPopup = $ionicPopup.show({
+     templateUrl: 'templates/signupBirthday.html',
+     title: 'Enter Birthday',
+     scope: $scope,
+     buttons: [
+       { text: 'Cancel' },
+       {
+         text: '<b>Save</b>',
+         type: 'button-royal',
+         onTap: function(e) {
+            $('#bdaytext').empty();
+            var month = $('#months option:selected').text();
+            var day = $('#days option:selected').text();
+            var year = $('#years option:selected').text();
+            $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);
+           
+         }
+       },
+     ]
+   });
+
+  };
 });
+

@@ -1,1 +1,12 @@
 /* Empty. Add your own CSS if you like */
+
+.signUpPadding {
+	margin-top: 12%;
+}
+
+.signUpBirthdayMonth {
+	margin-right: 35%
+}
+.signUpBirthdayDay {
+	margin-right: 18%
+}
