@@ -42,21 +42,19 @@ angular.module('starter.controllers', [])
        { text: 'Cancel' },
        {
          text: '<b>Save</b>',
-         type: 'button-positive',
+         type: 'button-royal',
          onTap: function(e) {
-           if (!$scope.data.wifi) {
-             //don't allow the user to close unless he enters wifi password
-             e.preventDefault();
-           } else {
-             return $scope.data.wifi;
-           }
+            $('#bdaytext').empty();
+            var month = $('#months option:selected').text();
+            var day = $('#days option:selected').text();
+            var year = $('#years option:selected').text();
+            $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);
+           
          }
        },
      ]
    });
-   myPopup.then(function(res) {
-     console.log('Tapped!', res);
-   });
 
   };
 });
+
