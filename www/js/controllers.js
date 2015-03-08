@@ -27,7 +27,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('SignUpCtrl',function($scope, $ionicPopup, $timeout) {
+.controller('SignUpCtrl',function($scope, $ionicPopup, $timeout, $http) {
 
  // Triggered on a button click, or some other target
   $scope.showPopup = function() {
@@ -56,45 +56,31 @@ angular.module('starter.controllers', [])
   };
   $scope.submitForm = function() {
     $scope.data = {}
+    // console.log("First name: " + $scope.signup.firstName);
+    // console.log("Last Name: " + $scope.signup.lastName);
+    // console.log("Email: " + $scope.signup.email);
+    // console.log("BitName: " + $scope.signup.bitName);
+    // console.log("Pass: " + $scope.signup.password);
+    // console.log("Gender: " + $scope.signup.gender);
 
-    console.log("First name: " + $scope.signup.firstName);
-    console.log("Last Name: " + $scope.signup.lastName);
-    console.log("Email: " + $scope.signup.email);
-    console.log("BitName: " + $scope.signup.bitName);
-    console.log("Pass: " + $scope.signup.password);
-    console.log("Gender: " + $scope.signup.gender);
+    var dataToSend = {
+      firstName : $scope.signup.firstName,
+      lastName  : $scope.signup.lastName,
+      email     : $scope.signup.email, 
+      bitName   : $scope.signup.bitName,
+      password  : $scope.signup.password,
+      gender    : $scope.signup.gender
+    }
 
-    // Simple POST request example (passing data) :
-  $http.post('booleyou-server.herokuapp.com/users', {msg:'hello word!'}).
+  //POST request to the servers api:
+  $http.post('http://booleyou-server.herokuapp.com/api/users', dataToSend).
     success(function(data, status, headers, config) {
-    // this callback will be called asynchronously
-    // when the response is available
+      console.log("Server msg: " + data.msg);
     }).
     error(function(data, status, headers, config) {
-    // called asynchronously if an error occurs
-    // or server returns response with an error status.
+      console.log("Error!");
     });
 
-    // // An elaborate, custom popup
-    // var myPopup = $ionicPopup.show({
-    //   templateUrl: 'templates/signupBirthday.html',
-    //   title: 'Enter Birthday',
-    //   scope: $scope,
-    //   buttons: [
-    //     { text: 'Cancel' },
-    //     {
-    //       text: '<b>Save</b>',
-    //       type: 'button-royal',
-    //       onTap: function(e) {
-    //         $('#bdaytext').empty();
-    //         var month = $('#months option:selected').text();
-    //         var day = $('#days option:selected').text();
-    //         var year = $('#years option:selected').text();
-    //         $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);           
-    //       }
-    //     },
-    //   ]
-    // });
   };  
 });
 
