@@ -10,3 +10,12 @@
 .signUpBirthdayDay {
 	margin-right: 18%
 }
+
+ion-content {
+	background-color: MediumPurple
+}
+
+.bar.bar-royal {
+	background-color: Indigo;
+	background-image: none;
+}
