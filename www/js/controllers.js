@@ -75,9 +75,14 @@ angular.module('starter.controllers', [])
   //POST request to the servers api:
   $http.post('http://booleyou-server.herokuapp.com/api/users', dataToSend).
     success(function(data, status, headers, config) {
-      console.log("Server msg: " + data.msg);
+      if (data.msg === "success") {
+        console.log("Success!");
+        $scope.serverMessage = "Server reply: " + data.msg;
+      }
+      
     }).
     error(function(data, status, headers, config) {
+      $scope.serverMessage = "Server reply: " + data.msg;
       console.log("Error!");
     });
 
