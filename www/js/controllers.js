@@ -27,34 +27,74 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PopupCtrl',function($scope, $ionicPopup, $timeout) {
+.controller('SignUpCtrl',function($scope, $ionicPopup, $timeout) {
 
  // Triggered on a button click, or some other target
- $scope.showPopup = function() {
-   $scope.data = {}
+  $scope.showPopup = function() {
+    $scope.data = {}
 
-   // An elaborate, custom popup
-   var myPopup = $ionicPopup.show({
-     templateUrl: 'templates/signupBirthday.html',
-     title: 'Enter Birthday',
-     scope: $scope,
-     buttons: [
-       { text: 'Cancel' },
-       {
-         text: '<b>Save</b>',
-         type: 'button-royal',
-         onTap: function(e) {
+    // An elaborate, custom popup
+    var myPopup = $ionicPopup.show({
+      templateUrl: 'templates/signupBirthday.html',
+      title: 'Enter Birthday',
+      scope: $scope,
+      buttons: [
+        { text: 'Cancel' },
+        {
+          text: '<b>Save</b>',
+          type: 'button-royal',
+          onTap: function(e) {
             $('#bdaytext').empty();
             var month = $('#months option:selected').text();
             var day = $('#days option:selected').text();
             var year = $('#years option:selected').text();
-            $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);
-           
-         }
-       },
-     ]
-   });
-
+            $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);           
+          }
+        },
+      ]
+    });
   };
+  $scope.submitForm = function() {
+    $scope.data = {}
+
+    console.log("First name: " + $scope.signup.firstName);
+    console.log("Last Name: " + $scope.signup.lastName);
+    console.log("Email: " + $scope.signup.email);
+    console.log("BitName: " + $scope.signup.bitName);
+    console.log("Pass: " + $scope.signup.password);
+    console.log("Gender: " + $scope.signup.gender);
+
+    // Simple POST request example (passing data) :
+  $http.post('booleyou-server.herokuapp.com/users', {msg:'hello word!'}).
+    success(function(data, status, headers, config) {
+    // this callback will be called asynchronously
+    // when the response is available
+    }).
+    error(function(data, status, headers, config) {
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+    });
+
+    // // An elaborate, custom popup
+    // var myPopup = $ionicPopup.show({
+    //   templateUrl: 'templates/signupBirthday.html',
+    //   title: 'Enter Birthday',
+    //   scope: $scope,
+    //   buttons: [
+    //     { text: 'Cancel' },
+    //     {
+    //       text: '<b>Save</b>',
+    //       type: 'button-royal',
+    //       onTap: function(e) {
+    //         $('#bdaytext').empty();
+    //         var month = $('#months option:selected').text();
+    //         var day = $('#days option:selected').text();
+    //         var year = $('#years option:selected').text();
+    //         $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);           
+    //       }
+    //     },
+    //   ]
+    // });
+  };  
 });
 

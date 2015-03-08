@@ -1,33 +1,33 @@
 <ion-view class="bar-royal" view-title="SignUp">
   <ion-content>
     <div class="list">
-      <div class="padding signUpPadding" ng-controller="PopupCtrl">
+      <div class="padding signUpPadding" ng-controller="SignUpCtrl">
         <label class="item item-input item-floating-label">
           <span class="input-label">First Name</span>
-          <input type="text" placeholder="First Name">
+          <input type="text" placeholder="First Name" ng-model="signup.firstName">
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label">Last Name</span>
-          <input type="text" placeholder="Last Name">
+          <input type="text" placeholder="Last Name" ng-model="signup.lastName">
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label">Email</span>
-          <input type="text" placeholder="Email">
+          <input type="text" placeholder="Email" ng-model="signup.email">
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label">BitName</span>
-          <input type="text" placeholder="BitName">
+          <input type="text" placeholder="BitName" ng-model="signup.bitName">
         </label>
         <label class="item item-input item-floating-label">
           <span class="input-label">Password</span>
-          <input type="password" placeholder="Password">
+          <input type="password" placeholder="Password" ng-model="signup.password">
         </label>
         <label class="item item-input item-select">
           <div class="input-label">
             Gender
           </div>
           <select>
-            <option selected>Optional</option>
+            <option selected>Optional</option ng-model="signup.gender">
             <option>Male</option>
             <option>Female</option>
           </select>
@@ -37,7 +37,7 @@
             Birthday
           </div>
         </label>
-        <button class="button button-block button-royal">
+        <button class="button button-block button-royal" ng-click="submitForm()">
           Create Account
         </button>
       </div>
