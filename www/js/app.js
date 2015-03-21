@@ -104,9 +104,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'AccountCtrl'
       }
     }
+  })
+
+    .state('tab.home', {
+    url: '/home',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/home.html',
+        controller: 'AccountCtrl'
+      }
+    }
+  })
+
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/signup');
+  $urlRouterProvider.otherwise('/tab/login');
 
 });
