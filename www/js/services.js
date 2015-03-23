@@ -50,6 +50,33 @@ angular.module('starter.services', [])
 })
 
 /**
+ * factory to return booleOuts. Dummy data for now, requires a call to the database.
+ */
+.factory('booleOuts', function() {
+  // dummy data
+  var posts = [{
+    bit: 1,
+    content: '#booleYou',
+    username: 'djsaunde'
+  }, {
+    bit: 0,
+    content: '#booleMe',
+    username: 'djsaunde'
+  }];
+
+  return {
+    all: function() {
+      return posts;
+    },
+    add: function(date) {
+      posts.push({ bit: 1,
+                   content: date,
+                   username: 'djsaunde' });
+    }
+  }
+})
+
+/**
  * A simple example service that returns some data.
  */
 .factory('Friends', function() {

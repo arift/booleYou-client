@@ -1,6 +1,27 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope) {})
+.controller('BitStreamCtrl', function($scope, booleOuts) {
+  $scope.posts = booleOuts.all();   // this function returns all the booleOuts stored in our Mongo DB
+  $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
+    booleOuts.add(Date.now());      // Clearly, this is simply dummy data for now, but in the future, we will implement a call to the server
+    $scope.posts = booleOuts.all();                           // to refresh the BitStream
+    $scope.$broadcast('scroll.refreshComplete');
+  }
+  $scope.composeBooleOut = function() {
+    // this function will display a pop-up interface in which
+    // the user will compose a booleOut, complete with a text
+    // entry field as well as a radio button for 1 / 0
+  }
+  $scope.upBoole = function() {
+    // upBoole logic
+  }
+  $scope.downBoole = function() {
+    // downBoole logic
+  }
+  $scope.reBoole = function() {
+    // reBoole logic
+  }
+})
 
 .controller('FollowingCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
@@ -48,7 +69,7 @@ angular.module('starter.controllers', [])
             var month = $('#months option:selected').text();
             var day = $('#days option:selected').text();
             var year = $('#years option:selected').text();
-            $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);           
+            $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);
           }
         },
       ]
@@ -66,7 +87,7 @@ angular.module('starter.controllers', [])
     var dataToSend = {
       firstName : $scope.signup.firstName,
       lastName  : $scope.signup.lastName,
-      email     : $scope.signup.email, 
+      email     : $scope.signup.email,
       bitName   : $scope.signup.bitName,
       password  : $scope.signup.password,
       gender    : $scope.signup.gender
@@ -79,13 +100,12 @@ angular.module('starter.controllers', [])
         console.log("Success!");
         $scope.serverMessage = "Server reply: " + data.msg;
       }
-      
+
     }).
     error(function(data, status, headers, config) {
       $scope.serverMessage = "Server reply: " + data.msg;
       console.log("Error!");
     });
 
-  };  
+  };
 });
-
