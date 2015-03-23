@@ -1,10 +1,10 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('Following', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var chats = [{
+  var following = [{
     id: 0,
     name: 'Ben Sparrow',
     lastText: 'You on your way?',
@@ -33,15 +33,15 @@ angular.module('starter.services', [])
 
   return {
     all: function() {
-      return chats;
+      return following;
     },
     remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+      following.splice(following.indexOf(chat), 1);
     },
     get: function(chatId) {
       for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+        if (following[i].id === parseInt(chatId)) {
+          return following[i];
         }
       }
       return null;
@@ -49,14 +49,69 @@ angular.module('starter.services', [])
   }
 })
 
+.factory('Notifications', function() {
+  // fake testing data! we will want to query our Mongo DB to get notifications
+
+  var notifications = [{
+    following: 1,
+    reply: 0,
+    booleOutId: null,
+    userId: 1234,
+    context: userId + " followed you!",
+    notificationId: 0
+  }, {
+    following: 0,
+    reply: 1,
+    booleOutId: 3241,
+    userId: 4321,
+    content: userId + " replied to your booleOut " + booleOutId,
+    notificationId: 1
+  }];
+
+  return {
+    all: function() {
+      return notifications;
+    }
+    get: function(notificationId) {
+      return notifications[notificationId];
+    }
+  }
+})
+/**
+ * factory to return booleOuts. Dummy data for now, requires a call to the database.
+ */
+.factory('booleOuts', function() {
+  // dummy data
+  var posts = [{
+    bit: 1,
+    content: '#booleYou',
+    username: 'djsaunde'
+  }, {
+    bit: 0,
+    content: '#booleMe',
+    username: 'djsaunde'
+  }];
+
+  return {
+    all: function() {
+      return posts;
+    },
+    add: function(date) {
+      posts.push({ bit: 1,
+                   content: date,
+                   username: 'djsaunde' });
+    }
+  }
+})
+
 /**
  * A simple example service that returns some data.
  */
-.factory('Friends', function() {
+.factory('Followers', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var friends = [{
+  var followers = [{
     id: 0,
     name: 'Ben Sparrow',
     notes: 'Enjoys drawing things',
@@ -86,11 +141,11 @@ angular.module('starter.services', [])
 
   return {
     all: function() {
-      return friends;
+      return followers;
     },
-    get: function(friendId) {
+    get: function(followerID) {
       // Simple index lookup
-      return friends[friendId];
+      return followers[followerID];
     }
   }
 });

@@ -43,7 +43,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-bitstream': {
         templateUrl: 'templates/tab-bitstream.html',
-        controller: 'BitStreamCtrl'
+        controller: 'BitstreamCtrl'
       }
     }
   })
@@ -72,7 +72,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'tab-followers': {
           templateUrl: 'templates/tab-followers.html',
+<<<<<<< HEAD
+          controller: 'FollowerCtrl'
+=======
           controller: 'FollowersCtrl'
+>>>>>>> 847bf97bbee3e09b7d4ecaaeab06ff403c49f3a1
         }
       }
     })
