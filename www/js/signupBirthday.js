@@ -8,5 +8,5 @@ $scope.showPopup = function() {
   $scope.data = {}
 
   // An elaborate, custom popup
-  
+
  };
