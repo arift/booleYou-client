@@ -71,7 +71,7 @@ angular.module('starter.services', [])
   return {
     all: function() {
       return notifications;
-    }
+    },
     get: function(notificationId) {
       return notifications[notificationId];
     }
