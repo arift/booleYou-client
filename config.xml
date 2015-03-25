@@ -8,6 +8,7 @@
       Ionic Framework Team&#xD;
     </author>
   <content src="index.html"/>
+  <icon src="icon.png"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>

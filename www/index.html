@@ -29,24 +29,19 @@
 
 
 </head>
-<ion-content>
-<div class="list">
-  <div style="text-align: center; margin-top: 10%"> <img src = "img/logo.png"> </div>
-  <div class="padding signUpPadding">
-    <label class="item item-input item-floating-label">
-      <span class="input-label">Email</span>
-      <input type="text" placeholder="Email" ng-model="login.email">
-    </label>
-    <label class="item item-input item-floating-label">
-      <span class="input-label">Password</span>
-      <input type="password" placeholder="Password" ng-model="login.password">
-    </div>
-    <button class="button button-full button-royal" href="#/tab/home">
-      Login
-    </button>
-    <!-- IF the login button is pressed (and authentication is valid), load home.html! -->
-  </div>
-
-</ion-content>
-</ion-view>
+<body ng-app="starter">
+<!--
+The nav bar that will be updated as we navigate between views.
+-->
+<ion-nav-bar class="bar-royal">
+<ion-nav-buttons side="left">
+<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+</ion-nav-buttons>
+<!--
+The views will be rendered in the <ion-nav-view> directive below
+Templates are in the /templates folder (but you could also
+have templates inline in this html file if you'd like).
+-->
+<ion-nav-view></ion-nav-view>
+</body>
 </html>
