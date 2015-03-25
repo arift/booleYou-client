@@ -27,11 +27,12 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('LoginCtrl', function($scope) {
+.controller('LoginCtrl', function($scope, $state) {
   $scope.data = {};
 
-  $scope.login = function() {
+  $scope.login = function(user) {
     console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
+    $state.go('tab')
   }
 })
 

@@ -2,14 +2,14 @@
   <div style="text-align: center; margin-top: 10%"> <img src = "img/logo.png"> </div>
   <div class="padding signUpPadding">
     <label class="item item-input item-floating-label">
-      <span class="input-label">Email</span>
-      <input type="text" placeholder="Email" ng-model="login.email">
+      <span class="input-label">BitName</span>
+      <input type="text" placeholder="Bitname" ng-model="user.bitname">
     </label>
     <label class="item item-input item-floating-label">
       <span class="input-label">Password</span>
-      <input type="password" placeholder="Password" ng-model="login.password">
+      <input type="password" placeholder="Password" ng-model="user.password">
     </div>
-    <button class="button button-full button-royal" href="#/tab/home">
+    <button class="button button-full button-royal" ng-click="login(user)">
       Login
     </button>
     <!-- IF the login button is pressed (and authentication is valid), load home.html! -->
