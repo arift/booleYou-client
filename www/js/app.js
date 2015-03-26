@@ -35,6 +35,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'LoginCtrl'
   })
 
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+  })
+
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: "/tab",
@@ -97,16 +102,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
-  })
-
-  .state('tab.signup', {
-    url: '/signup',
-    views: {
-      'tab-signup': {
-        templateUrl: 'templates/signup.html',
         controller: 'AccountCtrl'
       }
     }

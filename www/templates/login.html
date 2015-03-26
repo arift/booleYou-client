@@ -1,21 +1,24 @@
-<ion-view view-title="Sign-In">
+<ion-view view-title="Login">
 <ion-content>
-<div class="list">
-  <div style="text-align: center; margin-top: 10%"> <img src = "img/logo.png"> </div>
-  <div class="padding signUpPadding">
-    <label class="item item-input item-floating-label">
+<div class="list signUpPadding">
+  <div style="text-align: center"> <img src = "img/logo.png"> </div>
+  <div class="padding">
+    <label class="item item-input item-floating-label ">
       <span class="input-label">BitName</span>
       <input type="text" placeholder="Bitname" ng-model="user.bitname">
     </label>
-    <label class="item item-input item-floating-label">
+    <label class="item item-input item-floating-label ">
       <span class="input-label">Password</span>
       <input type="password" placeholder="Password" ng-model="user.password">
     </label>
   </div>
-  <button class="button button-full button-royal" ng-click="login(user)">
-    Login
-  </button>
-  <!-- IF the login button is pressed (and authentication is valid), load home.html! -->
+  <div class="button-bar">
+  <a class="button" ng-click="signUp()">Sign Up</a>
+  <a class="button button-royal" ng-click="login(user)">Login</a>
+</div>
+  <p class="text-center">
+  <a class="test">Forgot Password</a>
+  </p>
 </div>
 </ion-content>
 </ion-view>

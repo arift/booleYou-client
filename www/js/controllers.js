@@ -29,16 +29,38 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $state) {
   $scope.login = function(user) {
-    console.log('Login', user);
-    $state.go('tab.bitstream');
-  };
-})
+    $scope.data = {}
+
+    var dataToSend = {
+      username : user.bitname,
+      password : user.password
+    }
+
+    $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
+    success(function(data, status, headers, config) {
+    if (data.msg === "success") {
+      console.log("Success!");
+      $state.go('tab-bitstream');
+      $scope.serverMessage = "Server reply: " + data.msg;
+    }
+
+  }).
+  error(function(data, status, headers, config) {
+    $scope.serverMessage = "Server reply: " + data.msg;
+    console.log("Error!");
+  });
+    };
+
+    $scope.signUp = function() {
+      $state.go('signup');
+    };
+  })
 
 .controller('SignUpCtrl',function($scope, $ionicPopup, $timeout, $http) {
 
  // Triggered on a button click, or some other target
-  $scope.showPopup = function() {
-    $scope.data = {}
+ $scope.showPopup = function() {
+  $scope.data = {}
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -46,18 +68,18 @@ angular.module('starter.controllers', [])
       title: 'Enter Birthday',
       scope: $scope,
       buttons: [
-        { text: 'Cancel' },
-        {
-          text: '<b>Save</b>',
-          type: 'button-royal',
-          onTap: function(e) {
-            $('#bdaytext').empty();
-            var month = $('#months option:selected').text();
-            var day = $('#days option:selected').text();
-            var year = $('#years option:selected').text();
-            $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);           
-          }
-        },
+      { text: 'Cancel' },
+      {
+        text: '<b>Save</b>',
+        type: 'button-royal',
+        onTap: function(e) {
+          $('#bdaytext').empty();
+          var month = $('#months option:selected').text();
+          var day = $('#days option:selected').text();
+          var year = $('#years option:selected').text();
+          $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);           
+        }
+      },
       ]
     });
   };
@@ -81,18 +103,18 @@ angular.module('starter.controllers', [])
 
   //POST request to the servers api:
   $http.post('http://booleyou-server.herokuapp.com/api/users', dataToSend).
-    success(function(data, status, headers, config) {
-      if (data.msg === "success") {
-        console.log("Success!");
-        $scope.serverMessage = "Server reply: " + data.msg;
-      }
-      
-    }).
-    error(function(data, status, headers, config) {
+  success(function(data, status, headers, config) {
+    if (data.msg === "success") {
+      console.log("Success!");
       $scope.serverMessage = "Server reply: " + data.msg;
-      console.log("Error!");
-    });
+    }
 
-  };  
+  }).
+  error(function(data, status, headers, config) {
+    $scope.serverMessage = "Server reply: " + data.msg;
+    console.log("Error!");
+  });
+
+};  
 });
 
