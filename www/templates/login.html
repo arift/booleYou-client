@@ -1,3 +1,5 @@
+<ion-view view-title="Sign-In">
+<ion-content>
 <div class="list">
   <div style="text-align: center; margin-top: 10%"> <img src = "img/logo.png"> </div>
   <div class="padding signUpPadding">
@@ -8,9 +10,12 @@
     <label class="item item-input item-floating-label">
       <span class="input-label">Password</span>
       <input type="password" placeholder="Password" ng-model="user.password">
-    </div>
-    <button class="button button-full button-royal" ng-click="login(user)">
-      Login
-    </button>
-    <!-- IF the login button is pressed (and authentication is valid), load home.html! -->
+    </label>
   </div>
+  <button class="button button-full button-royal" ng-click="login(user)">
+    Login
+  </button>
+  <!-- IF the login button is pressed (and authentication is valid), load home.html! -->
+</div>
+</ion-content>
+</ion-view>

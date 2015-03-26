@@ -28,12 +28,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('LoginCtrl', function($scope, $state) {
-  $scope.data = {};
-
   $scope.login = function(user) {
-    console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
-    $state.go('tab')
-  }
+    console.log('Login', user);
+    $state.go('tab.bitstream');
+  };
 })
 
 .controller('SignUpCtrl',function($scope, $ionicPopup, $timeout, $http) {
