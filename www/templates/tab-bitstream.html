@@ -1,5 +1,5 @@
 <ion-view view-title="BitStream">
-  <ion-content class="padding">
+  <ion-content class="padding" ng-controller="BitStreamCtrl">
     <div class="list card">
       <div class="item item-divider">This is where the bitstream will go</div>
       <div class="item item-body">
@@ -11,13 +11,12 @@
       </div>
     </div>
 
-    <form action="" method="post">
-      <input id="postOne" type="submit" name="search" value="1" ng-click="postBooleOut(1)" />
-      <input id="postZero" type="submit" name="search" value="0" ng-click="postBooleOut(0)"/>
-      <div id="postInput">
-        <input type="text" name="term" ng-model="bitstream.hashtag"/>
-      </div>
-    </form>
 
   </ion-content>
+  <ion-footer-bar class="bar-royal">
+    <input id="postOne" type="submit" name="search" value="1" ng-click="postBooleOut(1)" />
+    <input id="postZero" type="submit" name="search" value="0" ng-click="postBooleOut(0)"/>
+    <div id="postInput">
+      <input type="text" name="term" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
+    </div>
 </ion-view>
