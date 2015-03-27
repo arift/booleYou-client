@@ -1,6 +1,37 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope) {})
+.controller('BitStreamCtrl', function($scope, $http) {
+  $scope.postBooleOut = function(bit) {
+    console.log("clicked " + bit);
+    $scope.data = {}
+    // console.log("Bit: " + 1or0);
+    // console.log("Hashtag: " + $scope.bitstream.hashtag);
+    // console.log("User: " + "exampleid");
+
+    var dataToSend = {
+      bit      : bit,
+      hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+      user     : "exampleid"
+//      user     : $scope.userid,
+    }
+
+  //POST request to the servers api:
+  $http.post('http://localhost:3000/api/booleOuts', dataToSend).
+    success(function(data, status, headers, config) {
+      console.log("Data: " + data.message);
+      if (data.message === "booleOut Added") {
+        console.log("Success!");
+        $scope.serverMessage = "Server reply: " + data.message;
+      }
+      
+    }).
+    error(function(data, status, headers, config) {
+      $scope.serverMessage = "Server reply: " + data.message;
+      console.log("Error!");
+    });
+
+  };
+})
 
 .controller('FollowingCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
