@@ -27,7 +27,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('LoginCtrl', function($scope, $state, $timeout, $http) {
+.controller('LoginCtrl', function($scope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
     //console.log(user.bitname);
@@ -38,7 +38,13 @@ angular.module('starter.controllers', [])
       shakeShakeShake();
       return;
     }
-    
+
+    LoginService.loginUser(user.bitname, user.password).success(function(data) {
+      $state.go('tab.bitstream');
+    }).error(function(data){
+      shakeShakeShake();
+    });
+
 
     // if (bitname !== undefined || bitname.length < 4 || password.length < 4) {
     //   console.log("username/password too short.");
