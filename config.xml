@@ -26,11 +26,6 @@
     <icon src="resources\android\icon\drawable-xhdpi-icon.png" density="xhdpi"/>
     <icon src="resources\android\icon\drawable-xxhdpi-icon.png" density="xxhdpi"/>
     <icon src="resources\android\icon\drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
-    <splash src="resources\android\splash\drawable-land-ldpi-screen.png" density="land-ldpi"/>
-    <splash src="resources\android\splash\drawable-land-mdpi-screen.png" density="land-mdpi"/>
-    <splash src="resources\android\splash\drawable-port-ldpi-screen.png" density="port-ldpi"/>
-    <splash src="resources\android\splash\drawable-port-mdpi-screen.png" density="port-mdpi"/>
-    <splash src="resources\android\splash\drawable-port-hdpi-screen.png" density="port-hdpi"/>
-  </platform>
+    </platform>
   <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
 </widget>

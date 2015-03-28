@@ -6,9 +6,20 @@
  	top: 0; left: 0; bottom: 0; right: 0;
 }
 
-.test {
-	margin-bottom: 5%;
+.splash {
+	background: url("../img/bitcloud1.jpg") repeat 0 0;
+	background-color: #502d7f;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+
 }
+
+.button-bottom {
+	position: absolute;
+	margin-top: 135%;
+}
+
 
 .signUpBirthdayMonth {
 	margin-right: 35%;
@@ -17,8 +28,13 @@
 	margin-right: 18%;
 }
 
-.login {
-	box-shadow:0 0 1px 1px #f43841;
+.invalid {
+	box-shadow:0 0 4px 1px #bd1f30;
+}
+
+.invalidText {
+	color: #bd1f30;
+	opacity: 0;
 }
 
 ion-content {

@@ -27,34 +27,60 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('LoginCtrl', function($scope, $state) {
+.controller('LoginCtrl', function($scope, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
 
-    var dataToSend = {
-      username : user.bitname,
-      password : user.password
-    }
+    // var dataToSend = {
+    //   username : user.bitname,
+    //   password : user.password
+    // }
 
-    $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
-    success(function(data, status, headers, config) {
-    if (data.msg === "success") {
-      console.log("Success!");
-      $state.go('tab-bitstream');
-      $scope.serverMessage = "Server reply: " + data.msg;
-    }
+    //turn red
+    $(".invalidText").css("opacity", "1");
+    $(".invalidHolder").addClass("invalid");
 
-  }).
-  error(function(data, status, headers, config) {
-    $scope.serverMessage = "Server reply: " + data.msg;
-    console.log("Error!");
-  });
-    };
+    //shake!
+    var interval = 50;                                                                                                 
+    var distance = 10;                                                                                                  
+    var times = 4;                                                                                                      
 
-    $scope.signUp = function() {
-      $state.go('signup');
-    };
-  })
+    $(".padding").css('position','relative');                                                                                  
+
+    for(var iter=0;iter<(times+1);iter++){                                                                              
+        $(".padding").animate({ 
+            left:((iter%2==0 ? distance : distance*-1))
+            },interval);                                   
+    }//for                                                                                                              
+
+    $(".padding").animate({ left: 0},interval);                                                                                
+
+
+    // $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
+    // success(function(data, status, headers, config) {
+    //   if (data.msg === "success") {
+    //     console.log("Success!");
+    //     $state.go('tab-bitstream');
+    //     $scope.serverMessage = "Server reply: " + data.msg;
+    //   }
+
+    // }).
+    // error(function(data, status, headers, config) {
+    //   $scope.serverMessage = "Server reply: " + data.msg;
+    //   console.log("Error!");
+    // });
+  };
+})
+
+.controller('WelcomeCtrl', function($scope, $state) {
+  $scope.welcome = function() {
+    $state.go('login');
+  };
+
+  $scope.signUp = function() {
+    $state.go('signup');
+  };
+})
 
 .controller('SignUpCtrl',function($scope, $ionicPopup, $timeout, $http) {
 
