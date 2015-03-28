@@ -30,9 +30,7 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
-    //console.log(user.bitname);
-    // var bitname = user.bitname;
-    // var password = user.password;
+    
     if (!user || !user.bitname || !user.password) {
       console.log("Undefined username/password");
       shakeShakeShake();
@@ -40,8 +38,10 @@ angular.module('starter.controllers', [])
     }
 
     LoginService.loginUser(user.bitname, user.password).success(function(data) {
+      console.log("Good, data: " + data);
       $state.go('tab.bitstream');
     }).error(function(data){
+      console.log("Error, data: " + data);
       shakeShakeShake();
     });
 
