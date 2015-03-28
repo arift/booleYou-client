@@ -3,21 +3,15 @@ angular.module('starter.controllers', [])
 .controller('BitStreamCtrl', function($scope, booleOuts) {
   $scope.posts = booleOuts.all();   // this function returns all the booleOuts stored in our Mongo DB
   $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
-    booleOuts.add(Date.now());      // Clearly, this is simply dummy data for now, but in the future, we will implement a call to the server
     $scope.posts = booleOuts.all();                           // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
-  }
-  $scope.composeBooleOut = function() {
-    // this function will display a pop-up interface in which
-    // the user will compose a booleOut, complete with a text
-    // entry field as well as a radio button for 1 / 0
-  }
+  };
   $scope.upBoole = function() {
     // upBoole logic
-  }
+  };
   $scope.downBoole = function() {
     // downBoole logic
-  }
+  };
   $scope.reBoole = function() {
     // reBoole logic
   }
