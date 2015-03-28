@@ -4,8 +4,8 @@
     </ion-refresher>
     <ion-list type="in-set">
       <ion-item class="item-avatar" ng-repeat="booleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
-        <h2><b>{{booleOut.username}}</b>
-          {{booleOut.bit}} {{booleOut.content}}</h2>
+        <h2><b>{{booleOut.user_name}}</b>
+          {{booleOut.bit}} {{booleOut.hashtag}}</h2>
         <ion-option-button class="button-positive" ng-Click="upBoole()">upBoole</ion-option-button>
         <ion-option-button class="button-negative" ng-Click="downBoole()">downBoole</ion-option-button>
         <ion-option-button class="button-assertive" ng-Click="reply()">Reply</ion-option-button>

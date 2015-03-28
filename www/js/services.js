@@ -54,15 +54,7 @@ angular.module('starter.services', [])
  */
 .factory('booleOuts', function() {
   // dummy data
-  var posts = [{
-    bit: 1,
-    content: '#booleYou',
-    username: 'djsaunde'
-  }, {
-    bit: 0,
-    content: '#booleMe',
-    username: 'djsaunde'
-  }];
+  var posts = $http.get('http://booleyou-server.herokuapp.com/api/booleOuts');
 
   return {
     all: function() {
