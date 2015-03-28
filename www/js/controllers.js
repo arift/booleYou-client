@@ -12,8 +12,8 @@ angular.module('starter.controllers', [])
   $scope.downBoole = function() {
     // downBoole logic
   };
-  $scope.reBoole = function() {
-    // reBoole logic
+  $scope.reply = function() {
+    // reply logic
   }
 })
 
