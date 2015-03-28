@@ -30,31 +30,47 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
+    //console.log(user.bitname);
+    // var bitname = user.bitname;
+    // var password = user.password;
+    if (!user || !user.bitname || !user.password) {
+      console.log("Undefined username/password");
+      shakeShakeShake();
+      return;
+    }
+    
+
+    // if (bitname !== undefined || bitname.length < 4 || password.length < 4) {
+    //   console.log("username/password too short.");
+    // }
 
     // var dataToSend = {
     //   username : user.bitname,
     //   password : user.password
     // }
 
-    //turn red
-    $(".invalidText").css("opacity", "1");
-    $(".invalidHolder").addClass("invalid");
+                                                                                  
 
-    //shake!
-    var interval = 50;                                                                                                 
-    var distance = 10;                                                                                                  
-    var times = 4;                                                                                                      
+    function shakeShakeShake() {
+      //turn red
+      $(".invalidText").css("opacity", "1");
+      $(".invalidHolder").addClass("invalid");
 
-    $(".padding").css('position','relative');                                                                                  
+      //shake!
+      var interval = 50;                                                                                                 
+      var distance = 10;                                                                                                  
+      var times = 4;                                                                                                      
 
-    for(var iter=0;iter<(times+1);iter++){                                                                              
-        $(".padding").animate({ 
-            left:((iter%2==0 ? distance : distance*-1))
-            },interval);                                   
-    }//for                                                                                                              
+      $(".padding").css('position','relative');                                                                                  
 
-    $(".padding").animate({ left: 0},interval);                                                                                
+      for(var iter=0;iter<(times+1);iter++){                                                                              
+          $(".padding").animate({ 
+              left:((iter%2==0 ? distance : distance*-1))
+              },interval);                                   
+      }//for                                                                                                              
 
+      $(".padding").animate({ left: 0},interval);  
+    }
 
     // $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
     // success(function(data, status, headers, config) {
