@@ -53,9 +53,10 @@ angular.module('starter.services', [])
  * factory to return booleOuts. Dummy data for now, requires a call to the database.
  */
 .factory('booleOuts', function() {
-  // dummy data
+  // this factory returns all booleOuts currently stored in the database
   var posts = $http.get('http://booleyou-server.herokuapp.com/api/booleOuts');
 
+  // function that returns all booleOuts in the server
   return {
     all: function() {
       return posts;
