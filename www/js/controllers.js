@@ -112,7 +112,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('SignUpCtrl',function($scope, $ionicPopup, $timeout, $http) {
+.controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http) {
 
  // Triggered on a button click, or some other target
  $scope.showPopup = function() {
@@ -141,36 +141,23 @@ angular.module('starter.controllers', [])
   };
   $scope.submitForm = function() {
     $scope.data = {}
-    // console.log("First name: " + $scope.signup.firstName);
-    // console.log("Last Name: " + $scope.signup.lastName);
-    // console.log("Email: " + $scope.signup.email);
-    // console.log("BitName: " + $scope.signup.bitName);
-    // console.log("Pass: " + $scope.signup.password);
-    // console.log("Gender: " + $scope.signup.gender);
 
-    var dataToSend = {
+    //this should be same as the User schema on the server
+    var user = {
       firstName : $scope.signup.firstName,
       lastName  : $scope.signup.lastName,
       email     : $scope.signup.email,
-      bitName   : $scope.signup.bitName,
+      username   : $scope.signup.bitName,
       password  : $scope.signup.password,
       gender    : $scope.signup.gender
     }
 
-  //POST request to the servers api:
-  $http.post('http://booleyou-server.herokuapp.com/api/users', dataToSend).
-  success(function(data, status, headers, config) {
-    if (data.msg === "success") {
-      console.log("Success!");
-      $scope.serverMessage = "Server reply: " + data.msg;
-    }
-
-  }).
-  error(function(data, status, headers, config) {
-    $scope.serverMessage = "Server reply: " + data.msg;
-    console.log("Error!");
-  });
-
-
+    SignupService.signupUser(user).success(function(data) {
+      console.log("(Controller)Good, data: " + data);
+      $state.go('login');
+    }).error(function(data){
+      console.log("(controller)Error, data: " + data);
+      //do something else when error happens. Maybe show an error message??
+    }); 
 };
 });
