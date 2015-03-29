@@ -30,7 +30,10 @@ angular.module('starter.controllers', [])
   };
   $scope.reply = function(booleOut) {
     // this function will display a posting environment in which to reply to a booleOut
-  }
+  };
+  $scope.getPhoto = function(user_name) {
+    // return the user's photo to user on the booleOut list-card
+  };
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {
