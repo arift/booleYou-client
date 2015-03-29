@@ -124,7 +124,7 @@ angular.module('starter.controllers', [])
     }
 
   //POST request to the servers api:
-  $http.post('http://booleyou-server.herokuapp.com/api/user/users', dataToSend).
+  $http.post('http://booleyou-server.herokuapp.com/api/users', dataToSend).
   success(function(data, status, headers, config) {
     if (data.msg === "success") {
       console.log("Success!");
