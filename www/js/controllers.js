@@ -34,6 +34,12 @@ angular.module('starter.controllers', [])
   $scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card
   };
+  $scope.getBit = function(boolean) {
+      if (boolean == true) {
+          return 1;
+      }
+      return 0;
+  }
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {
