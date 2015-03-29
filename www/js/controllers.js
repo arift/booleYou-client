@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope, $http, booleOuts) {
+.controller('BitStreamCtrl', function($scope, $http, booleOuts,ProfileFetch) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {}
 
@@ -25,6 +25,10 @@ angular.module('starter.controllers', [])
 
   };
 
+  $scope.toProfile = function(user_name) {
+    ProfileFetch.setUsername(user_name);
+    $state.go('profile');
+  }
   // function to update bit stream
   var updateBitStream = function(){
       booleOuts.all(function(result){
@@ -63,6 +67,28 @@ angular.module('starter.controllers', [])
       }
       return 0;
   }
+})
+
+.controller('ProfileCtrl', function($scope, $state, ProfileFetch) {
+  console.log("Hello " + ProfileFetch.getUsername());
+  var updateProfile = function() {
+      ProfileFetch.fetchProfileData(function(result){
+          if(result) {
+              $scope.profileData = result;
+              var year = result.signup_date.substring(0, 4);
+              var month = result.signup_date.substring(5, 7);
+              var day = result.signup_date.substring(8, 10);
+              result.signup_date=[day,month,year];
+              $scope.errorMessage = null;
+          }
+          else {
+              $scope.errorMessage = "Connection error occured";
+          }
+      });
+  };
+
+  updateProfile();
+
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {

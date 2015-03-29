@@ -5,6 +5,17 @@
  	top: 0; left: 0; bottom: 0; right: 0;
 }
 
+.profilePadding {
+	margin: auto;
+	position: absolute;
+ 	top: 10%; left: 0; bottom: 0; right: 0;
+}
+
+#profileFont {
+	font-size: 200%;
+	font-family: Copperplate;
+}
+
 .splash {
 	background: url("../img/bitcloud1.jpg") repeat 0 0;
 	background-color: #502d7f;
