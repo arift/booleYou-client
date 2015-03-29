@@ -7,7 +7,7 @@ angular.module('starter.controllers', [])
     var dataToSend = {
       bit      : bit,
       hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
-      user     : "exampleid"
+      userName     : "exampleid"
 //      user     : $scope.userid,
     }
 
