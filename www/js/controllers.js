@@ -22,14 +22,14 @@ angular.module('starter.controllers', [])
     updateBitStream(); // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
   };
-  $scope.upBoole = function() {
-    // upBoole logic
+  $scope.upBoole = function(hashtag) {
+    // this function will add a 1 to the hashtag profile
   };
-  $scope.downBoole = function() {
-    // downBoole logic
+  $scope.downBoole = function(hashtag) {
+    // this function will add a 0 to the hashtag profile
   };
-  $scope.reply = function() {
-    // reply logic
+  $scope.reply = function(booleOut) {
+    // this function will display a posting environment in which to reply to a booleOut
   }
 })
 
