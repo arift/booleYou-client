@@ -2,14 +2,14 @@ angular.module('starter.controllers', [])
 
 .controller('BitStreamCtrl', function($scope, $http, booleOuts) {
   $scope.postBooleOut = function(bit) {
-    $scope.data = {}
+    $scope.data = {};
 
     var dataToSend = {
       bit      : bit,
       hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
-      userName     : "exampleid"
+      userName     : $scope.data.userName
 //      user     : $scope.userid,
-    }
+    };
 
   //POST request to the servers api:
   $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', dataToSend).

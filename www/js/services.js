@@ -131,6 +131,7 @@ angular.module('starter.services', [])
             $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
             success(function(data, status, headers, config) {
               console.log("Success!");
+              $scope.user = data;
               deferred.resolve();
             }).
             error(function(data, status, headers, config) {
