@@ -152,6 +152,34 @@ angular.module('starter.services', [])
     }
 })
 
+.factory('ProfileFetch', function($http) {
+    // this factory returns all booleOuts currently stored in the database
+  var user_name;
+
+  // function that returns all booleOuts in the server
+  return {
+    setUsername: function(user) {
+      user_name = user;
+    },
+
+    getUsername: function() {
+      return user_name;
+    },
+
+    fetchProfileData: function(cb) {
+        var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + user_name;
+        console.log(url);
+        $http.get(url).
+            success(function(data, status, headers, config) {
+                cb(data);
+            }).
+            error(function(data, status, headers, config) {
+                cb();
+            });
+    }
+  };
+})
+
 .service('SignupService', function($q, $http) {
     return {
         signupUser: function(userData) {
