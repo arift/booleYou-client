@@ -22,13 +22,13 @@ angular.module('starter.controllers', [])
     updateBitStream(); // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
   };
-  $scope.upBoole = function(hashtag) {
+  $scope.upBoole = function(btn, booleOut) {
     // this function will add a 1 to the hashtag profile
   };
-  $scope.downBoole = function(hashtag) {
+  $scope.downBoole = function(btn, booleOut) {
     // this function will add a 0 to the hashtag profile
   };
-  $scope.reply = function(booleOut) {
+  $scope.reply = function(btn, booleOut) {
     // this function will display a posting environment in which to reply to a booleOut
   };
   $scope.getPhoto = function(user_name) {
@@ -40,6 +40,7 @@ angular.module('starter.controllers', [])
       }
       return 0;
   }
+
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {
