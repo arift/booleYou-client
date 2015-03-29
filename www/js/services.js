@@ -52,14 +52,21 @@ angular.module('starter.services', [])
 /**
  * factory to return booleOuts. Dummy data for now, requires a call to the database.
  */
-.factory('booleOuts', function() {
+.factory('booleOuts', function($http) {
   // this factory returns all booleOuts currently stored in the database
-  var posts = $http.get('http://booleyou-server.herokuapp.com/api/booleOuts');
+        var posts = [];
 
   // function that returns all booleOuts in the server
   return {
-    all: function() {
-      return posts;
+    all: function(cb) {
+
+        $http.get('http://booleyou-server.herokuapp.com/api/booleout/booleOuts').
+            success(function(data, status, headers, config) {
+                cb(data);
+            }).
+            error(function(data, status, headers, config) {
+                cb();
+            });
     }
   }
 })

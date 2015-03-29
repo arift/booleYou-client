@@ -1,9 +1,25 @@
 angular.module('starter.controllers', [])
 
 .controller('BitStreamCtrl', function($scope, booleOuts) {
-  $scope.posts = booleOuts.all();   // this function returns all the booleOuts stored in our Mongo DB
+
+  // function to update bit stream
+  var updateBitStream = function(){
+      booleOuts.all(function(result){
+          if(result) {
+              $scope.posts = result;
+              $scope.errorMessage = null;
+          }
+          else {
+              $scope.errorMessage = "Connection error occured";
+          }
+      });
+  };
+
+  updateBitStream();
+
+  // this function returns all the booleOuts stored in our Mongo DB
   $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
-    $scope.posts = booleOuts.all();                           // to refresh the BitStream
+    updateBitStream(); // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
   };
   $scope.upBoole = function() {
