@@ -46,6 +46,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'WelcomeCtrl'
   })
 
+  .state('profile', {
+    url: '/profile/:user_name',
+    templateUrl: 'templates/profile.html',
+    controller: 'ProfileCtrl'
+  })
+
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: "/tab",
