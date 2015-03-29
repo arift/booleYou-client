@@ -1,17 +1,28 @@
 <ion-view view-title="BitStream">
-  <ion-content class="padding" ng-controller="BitStreamCtrl">
-    <div class="list card">
-      <div class="item item-divider">This is where the bitstream will go</div>
-      <div class="item item-body">
-        <div>
-          <p>1 #bitstream</p>
-
-          <p>0 #noBitstream</p>
+  <ion-content>
+    <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh()">
+    </ion-refresher>
+    <ion-list type="in-set">
+      <div ng-show="errorMessage"><h1>{{errorMessage}}</h1></div>
+        <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
+            <div class="item item-avatar" >
+                <img src="img/stock_picture.png">
+                <h2><b>{{BooleOut.user_name}}</b></h2>
+                    <p>{{getBit(BooleOut.bit)}} #{{BooleOut.hashtag}}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <button class="button icon-left ion-thumbsup" href="#">
+                    upBoole
+                </button>
+                <button class="button icon-left ion-thumbsdown" href="#">
+                    downBoole
+                </button>
+                <button class="button icon-left ion-chatbox" href="#">
+                    Reply
+                </button>
+            </div>
         </div>
-      </div>
-    </div>
-
-
+    </ion-list>
   </ion-content>
   <ion-footer-bar class="bar-royal">
     <input id="postOne" type="submit" name="search" value="1" ng-click="postBooleOut(1)" />

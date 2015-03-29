@@ -27,5 +27,8 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+# WebStorm XML Project Folder
+.idea
+
 platforms/
 plugins/

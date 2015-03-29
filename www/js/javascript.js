@@ -9,11 +9,11 @@ $(function() {
     $('#months').append($('<option />').val(i).html(i));
   }
   //populate our Days select box
-  updateNumberOfDays(); 
+  updateNumberOfDays();
 
   //"listen" for change events
   $('#years, #months').change(function(){
-    updateNumberOfDays(); 
+    updateNumberOfDays();
   });
 
 });
