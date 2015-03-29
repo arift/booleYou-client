@@ -151,4 +151,33 @@ angular.module('starter.services', [])
     }
 })
 
+.service('SignupService', function($q, $http) {
+    return {
+        signupUser: function(userData) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            
+            $http.post('http://booleyou-server.herokuapp.com/auth/signup', userData).
+            success(function(data, status, headers, config) {
+              console.log("(services)Server reply: " + status);
+              deferred.resolve();
+            }).
+            error(function(data, status, headers, config) {
+              console.log("(services)Server reply: " + status);
+              deferred.reject();                
+            });
+
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+    }
+})
+
 ;
