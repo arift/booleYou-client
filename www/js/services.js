@@ -108,4 +108,40 @@ angular.module('starter.services', [])
       return followers[followerID];
     }
   }
-});
+})
+
+.service('LoginService', function($q, $http) {
+    return {
+        loginUser: function(name, pw) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+
+            var dataToSend = {
+              username : name,
+              password  : pw
+            }
+
+            $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
+            success(function(data, status, headers, config) {
+              console.log("Success!");
+              deferred.resolve();
+            }).
+            error(function(data, status, headers, config) {
+              console.log("Wrong credentials.");
+              deferred.reject('Wrong credentials.');                
+            });
+
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+    }
+})
+
+;

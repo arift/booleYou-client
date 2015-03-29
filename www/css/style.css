@@ -1,17 +1,43 @@
 
 .signUpPadding {
-	margin-top: 12%;
+	margin: auto;
+	position: absolute;
+ 	top: 0; left: 0; bottom: 0; right: 0;
 }
 
+.splash {
+	background: url("../img/bitcloud1.jpg") repeat 0 0;
+	background-color: #502d7f;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+
+}
+
+.button-bottom {
+	position: absolute;
+	margin-top: 135%;
+}
+
+
 .signUpBirthdayMonth {
-	margin-right: 35%
+	margin-right: 35%;
 }
 .signUpBirthdayDay {
-	margin-right: 18%
+	margin-right: 18%;
+}
+
+.invalid {
+	box-shadow:0 0 4px 1px #bd1f30;
+}
+
+.invalidText {
+	color: #bd1f30;
+	opacity: 0;
 }
 
 ion-content {
-	background-color: MediumPurple
+	background-color: MediumPurple;
 }
 
 .bar.bar-royal {
@@ -20,10 +46,17 @@ ion-content {
 }
 
 .item-floating-label {
-	background-color: White
+	background-color: White;
 }
 
 .button.button-royal{
 	background-color: Indigo;
 	background-image: none;
 }
+<<<<<<< HEAD
+=======
+
+.loadImage {
+	background-color: #502d7f;
+}
+>>>>>>> master
