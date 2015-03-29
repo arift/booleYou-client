@@ -3,9 +3,10 @@
     <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh()">
     </ion-refresher>
     <ion-list type="in-set">
+      <div ng-show="errorMessage"><h1>{{errorMessage}}</h1></div>
       <ion-item class="item-avatar" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
-        <h2><b>{{BooleOut.user_name}}</b>
-          {{BooleOut.bit}} {{BooleOut.hashtag}}</h2>
+          <h2><b>{{BooleOut.user_name}}</b>
+          {{BooleOut.bit}} #{{BooleOut.hashtag}}</h2>
         <ion-option-button class="button-positive" ng-Click="upBoole()">upBoole</ion-option-button>
         <ion-option-button class="button-negative" ng-Click="downBoole()">downBoole</ion-option-button>
         <ion-option-button class="button-assertive" ng-Click="reply()">Reply</ion-option-button>
