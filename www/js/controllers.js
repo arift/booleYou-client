@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
-    
+
     if (!user || !user.bitname || !user.password) {
       console.log("Undefined username/password");
       shakeShakeShake();
@@ -43,19 +43,7 @@ angular.module('starter.controllers', [])
     }).error(function(data){
       console.log("Error, data: " + data);
       shakeShakeShake();
-    });
-
-
-    // if (bitname !== undefined || bitname.length < 4 || password.length < 4) {
-    //   console.log("username/password too short.");
-    // }
-
-    // var dataToSend = {
-    //   username : user.bitname,
-    //   password : user.password
-    // }
-
-                                                                                  
+    });                                                                        
 
     function shakeShakeShake() {
       //turn red
@@ -73,24 +61,10 @@ angular.module('starter.controllers', [])
           $(".padding").animate({ 
               left:((iter%2==0 ? distance : distance*-1))
               },interval);                                   
-      }//for                                                                                                              
+      }                                                                                                             
 
       $(".padding").animate({ left: 0},interval);  
     }
-
-    // $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
-    // success(function(data, status, headers, config) {
-    //   if (data.msg === "success") {
-    //     console.log("Success!");
-    //     $state.go('tab-bitstream');
-    //     $scope.serverMessage = "Server reply: " + data.msg;
-    //   }
-
-    // }).
-    // error(function(data, status, headers, config) {
-    //   $scope.serverMessage = "Server reply: " + data.msg;
-    //   console.log("Error!");
-    // });
   };
 })
 
