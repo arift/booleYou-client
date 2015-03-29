@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope, $http, booleOuts,ProfileFetch) {
+.controller('BitStreamCtrl', function($scope, $http, $state, booleOuts,ProfileFetch) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {}
 
