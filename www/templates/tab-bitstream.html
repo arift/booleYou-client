@@ -4,7 +4,8 @@
     </ion-refresher>
     <ion-list type="in-set">
       <div ng-show="errorMessage"><h1>{{errorMessage}}</h1></div>
-      <ion-item class="item-avatar" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
+      <ion-item class="item-avatar" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream" >
+          <img src="question.jpg">
           <h2><b>{{BooleOut.user_name}}</b>
           {{BooleOut.bit}} #{{BooleOut.hashtag}}</h2>
         <ion-option-button class="button-positive" ng-Click="upBoole(BooleOut.hashtag)">upBoole</ion-option-button>
