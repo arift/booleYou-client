@@ -1,6 +1,37 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope) {})
+.controller('BitStreamCtrl', function($scope, booleOuts) {
+
+  // function to update bit stream
+  var updateBitStream = function(){
+      booleOuts.all(function(result){
+          if(result) {
+              $scope.posts = result;
+              $scope.errorMessage = null;
+          }
+          else {
+              $scope.errorMessage = "Connection error occured";
+          }
+      });
+  };
+
+  updateBitStream();
+
+  // this function returns all the booleOuts stored in our Mongo DB
+  $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
+    updateBitStream(); // to refresh the BitStream
+    $scope.$broadcast('scroll.refreshComplete');
+  };
+  $scope.upBoole = function() {
+    // upBoole logic
+  };
+  $scope.downBoole = function() {
+    // downBoole logic
+  };
+  $scope.reply = function() {
+    // reply logic
+  }
+})
 
 .controller('FollowingCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
@@ -99,7 +130,7 @@ angular.module('starter.controllers', [])
           var month = $('#months option:selected').text();
           var day = $('#days option:selected').text();
           var year = $('#years option:selected').text();
-          $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);           
+          $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);
         }
       },
       ]
@@ -117,7 +148,7 @@ angular.module('starter.controllers', [])
     var dataToSend = {
       firstName : $scope.signup.firstName,
       lastName  : $scope.signup.lastName,
-      email     : $scope.signup.email, 
+      email     : $scope.signup.email,
       bitName   : $scope.signup.bitName,
       password  : $scope.signup.password,
       gender    : $scope.signup.gender
@@ -137,6 +168,6 @@ angular.module('starter.controllers', [])
     console.log("Error!");
   });
 
-};  
-});
 
+};
+});
