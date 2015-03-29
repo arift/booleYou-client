@@ -4,14 +4,24 @@
     </ion-refresher>
     <ion-list type="in-set">
       <div ng-show="errorMessage"><h1>{{errorMessage}}</h1></div>
-      <ion-item class="item-avatar" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream" >
-          <img src="img/stock_picture.png">
-          <h2><b>{{BooleOut.user_name}}</b>
-          {{getBit(BooleOut.bit)}} #{{BooleOut.hashtag}}</h2>
-        <ion-option-button class="button-positive" ng-Click="upBoole(BooleOut.hashtag)">upBoole</ion-option-button>
-        <ion-option-button class="button-negative" ng-Click="downBoole(BooleOut.hashtag)">downBoole</ion-option-button>
-        <ion-option-button class="button-assertive" ng-Click="reply(BooleOut)">Reply</ion-option-button>
-      </ion-item>
+        <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
+            <div class="item item-avatar" >
+                <img src="img/stock_picture.png">
+                <h2><b>{{BooleOut.user_name}}</b></h2>
+                    <p>{{getBit(BooleOut.bit)}} #{{BooleOut.hashtag}}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <button class="button icon-left ion-thumbsup" href="#">
+                    upBoole
+                </button>
+                <button class="button icon-left ion-thumbsdown" href="#">
+                    downBoole
+                </button>
+                <button class="button icon-left ion-chatbox" href="#">
+                    Reply
+                </button>
+            </div>
+        </div>
     </ion-list>
   </ion-content>
 </ion-view>
