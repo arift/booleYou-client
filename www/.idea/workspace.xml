@@ -27,8 +27,8 @@
       <file leaf-file-name="services.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2601">
-              <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1598" max-vertical-offset="2601">
+              <caret line="56" column="78" selection-start-line="56" selection-start-column="78" selection-end-line="56" selection-end-column="78" />
               <folding />
             </state>
           </provider>
@@ -44,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="controllers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4105409" vertical-offset="1251" max-vertical-offset="2771">
-              <caret line="91" column="24" selection-start-line="91" selection-start-column="24" selection-end-line="91" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2021" max-vertical-offset="2771">
+              <caret line="48" column="51" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -59,15 +59,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2125">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <marker date="1427588667769" expanded="true" signature="2400:2554" placeholder="{...}" />
-                <marker date="1427588667769" expanded="true" signature="2435:2518" placeholder="{&quot;templateUrl&quot;: 'templates/friend-detail.html'...}" />
-                <marker date="1427588667769" expanded="true" signature="2596:2795" placeholder="{&quot;url&quot;: '/account'...}" />
-                <marker date="1427588667769" expanded="true" signature="2649:2789" placeholder="{...}" />
-                <marker date="1427588667769" expanded="true" signature="2674:2781" placeholder="{&quot;templateUrl&quot;: 'templates/tab-account.html'...}" />
-                <marker date="1427588667769" expanded="true" signature="2823:2985" placeholder="{&quot;url&quot;: '/signup'...}" />
-                <marker date="1427588667769" expanded="true" signature="2880:2975" placeholder="{&quot;templateUrl&quot;: 'templates/signup.html'...}" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,8 +67,18 @@
       <file leaf-file-name="signup.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/signup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="680">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="680">
               <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="signupBirthday.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/signupBirthday.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.24933334" vertical-offset="0" max-vertical-offset="750">
+              <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -87,9 +89,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/js/signupBirthday.js" />
-        <option value="$PROJECT_DIR$/js/services.js" />
         <option value="$PROJECT_DIR$/js/controllers.js" />
+        <option value="$PROJECT_DIR$/js/services.js" />
+        <option value="$PROJECT_DIR$/js/signupBirthday.js" />
       </list>
     </option>
   </component>
@@ -97,9 +99,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="800" />
-    <option name="width" value="800" />
-    <option name="height" value="870" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="886" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -236,7 +239,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="800" y="0" width="800" height="870" extended-state="0" />
+    <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -244,7 +247,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33163264" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -252,11 +257,9 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -311,15 +314,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2006">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1427588667769" expanded="true" signature="2400:2554" placeholder="{...}" />
-            <marker date="1427588667769" expanded="true" signature="2435:2518" placeholder="{&quot;templateUrl&quot;: 'templates/friend-detail.html'...}" />
-            <marker date="1427588667769" expanded="true" signature="2596:2795" placeholder="{&quot;url&quot;: '/account'...}" />
-            <marker date="1427588667769" expanded="true" signature="2649:2789" placeholder="{...}" />
-            <marker date="1427588667769" expanded="true" signature="2674:2781" placeholder="{&quot;templateUrl&quot;: 'templates/tab-account.html'...}" />
-            <marker date="1427588667769" expanded="true" signature="2823:2985" placeholder="{&quot;url&quot;: '/signup'...}" />
-            <marker date="1427588667769" expanded="true" signature="2880:2975" placeholder="{&quot;templateUrl&quot;: 'templates/signup.html'...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -359,15 +354,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2006">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1427588667769" expanded="true" signature="2400:2554" placeholder="{...}" />
-            <marker date="1427588667769" expanded="true" signature="2435:2518" placeholder="{&quot;templateUrl&quot;: 'templates/friend-detail.html'...}" />
-            <marker date="1427588667769" expanded="true" signature="2596:2795" placeholder="{&quot;url&quot;: '/account'...}" />
-            <marker date="1427588667769" expanded="true" signature="2649:2789" placeholder="{...}" />
-            <marker date="1427588667769" expanded="true" signature="2674:2781" placeholder="{&quot;templateUrl&quot;: 'templates/tab-account.html'...}" />
-            <marker date="1427588667769" expanded="true" signature="2823:2985" placeholder="{&quot;url&quot;: '/signup'...}" />
-            <marker date="1427588667769" expanded="true" signature="2880:2975" placeholder="{&quot;templateUrl&quot;: 'templates/signup.html'...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -404,15 +391,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2074">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1427588667769" expanded="true" signature="2400:2554" placeholder="{...}" />
-            <marker date="1427588667769" expanded="true" signature="2435:2518" placeholder="{&quot;templateUrl&quot;: 'templates/friend-detail.html'...}" />
-            <marker date="1427588667769" expanded="true" signature="2596:2795" placeholder="{&quot;url&quot;: '/account'...}" />
-            <marker date="1427588667769" expanded="true" signature="2649:2789" placeholder="{...}" />
-            <marker date="1427588667769" expanded="true" signature="2674:2781" placeholder="{&quot;templateUrl&quot;: 'templates/tab-account.html'...}" />
-            <marker date="1427588667769" expanded="true" signature="2823:2985" placeholder="{&quot;url&quot;: '/signup'...}" />
-            <marker date="1427588667769" expanded="true" signature="2880:2975" placeholder="{&quot;templateUrl&quot;: 'templates/signup.html'...}" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2021" max-vertical-offset="2771">
+          <caret line="48" column="51" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/javascript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1598" max-vertical-offset="2601">
+          <caret line="56" column="78" selection-start-line="56" selection-start-column="78" selection-end-line="56" selection-end-column="78" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -426,31 +429,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/signupBirthday.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/javascript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="750">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/services.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2601">
-          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4105409" vertical-offset="1251" max-vertical-offset="2771">
-          <caret line="91" column="24" selection-start-line="91" selection-start-column="24" selection-end-line="91" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.24933334" vertical-offset="0" max-vertical-offset="750">
+          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
           <folding />
         </state>
       </provider>
