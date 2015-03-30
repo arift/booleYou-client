@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch) {
+.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch, $ionicPopup) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
     console.log("$scope from bitstream" + $rootScope.user);
@@ -40,6 +40,7 @@ angular.module('starter.controllers', [])
               $scope.errorMessage = "Connection error occured";
           }
       });
+
   };
 
   updateBitStream();
@@ -73,6 +74,35 @@ angular.module('starter.controllers', [])
           return 1;
       }
       return 0;
+  }
+
+  $scope.replyPopup = function() {
+    $scope.data = {}
+
+    var popup = $ionicPopup.show({
+      template: '<input type = "text">',
+      title: 'Enter Reply',
+      scope: $scope,
+      buttons: [
+      {
+        text: '<b>1</b>',
+        type: 'button-royal',
+        onTap: function(e) {
+          //post
+        }
+      },
+       {
+        text: '<b>0</b>',
+        type: 'button-royal',
+        onTap: function(e) {
+          //post
+        }
+      },
+      { text: 'Exit' }
+
+
+      ]
+    });
   }
 
 })
@@ -124,6 +154,7 @@ angular.module('starter.controllers', [])
     enableFriends: true
   };
 })
+
 
 .controller('LoginCtrl', function($scope, $rootScope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
