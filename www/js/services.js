@@ -52,7 +52,7 @@ angular.module('starter.services', [])
 /**
  * factory to return booleOuts. Dummy data for now, requires a call to the database.
  */
-.factory('booleOuts', function($http) {
+.service('booleOuts', function($http) {
   // this factory returns all booleOuts currently stored in the database
         var posts = [];
 
@@ -61,12 +61,31 @@ angular.module('starter.services', [])
     all: function(cb) {
 
         $http.get('http://booleyou-server.herokuapp.com/api/booleout/booleOuts').
-            success(function(data, status, headers, config) {
-                cb(data);
-            }).
-            error(function(data, status, headers, config) {
-                cb();
-            });
+          success(function(data, status, headers, config) {
+              cb(data);
+          }).
+          error(function(data, status, headers, config) {
+              cb();
+          });
+    },
+    getParents: function(cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/booleout/getParents').
+        success(function(data, status, headers, config) {
+            cb(data);
+        }).
+        error(function(data, status, headers, config) {
+            cb();
+        });
+    },
+    getReplies: function(parentid, cb) {
+      var apiUrl = "http://booleyou-server.herokuapp.com/api/booleout/getreplies/" + parentid;
+      $http.get(apiUrl).
+        success(function(data, status, headers, config) {
+            cb(data);
+        }).
+        error(function(data, status, headers, config) {
+            cb();
+        });
     }
   }
 })
