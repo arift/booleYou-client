@@ -25,6 +25,13 @@ angular.module('starter.controllers', [])
         $scope.posts = result;
         console.log("here");
         console.log("id: " + $scope.posts[0]._id);
+
+        $scope.replyShow = [];
+
+        var booleOut;
+        for(booleOut in result){
+            $scope.replyShow[result[booleOut]._id] = false;
+        };
         $scope.errorMessage = null;
       }
       else {
