@@ -3,7 +3,7 @@ angular.module('starter.controllers', [])
 .controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch, $ionicPopup) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
-    console.log("$scope from bitstream" + $rootScope.user);
+
     var dataToSend = {
       bit      : bit,
       hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
@@ -15,7 +15,6 @@ angular.module('starter.controllers', [])
   };
 
   $scope.toProfile = function(username) {
-    console.log("This is: " + username);
     $state.go('profile', {username : username});    
   }
   // function to update bit stream
@@ -23,19 +22,12 @@ angular.module('starter.controllers', [])
     booleOuts.getParents(function(result){
       if(result) {
         $scope.posts = result;
-        console.log("here");
-        console.log("id: " + $scope.posts[0]._id);
-
         $scope.replyShow = [];
 
         var booleOut;
         for(booleOut in result){
             $scope.replyShow[result[booleOut]._id] = false;
         };
-        $scope.errorMessage = null;
-      }
-      else {
-        $scope.errorMessage = "Connection error occured";
       }
     });
 
@@ -132,8 +124,6 @@ angular.module('starter.controllers', [])
       }
     },
     { text: 'Exit' }
-
-
     ]
   });
 }
@@ -142,7 +132,6 @@ angular.module('starter.controllers', [])
 .controller('ProfileCtrl', function($scope, $state, $stateParams, ProfileFetch) {
 
   var updateProfile = function() {
-    console.log("scope: " + $stateParams.username);
     ProfileFetch.fetchProfileData($stateParams.username, function(result){
       if(result) {
         $scope.profileData = result;
@@ -150,15 +139,15 @@ angular.module('starter.controllers', [])
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
-        $scope.errorMessage = null;
-      }
-      else {
-        $scope.errorMessage = "Connection error occured";
       }
     });
   };
 
   updateProfile();
+
+  $scope.goBack = function() {
+    $state.go('tab.bitstream');
+  };
 
 })
 
@@ -183,15 +172,11 @@ angular.module('starter.controllers', [])
 
 .controller('AccountCtrl', function($scope, $rootScope) {
  var updateProfile = function() {
-  console.log("rootScope:" + $rootScope.user.username);
   $scope.profileData = $rootScope.user;
   var year = $rootScope.user.signup_date.substring(0, 4);
   var month = $rootScope.user.signup_date.substring(5, 7);
   var day = $rootScope.user.signup_date.substring(8, 10);
   $rootScope.user.signup_date=[day,month,year];
-  $scope.errorMessage = null;
-  
-  
 };
 
 updateProfile();
@@ -203,19 +188,14 @@ updateProfile();
     $scope.data = {}
 
     if (!user || !user.bitname || !user.password) {
-      console.log("Undefined username/password");
       shakeShakeShake();
       return;
     }
 
     LoginService.loginUser(user.bitname, user.password).success(function(data) {
-      console.log("Good, data: " + data.username);
       $rootScope.user = data;
-      console.log("scope.user: " + $scope.user);
-      console.log("scope.user.username: " + $scope.user.username);
       $state.go('tab.bitstream');
     }).error(function(data){
-      console.log("Error, data: " + data);
       shakeShakeShake();
     });                                                                        
 
@@ -293,10 +273,8 @@ updateProfile();
     }
 
     SignupService.signupUser(user).success(function(data) {
-      console.log("(Controller)Good, data: " + data);
       $state.go('login');
     }).error(function(data){
-      console.log("(controller)Error, data: " + data);
       //do something else when error happens. Maybe show an error message??
     }); 
   };
