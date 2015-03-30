@@ -9,19 +9,9 @@ angular.module('starter.controllers', [])
       hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
       username     : $rootScope.user.username
     };
-
-  //POST request to the servers api:
-  $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', dataToSend).
-    success(function(data, status, headers, config) {
-      if (data.message === "booleOut Added") {
-        $scope.serverMessage = "Server reply: " + data.message;
-        updateBitStream();
-      }
-    }).
-    error(function(data, status, headers, config) {
-      $scope.serverMessage = "Server reply: " + data.message;
+    booleOuts.postBooleOut(dataToSend, function (data) {
+      updateBitStream();
     });
-
   };
 
   $scope.toProfile = function(username) {
@@ -88,14 +78,14 @@ angular.module('starter.controllers', [])
         text: '<b>1</b>',
         type: 'button-royal',
         onTap: function(e) {
-          //post
+          console.log("pressed 1");
         }
       },
        {
         text: '<b>0</b>',
         type: 'button-royal',
         onTap: function(e) {
-          //post
+          console.log("pressed 0");
         }
       },
       { text: 'Exit' }
