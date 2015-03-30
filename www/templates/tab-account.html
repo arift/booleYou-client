@@ -1,10 +1,12 @@
-<ion-view view-title="Profile">
+<ion-view view-title="Profile" ng-init="doSomething()">
   <ion-content>
     <div class="list">
       <div class="padding profilePadding">
        <div style="text-align: center"> <img src = "img/defaultProfile.png"> 
        <p><p>
        <i id="profileFont">{{profileData.firstName}} {{profileData.lastName}}</i>
+       <br>
+       <i id="usernameFont">{{profileData.username}}</i>
        </p></p></div>
        <p> <i >Sign Up Date: {{profileData.signup_date[1]}}/{{profileData.signup_date[0]}}/{{profileData.signup_date[2]}}</i> </p>
 
