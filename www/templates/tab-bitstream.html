@@ -17,7 +17,7 @@
                 <button class="button icon-left ion-thumbsdown" href="#" onclick="downBoole(BooleOut)">
                     downBoole
                 </button>
-                <button class="button icon-left ion-chatbox" href="#" ng-click="reply(BooleOut._id)">
+                <button class="button icon-left ion-chatbox" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]">
                     View Replies
                 </button>
                 <button class="button icon-left ion-chatbox" href="" ng-click="replyPopup(BooleOut._id)">
@@ -26,7 +26,7 @@
 
             </div>
 
-            <div class="list card" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
+            <div class="list card" ng-show="replyShow[BooleOut._id]" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
                 Reply
                 <div class="item item-avatar" >
                     <h2><b ng-click="toProfile(reply.username)">{{reply.username}}</b></h2>
