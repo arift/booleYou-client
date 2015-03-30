@@ -154,7 +154,7 @@ angular.module('starter.services', [])
             }).
             error(function(data, status, headers, config) {
               console.log("Wrong credentials.");
-              deferred.reject('Wrong credentials.');                
+              deferred.reject('Wrong credentials.');
             });
 
             promise.success = function(fn) {
@@ -203,7 +203,7 @@ angular.module('starter.services', [])
         signupUser: function(userData) {
             var deferred = $q.defer();
             var promise = deferred.promise;
-            
+
             $http.post('http://booleyou-server.herokuapp.com/auth/signup', userData).
             success(function(data, status, headers, config) {
               console.log("(services)Server reply: " + status);
