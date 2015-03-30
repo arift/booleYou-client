@@ -24,9 +24,10 @@ angular.module('starter.controllers', [])
 
   };
 
-  $scope.toProfile = function(user_name) {
-    ProfileFetch.setUsername(user_name);
-    $state.go('profile');
+  $scope.toProfile = function(username) {
+    console.log("This is: " + username);
+    $state.go('profile', {username : username});
+    
   }
   // function to update bit stream
   var updateBitStream = function(){
@@ -69,10 +70,11 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ProfileCtrl', function($scope, $state, ProfileFetch) {
-  console.log("Hello " + ProfileFetch.getUsername());
+.controller('ProfileCtrl', function($scope, $state, $stateParams, ProfileFetch) {
+  
   var updateProfile = function() {
-      ProfileFetch.fetchProfileData(function(result){
+    console.log("scope: " + $stateParams.username);
+      ProfileFetch.fetchProfileData($stateParams.username, function(result){
           if(result) {
               $scope.profileData = result;
               var year = result.signup_date.substring(0, 4);
