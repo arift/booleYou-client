@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch) {
+.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch, $ionicPopup) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
     console.log("$scope from bitstream" + $rootScope.user);
@@ -9,19 +9,9 @@ angular.module('starter.controllers', [])
       hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
       username     : $rootScope.user.username
     };
-
-  //POST request to the servers api:
-  $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', dataToSend).
-    success(function(data, status, headers, config) {
-      if (data.message === "booleOut Added") {
-        $scope.serverMessage = "Server reply: " + data.message;
-        updateBitStream();
-      }
-    }).
-    error(function(data, status, headers, config) {
-      $scope.serverMessage = "Server reply: " + data.message;
+    booleOuts.postBooleOut(dataToSend, function (data) {
+      updateBitStream();
     });
-
   };
 
   $scope.toProfile = function(username) {
@@ -30,15 +20,18 @@ angular.module('starter.controllers', [])
   }
   // function to update bit stream
   var updateBitStream = function(){
-      booleOuts.getParents(function(result){
-          if(result) {
-              $scope.posts = result;
-              $scope.errorMessage = null;
-          }
-          else {
-              $scope.errorMessage = "Connection error occured";
-          }
-      });
+    booleOuts.getParents(function(result){
+      if(result) {
+        $scope.posts = result;
+        console.log("here");
+        console.log("id: " + $scope.posts[0]._id);
+        $scope.errorMessage = null;
+      }
+      else {
+        $scope.errorMessage = "Connection error occured";
+      }
+    });
+
   };
 
   updateBitStream();
@@ -56,43 +49,100 @@ angular.module('starter.controllers', [])
   };
   $scope.reply = function(parentId) {
     // this function will display a posting environment in which to reply to a booleOut
-      booleOuts.getReplies(parentId, function(result){
-          if(result) {
-              if(!$scope.allReplies)
-                  $scope.allReplies = [];
-              $scope.allReplies[parentId] = result;
-          }
-      });
+    booleOuts.getReplies(parentId, function(result){
+      if(result) {
+        if(!$scope.allReplies)
+          $scope.allReplies = [];
+        $scope.allReplies[parentId] = result;
+      }
+    });
   };
   $scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card
   };
   $scope.getBit = function(boolean) {
-      if (boolean == true) {
-          return 1;
-      }
-      return 0;
+    if (boolean == true) {
+      return 1;
+    }
+    return 0;
   }
+
+  $scope.replyPopup = function(parentId) {
+    $scope.data = {}
+
+    var popup = $ionicPopup.show({
+      template: '<input ng-model="reply.hashtag" type = "text">',
+      title: 'Enter Reply',
+      scope: $scope,
+      buttons: [
+      {
+        text: '<b>1</b>',
+        type: 'button-royal',
+        onTap: function() {
+          var dataToSend = {
+            bit      : 1,
+            hashtag  : $scope.reply.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          booleOuts.postReply(dataToSend, function (data) {
+           booleOuts.getReplies(parentId, function(result){
+            if(result) {
+              if(!$scope.allReplies)
+                $scope.allReplies = [];
+              $scope.allReplies[parentId] = result;
+            }
+          });
+         });
+        }
+      },
+      {
+        text: '<b>0</b>',
+        type: 'button-royal',
+        onTap: function() {
+         var dataToSend = {
+          bit      : 0,
+          hashtag  : $scope.reply.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+          username : $rootScope.user.username,
+          parent   : parentId
+        };
+        booleOuts.postReply(dataToSend, function (data) {
+         booleOuts.getReplies(parentId, function(result){
+          if(result) {
+            if(!$scope.allReplies)
+              $scope.allReplies = [];
+            $scope.allReplies[parentId] = result;
+          }
+        });
+       });
+      }
+    },
+    { text: 'Exit' }
+
+
+    ]
+  });
+}
 
 })
 
 .controller('ProfileCtrl', function($scope, $state, $stateParams, ProfileFetch) {
-  
+
   var updateProfile = function() {
     console.log("scope: " + $stateParams.username);
-      ProfileFetch.fetchProfileData($stateParams.username, function(result){
-          if(result) {
-              $scope.profileData = result;
-              var year = result.signup_date.substring(0, 4);
-              var month = result.signup_date.substring(5, 7);
-              var day = result.signup_date.substring(8, 10);
-              result.signup_date=[day,month,year];
-              $scope.errorMessage = null;
-          }
-          else {
-              $scope.errorMessage = "Connection error occured";
-          }
-      });
+    ProfileFetch.fetchProfileData($stateParams.username, function(result){
+      if(result) {
+        $scope.profileData = result;
+        var year = result.signup_date.substring(0, 4);
+        var month = result.signup_date.substring(5, 7);
+        var day = result.signup_date.substring(8, 10);
+        result.signup_date=[day,month,year];
+        $scope.errorMessage = null;
+      }
+      else {
+        $scope.errorMessage = "Connection error occured";
+      }
+    });
   };
 
   updateProfile();
@@ -134,6 +184,7 @@ angular.module('starter.controllers', [])
   updateProfile();
 })
 
+
 .controller('LoginCtrl', function($scope, $rootScope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
@@ -168,9 +219,9 @@ angular.module('starter.controllers', [])
       $(".padding").css('position','relative');                                                                                  
 
       for(var iter=0;iter<(times+1);iter++){                                                                              
-          $(".padding").animate({ 
-              left:((iter%2==0 ? distance : distance*-1))
-              },interval);                                   
+        $(".padding").animate({ 
+          left:((iter%2==0 ? distance : distance*-1))
+        },interval);                                   
       }                                                                                                             
 
       $(".padding").animate({ left: 0},interval);  
@@ -235,5 +286,5 @@ angular.module('starter.controllers', [])
       console.log("(controller)Error, data: " + data);
       //do something else when error happens. Maybe show an error message??
     }); 
-};
+  };
 });
