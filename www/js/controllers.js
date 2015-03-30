@@ -72,8 +72,14 @@ angular.module('starter.controllers', [])
           return 1;
       }
       return 0;
+  };
+  $scope.getHashtags = function(hashtag) {
+      var tags = "";
+      hashtag.forEach(function(entry) {
+          tags += "#" + entry + " ";
+      });
+      return tags;
   }
-
 })
 
 .controller('ProfileCtrl', function($scope, $state, $stateParams, ProfileFetch) {
