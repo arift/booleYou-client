@@ -65,7 +65,14 @@ angular.module('starter.controllers', [])
       return 1;
     }
     return 0;
-  }
+  };
+  $scope.getHashtags = function(hashtag) {
+    var tags = "";
+    hashtag.forEach(function(entry) {
+      tags += "#" + entry + " ";
+    });
+    return tags;
+  };
 
   $scope.replyPopup = function(parentId) {
     $scope.data = {}
@@ -123,7 +130,6 @@ angular.module('starter.controllers', [])
     ]
   });
 }
-
 })
 
 .controller('ProfileCtrl', function($scope, $state, $stateParams, ProfileFetch) {
@@ -169,19 +175,19 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AccountCtrl', function($scope, $rootScope) {
-   var updateProfile = function() {
-      console.log("rootScope:" + $rootScope.user.username);
-              $scope.profileData = $rootScope.user;
-              var year = $rootScope.user.signup_date.substring(0, 4);
-              var month = $rootScope.user.signup_date.substring(5, 7);
-              var day = $rootScope.user.signup_date.substring(8, 10);
-              $rootScope.user.signup_date=[day,month,year];
-              $scope.errorMessage = null;
-         
-     
-  };
+ var updateProfile = function() {
+  console.log("rootScope:" + $rootScope.user.username);
+  $scope.profileData = $rootScope.user;
+  var year = $rootScope.user.signup_date.substring(0, 4);
+  var month = $rootScope.user.signup_date.substring(5, 7);
+  var day = $rootScope.user.signup_date.substring(8, 10);
+  $rootScope.user.signup_date=[day,month,year];
+  $scope.errorMessage = null;
+  
+  
+};
 
-  updateProfile();
+updateProfile();
 })
 
 
