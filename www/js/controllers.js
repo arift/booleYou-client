@@ -31,7 +31,7 @@ angular.module('starter.controllers', [])
   }
   // function to update bit stream
   var updateBitStream = function(){
-      booleOuts.all(function(result){
+      booleOuts.getParents(function(result){
           if(result) {
               $scope.posts = result;
               $scope.errorMessage = null;
@@ -55,8 +55,15 @@ angular.module('starter.controllers', [])
   $scope.downBoole = function(btn, booleOut) {
     // this function will add a 0 to the hashtag profile
   };
-  $scope.reply = function(btn, booleOut) {
+  $scope.reply = function(parentId) {
     // this function will display a posting environment in which to reply to a booleOut
+      booleOuts.getReplies(parentId, function(result){
+          if(result) {
+              if(!$scope.allReplies)
+                  $scope.allReplies = [];
+              $scope.allReplies[parentId] = result;
+          }
+      });
   };
   $scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card

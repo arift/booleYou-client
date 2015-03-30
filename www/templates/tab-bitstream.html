@@ -17,9 +17,17 @@
                 <button class="button icon-left ion-thumbsdown" href="#" onclick="downBoole(BooleOut)">
                     downBoole
                 </button>
-                <button class="button icon-left ion-chatbox" href="#" onclick="reply(BooleOut)">
-                    Reply
+                <button class="button icon-left ion-chatbox" href="#" ng-click="reply(BooleOut._id)">
+                    Replies
                 </button>
+            </div>
+
+            <div class="list card" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
+                Reply
+                <div class="item item-avatar" >
+                    <h2><b ng-click="toProfile(reply.username)">{{reply.username}}</b></h2>
+                    <p ng-click="toProfile(reply.username)">{{getBit(reply.bit)}} #{{reply.hashtag}}</p>
+                </div>
             </div>
         </div>
     </ion-list>
