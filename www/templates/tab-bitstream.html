@@ -11,13 +11,13 @@
                     <p ng-click="toProfile(BooleOut.username)">{{getBit(BooleOut.bit)}} #{{BooleOut.hashtag}}</p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <button class="button icon-left ion-thumbsup" href="#">
+                <button class="button icon-left ion-thumbsup" href="#" onclick="upBoole(BooleOut)">
                     upBoole
                 </button>
-                <button class="button icon-left ion-thumbsdown" href="#">
+                <button class="button icon-left ion-thumbsdown" href="#" onclick="downBoole(BooleOut)">
                     downBoole
                 </button>
-                <button class="button icon-left ion-chatbox" href="#">
+                <button class="button icon-left ion-chatbox" href="#" onclick="reply(BooleOut)">
                     Reply
                 </button>
             </div>
@@ -31,3 +31,4 @@
       <input type="text" name="term" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
     </div>
 </ion-view>
+
