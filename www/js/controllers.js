@@ -26,8 +26,7 @@ angular.module('starter.controllers', [])
 
   $scope.toProfile = function(username) {
     console.log("This is: " + username);
-    $state.go('profile', {username : username});
-    
+    $state.go('profile', {username : username});    
   }
   // function to update bit stream
   var updateBitStream = function(){
@@ -115,14 +114,24 @@ angular.module('starter.controllers', [])
   $scope.friends = Friends.all();
 })
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
+.controller('FriendDetailCtrl', function($scope, Friends) {
   $scope.friend = Friends.get($stateParams.friendId);
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+.controller('AccountCtrl', function($scope, $rootScope) {
+   var updateProfile = function() {
+      console.log("rootScope:" + $rootScope.user.username);
+              $scope.profileData = $rootScope.user;
+              var year = $rootScope.user.signup_date.substring(0, 4);
+              var month = $rootScope.user.signup_date.substring(5, 7);
+              var day = $rootScope.user.signup_date.substring(8, 10);
+              $rootScope.user.signup_date=[day,month,year];
+              $scope.errorMessage = null;
+         
+     
   };
+
+  updateProfile();
 })
 
 .controller('LoginCtrl', function($scope, $rootScope, LoginService, $state, $timeout, $http) {
