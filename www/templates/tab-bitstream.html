@@ -7,8 +7,8 @@
         <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
             <div class="item item-avatar" >
                 <img src="img/stock_picture.png">
-                <h2><b>{{BooleOut.user_name}}</b></h2>
-                    <p>{{getBit(BooleOut.bit)}} #{{BooleOut.hashtag}}</p>
+                <h2><b ng-click="toProfile(BooleOut.username)">{{BooleOut.username}}</b></h2>
+                    <p ng-click="toProfile(BooleOut.username)">{{getBit(BooleOut.bit)}} #{{BooleOut.hashtag}}</p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <button class="button icon-left ion-thumbsup" href="#">

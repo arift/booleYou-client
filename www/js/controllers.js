@@ -1,15 +1,14 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope, $http, booleOuts) {
+.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch) {
   $scope.postBooleOut = function(bit) {
-    $scope.data = {}
-
+    $scope.data = {};
+    console.log("$scope from bitstream" + $rootScope.user);
     var dataToSend = {
       bit      : bit,
       hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
-      userName     : "exampleid"
-//      user     : $scope.userid,
-    }
+      username     : $rootScope.user.username
+    };
 
   //POST request to the servers api:
   $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', dataToSend).
@@ -90,7 +89,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('LoginCtrl', function($scope, LoginService, $state, $timeout, $http) {
+.controller('LoginCtrl', function($scope, $rootScope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
 
@@ -101,7 +100,10 @@ angular.module('starter.controllers', [])
     }
 
     LoginService.loginUser(user.bitname, user.password).success(function(data) {
-      console.log("Good, data: " + data);
+      console.log("Good, data: " + data.username);
+      $rootScope.user = data;
+      console.log("scope.user: " + $scope.user);
+      console.log("scope.user.username: " + $scope.user.username);
       $state.go('tab.bitstream');
     }).error(function(data){
       console.log("Error, data: " + data);

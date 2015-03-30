@@ -131,7 +131,7 @@ angular.module('starter.services', [])
             $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
             success(function(data, status, headers, config) {
               console.log("Success!");
-              deferred.resolve();
+              deferred.resolve(data);
             }).
             error(function(data, status, headers, config) {
               console.log("Wrong credentials.");
