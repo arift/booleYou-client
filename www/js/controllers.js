@@ -52,11 +52,11 @@ angular.module('starter.controllers', [])
   $scope.reply = function(parentId) {
     // this function will display a posting environment in which to reply to a booleOut
      if(!flag) {
-       $('.buttonDown').removeClass('ion-chevron-up').addClass('ion-chevron-down');
+       $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
        flag = true;
       }
       else{
-        $('.buttonDown').removeClass('ion-chevron-down').addClass('ion-chevron-up');
+        $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
         flag = false;
       }
     booleOuts.getReplies(parentId, function(result){
