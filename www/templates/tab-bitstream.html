@@ -18,10 +18,10 @@
             </div>
 
             <div class="list card" ng-show="replyShow[BooleOut._id]" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
-                Reply
                 <div class="item item-avatar" >
+                    <img src="img/stock_picture.png">
                     <h2><b ng-click="toProfile(reply.username)">{{reply.username}}</b></h2>
-                    <p ng-click="toProfile(reply.username)">{{getBit(reply.bit)}} #{{reply.hashtag}}</p>
+                    <p ng-click="toProfile(reply.username)">{{getBit(reply.bit)}} {{getHashtags(reply.hashtag)}}</p>
                 </div>
             </div>
         </div>
