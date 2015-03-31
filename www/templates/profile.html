@@ -1,28 +1,19 @@
-<ion-view view-title="Profile" ng-init="doSomething()">
+<ion-view view-title="Profile">
   <ion-content>
     <div class="list">
       <div class="padding profilePadding">
        <div style="text-align: center"> <img src = "img/defaultProfile.png"> 
        <p><p>
        <i id="profileFont">{{profileData.firstName}} {{profileData.lastName}}</i>
+       <br>
+       <i id="usernameFont">{{profileData.username}}</i>
        </p></p></div>
        <p> <i >Sign Up Date: {{profileData.signup_date[1]}}/{{profileData.signup_date[0]}}/{{profileData.signup_date[2]}}</i> </p>
 
-<!--        <div class="list list-inset">
 
-    <div class="item">
-      1 #SnowDay
-    </div>
-    <div class="item">
-      0 #Deadlines
-    </div>
-    <div class="item">
-      1 #Spring
-    </div>
-
-    
-
-</div> -->
+       <button class="button" href="#" ng-click="goBack()">
+                    Go Back
+        </button>
       </div>
     </div>
   </ion-content>

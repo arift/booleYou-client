@@ -3,7 +3,6 @@
     <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh()">
     </ion-refresher>
     <ion-list type="in-set">
-      <div ng-show="errorMessage"><h1>{{errorMessage}}</h1></div>
         <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
             <div class="item item-avatar" >
                 <img src="img/stock_picture.png">
@@ -11,18 +10,14 @@
                     <p ng-click="toProfile(BooleOut.username)">{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <button class="button icon-left ion-thumbsup" href="#" onclick="upBoole(BooleOut)">
-                    upBoole
+
+                <button class="buttonDown button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]"></button>
+                <button class="button icon-left ion-chatbox" href="" ng-click="replyPopup(BooleOut._id)">
                 </button>
-                <button class="button icon-left ion-thumbsdown" href="#" onclick="downBoole(BooleOut)">
-                    downBoole
-                </button>
-                <button class="button icon-left ion-chatbox" href="#" ng-click="reply(BooleOut._id)">
-                    Replies
-                </button>
+
             </div>
 
-            <div class="list card" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
+            <div class="list card" ng-show="replyShow[BooleOut._id]" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
                 Reply
                 <div class="item item-avatar" >
                     <h2><b ng-click="toProfile(reply.username)">{{reply.username}}</b></h2>
@@ -31,12 +26,12 @@
             </div>
         </div>
     </ion-list>
-  </ion-content>
-  <ion-footer-bar class="bar-royal" center="">
-    <input id="postOne" type="submit" name="search" value="1" ng-click="postBooleOut(1)"/>
-    <input id="postZero" type="submit" name="search" value="0" ng-click="postBooleOut(0)"/>
+  </ion-contents
+  <ion-footer-bar class="bar-royal">
     <div id="postInput">
       <input type="text" name="term" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
     </div>
+    <input id="postOne" type="submit" name="search" value="1" ng-click="postBooleOut(1)" />
+    <input id="postZero" type="submit" name="search" value="0" ng-click="postBooleOut(0)"/>
 </ion-view>
 
