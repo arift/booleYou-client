@@ -18,7 +18,6 @@ angular.module('starter.controllers', [])
     $state.go('profile', {username : username});    
   }
   // function to update bit stream
-  var flag = true;
   var updateBitStream = function() {
     booleOuts.getParents(function(result){
       if(result) {
@@ -47,11 +46,12 @@ angular.module('starter.controllers', [])
   $scope.downBoole = function(btn, booleOut) {
     // this function will add a 0 to the hashtag profile
   };
+
+  var flag = true;
+
   $scope.reply = function(parentId) {
     // this function will display a posting environment in which to reply to a booleOut
-    booleOuts.getReplies(parentId, function(result){
-
-      if(!flag) {
+     if(!flag) {
        $('.buttonDown').removeClass('ion-chevron-up').addClass('ion-chevron-down');
        flag = true;
       }
@@ -59,6 +59,7 @@ angular.module('starter.controllers', [])
         $('.buttonDown').removeClass('ion-chevron-down').addClass('ion-chevron-up');
         flag = false;
       }
+    booleOuts.getReplies(parentId, function(result){
       if(result) {
         if(!$scope.allReplies)
           $scope.allReplies = [];
