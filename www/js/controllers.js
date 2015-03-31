@@ -46,8 +46,8 @@ angular.module('starter.controllers', [])
   $scope.downBoole = function(btn, booleOut) {
     // this function will add a 0 to the hashtag profile
   };
-
   var flag = true;
+
 
   $scope.reply = function(parentId) {
     // this function will display a posting environment in which to reply to a booleOut
@@ -65,8 +65,17 @@ angular.module('starter.controllers', [])
           $scope.allReplies = [];
         $scope.allReplies[parentId] = result;
       }
+     
+      
     });
   };
+
+  $scope.changeUp = function() {
+    
+  }
+
+  $scope.changeDown = function() {
+  }
   $scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card
   };
