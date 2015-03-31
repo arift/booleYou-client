@@ -9,6 +9,8 @@ angular.module('starter.controllers', [])
       hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
       username     : $rootScope.user.username
     };
+
+    $scope.bitstream.hashtag = "";
     booleOuts.postBooleOut(dataToSend, function (data) {
       updateBitStream();
     });
