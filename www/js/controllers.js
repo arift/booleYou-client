@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
 
         var booleOut;
         for(booleOut in result){
-          $scope.replyShow[result[booleOut]._id] = false;
+            $scope.replyShow[result[booleOut]._id] = false;
         };
       }
     });
@@ -49,9 +49,8 @@ angular.module('starter.controllers', [])
   var flag = true;
 
 
-  $scope.reply = function(parentId) {
+  $scope.reply = function(parentId)  {
     // this function will display a posting environment in which to reply to a booleOut
-
      if(!flag) {
        $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
        flag = true;
@@ -74,24 +73,10 @@ angular.module('starter.controllers', [])
   $scope.changeUp = function() {
     
   }
-  booleOuts.getReplies(parentId, function(result){
-    if(result) {
-      if(!$scope.allReplies)
-        $scope.allReplies = [];
-      $scope.allReplies[parentId] = result;
-    }
-    
-    
-  });
-};
 
-$scope.changeUp = function() {
-  
-}
-
-$scope.changeDown = function() {
-}
-$scope.getPhoto = function(user_name) {
+  $scope.changeDown = function() {
+  }
+  $scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card
   };
   $scope.getBit = function(boolean) {
