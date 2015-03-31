@@ -18,7 +18,8 @@ angular.module('starter.controllers', [])
     $state.go('profile', {username : username});    
   }
   // function to update bit stream
-  var updateBitStream = function(){
+  var flag = true;
+  var updateBitStream = function() {
     booleOuts.getParents(function(result){
       if(result) {
         $scope.posts = result;
@@ -49,6 +50,15 @@ angular.module('starter.controllers', [])
   $scope.reply = function(parentId) {
     // this function will display a posting environment in which to reply to a booleOut
     booleOuts.getReplies(parentId, function(result){
+
+      if(!flag) {
+       $('.buttonDown').removeClass('ion-chevron-up').addClass('ion-chevron-down');
+       flag = true;
+      }
+      else{
+        $('.buttonDown').removeClass('ion-chevron-down').addClass('ion-chevron-up');
+        flag = false;
+      }
       if(result) {
         if(!$scope.allReplies)
           $scope.allReplies = [];
