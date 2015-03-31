@@ -162,6 +162,10 @@ angular.module('starter.controllers', [])
 
   updateProfile();
 
+  $scope.goBack = function() {
+    $state.go('tab.bitstream');
+  };
+
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {
