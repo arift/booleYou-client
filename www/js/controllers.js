@@ -54,10 +54,12 @@ angular.module('starter.controllers', [])
       if(!flag) {
        $('.buttonDown').removeClass('ion-chevron-up').addClass('ion-chevron-down');
        flag = true;
+       console.log("down to up");
       }
       else{
         $('.buttonDown').removeClass('ion-chevron-down').addClass('ion-chevron-up');
         flag = false;
+        console.log("up to down");
       }
       if(result) {
         if(!$scope.allReplies)
