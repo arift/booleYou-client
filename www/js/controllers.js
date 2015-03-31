@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
 
         var booleOut;
         for(booleOut in result){
-            $scope.replyShow[result[booleOut]._id] = false;
+          $scope.replyShow[result[booleOut]._id] = false;
         };
       }
     });
@@ -51,32 +51,32 @@ angular.module('starter.controllers', [])
 
   $scope.reply = function(parentId) {
     // this function will display a posting environment in which to reply to a booleOut
-     if(!flag) {
-       $('.buttonDown').removeClass('ion-chevron-up').addClass('ion-chevron-down');
-       flag = true;
-      }
-      else{
-        $('.buttonDown').removeClass('ion-chevron-down').addClass('ion-chevron-up');
-        flag = false;
-      }
-    booleOuts.getReplies(parentId, function(result){
-      if(result) {
-        if(!$scope.allReplies)
-          $scope.allReplies = [];
-        $scope.allReplies[parentId] = result;
-      }
-     
-      
-    });
-  };
-
-  $scope.changeUp = function() {
+    if(!flag) {
+     $('.buttonDown').removeClass('ion-chevron-up').addClass('ion-chevron-down');
+     flag = true;
+   }
+   else{
+    $('.buttonDown').removeClass('ion-chevron-down').addClass('ion-chevron-up');
+    flag = false;
+  }
+  booleOuts.getReplies(parentId, function(result){
+    if(result) {
+      if(!$scope.allReplies)
+        $scope.allReplies = [];
+      $scope.allReplies[parentId] = result;
+    }
     
-  }
+    
+  });
+};
 
-  $scope.changeDown = function() {
-  }
-  $scope.getPhoto = function(user_name) {
+$scope.changeUp = function() {
+  
+}
+
+$scope.changeDown = function() {
+}
+$scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card
   };
   $scope.getBit = function(boolean) {
