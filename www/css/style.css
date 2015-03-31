@@ -10,6 +10,18 @@
  	top: 10%; left: 0; bottom: 0; right: 0;
 }
 
+.booleOutInput {
+    width: 80%;
+}
+
+.postOne {
+    width: 10%;
+}
+
+.postOne {
+    width: 10%;
+}
+
 #profileFont {
 	font-size: 200%;
 	font-family: Copperplate;
