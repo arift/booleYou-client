@@ -2,7 +2,7 @@ var assert = require("assert"); // node.js core module
 var should = require('should'); 
 var request = require('supertest');
 
-describe('Front End Testing', function(){
+describe('Front End Testing', function() {
 	var url = 'http://booleyou-client.herokuapp.com';
   	describe('Welcome Screen Test', function(){
     	it('should be directed to welcome screen', function(done){
