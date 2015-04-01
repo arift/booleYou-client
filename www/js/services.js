@@ -100,13 +100,9 @@ angular.module('starter.services', [])
     postReply: function(booleOut, cb) {
       $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', booleOut).
         success(function(data, status, headers, config) {
-          if (data.message === "booleOut Added") {
-            console.log("booleout added");
-            cb(data);
-          }
+          cb(data);
         }).
         error(function(data, status, headers, config) {
-          console.log("booleout NOT added");
           cb(data);
         });
     }
