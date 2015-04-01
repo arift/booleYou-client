@@ -67,6 +67,10 @@ ion-content {
 	background-color: MediumPurple;
 }
 
+.center-children {
+  text-align: center;
+}
+
 .bar.bar-royal {
 	background-color: Indigo;
 	background-image: none;
@@ -76,10 +80,6 @@ ion-content {
 	background-color: White;
 }
 
-.button.button-royal{
-	background-color: Indigo;
-	background-image: none;
-}
 .loadImage {
 	background-color: #502d7f;
 }
