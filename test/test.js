@@ -109,11 +109,8 @@ describe('Front End Testing', function(){
     			}
 	    		done();
 
-    		})
-      		
-      	});
-
-      
+    		})      		
+      	});      
     });
 
     describe('Profile Page', function(){
@@ -130,9 +127,6 @@ describe('Front End Testing', function(){
 
     		})
       		
-      	});
-
-      
+      	});      
     });
-
 });
