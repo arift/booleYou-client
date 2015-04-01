@@ -71,13 +71,6 @@ angular.module('starter.controllers', [])
       
     });
   };
-
-  $scope.changeUp = function() {
-    
-  }
-
-  $scope.changeDown = function() {
-  }
   $scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card
   };
@@ -90,7 +83,9 @@ angular.module('starter.controllers', [])
   $scope.getHashtags = function(hashtag) {
     var tags = "";
     hashtag.forEach(function(entry) {
-      tags += "#" + entry + " ";
+        if(entry.trim() != "") {
+            tags += "#" + entry + " ";
+        }
     });
     return tags;
   };
