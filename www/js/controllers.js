@@ -28,7 +28,7 @@ angular.module('starter.controllers', [])
 
         var booleOut;
         for(booleOut in result){
-            $scope.replyShow[result[booleOut]._id] = false;
+          $scope.replyShow[result[booleOut]._id] = false;
         };
       }
     });
@@ -53,25 +53,25 @@ angular.module('starter.controllers', [])
 
   $scope.reply = function(parentId)  {
     // this function will display a posting environment in which to reply to a booleOut
-     if(!flag) {
-       $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
-       flag = true;
-      }
-      else{
-        $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
-        flag = false;
-      }
-    booleOuts.getReplies(parentId, function(result){
-      if(result) {
-        if(!$scope.allReplies)
-          $scope.allReplies = [];
-        $scope.allReplies[parentId] = result;
-      }
-     
-      
-    });
-  };
-  $scope.getPhoto = function(user_name) {
+    if(!flag) {
+     $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
+     flag = true;
+   }
+   else{
+    $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
+    flag = false;
+  }
+  booleOuts.getReplies(parentId, function(result){
+    if(result) {
+      if(!$scope.allReplies)
+        $scope.allReplies = [];
+      $scope.allReplies[parentId] = result;
+    }
+
+
+  });
+};
+$scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card
   };
   $scope.getBit = function(boolean) {
@@ -83,9 +83,9 @@ angular.module('starter.controllers', [])
   $scope.getHashtags = function(hashtag) {
     var tags = "";
     hashtag.forEach(function(entry) {
-        if(entry.trim() != "") {
-            tags += "#" + entry + " ";
-        }
+      if(entry.trim() != "") {
+        tags += "#" + entry + " ";
+      }
     });
     return tags;
   };
@@ -276,9 +276,16 @@ updateProfile();
       ]
     });
   };
+
+
   $scope.submitForm = function() {
     $scope.data = {}
+    var userExists = false;
 
+    if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
+      shakeShakeShake();
+      return;
+    }
     //this should be same as the User schema on the server
     var user = {
       firstName : $scope.signup.firstName,
@@ -292,7 +299,88 @@ updateProfile();
     SignupService.signupUser(user).success(function(data) {
       $state.go('login');
     }).error(function(data){
-      //do something else when error happens. Maybe show an error message??
+      userExists=true;
+      shakeShakeShake();
     }); 
+
+    function shakeShakeShake() {
+      //turn red
+      var placer = "";
+      if(!$scope.signup){
+        placer+=".itemWhole";
+      }
+      if($scope.signup) {
+        if(userExists) {
+          userExists=false;
+          $('.bitText').text("BitName Already Exists");
+          $('.bitText').attr("placeholder","Please Change BitName");
+          $('.bitText').css("color","red");
+          if(!placer) {
+            placer+=".itemBit";
+          }
+          if(placer) {
+            placer+=",.itemBit";
+          }
+        }
+        if(!$scope.signup.firstName) {
+          if(!placer) {
+            placer+=".itemFirst";
+          }
+          if(placer) {
+            placer+=",.itemFirst";
+          }
+        }
+        if(!$scope.signup.lastName) {
+          if(!placer) {
+            placer+=".itemLast";
+          }
+          if(placer) {
+            placer+=",.itemLast";
+          }
+        }
+        if(!$scope.signup.email) {
+          if(!placer) {
+            placer+=".itemEmail";
+          }
+          if(placer) {
+            placer+=",.itemEmail";
+          }
+        }
+        if(!$scope.signup.bitName) {
+          if(!placer) {
+            placer+=".itemBit";
+          }
+          if(placer) {
+            placer+=",.itemBit";
+          }
+        }
+        if(!$scope.signup.password) {
+          if(!placer) {
+            placer+=".itemPass";
+          }
+          if(placer) {
+            placer+=",.itemPass";
+          }
+        }
+      }
+
+      $(".invalidText").css("opacity", "1");
+      $(".invalidHolder").addClass("invalid");
+
+      //shake!
+      var interval = 50;                                                                                                 
+      var distance = 10;                                                                                                  
+      var times = 4;                                                                                                      
+
+      $(placer).css('position','relative');                                                                                  
+
+      for(var iter=0;iter<(times+1);iter++){                                                                              
+        $(placer).animate({ 
+          left:((iter%2==0 ? distance : distance*-1))
+        },interval);                                   
+      }                                                                                                             
+
+      $(placer).animate({ left: 0},interval);  
+    }
   };
 });
