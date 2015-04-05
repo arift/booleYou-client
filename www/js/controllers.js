@@ -322,7 +322,7 @@ updateProfile();
             placer+=",.itemBit";
           }
         }
-        if(!$scope.signup.firstName) {
+        if(!$scope.signup.firstName)  {
           if(!placer) {
             placer+=".itemFirst";
           }
