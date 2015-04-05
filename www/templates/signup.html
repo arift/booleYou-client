@@ -11,8 +11,8 @@
           <input type="text" placeholder="Last Name" ng-model="signup.lastName">
         </label>
         <label class="itemEmail item item-input item-floating-label">
-          <span class="input-label">Email</span>
-          <input type="text" placeholder="Email" ng-model="signup.email">
+          <span class="emailText input-label">Email</span>
+          <input type="email" placeholder="Email" ng-model="signup.email" ng-change="emailCheck()">
         </label>
         <label class="itemBit item item-input item-floating-label">
           <span class="input-label bitText">BitName</span>
@@ -21,6 +21,10 @@
         <label class="itemPass item item-input item-floating-label">
           <span class="input-label">Password</span>
           <input type="password" placeholder="Password" ng-model="signup.password">
+        </label>
+         <label class="itemPass item item-input item-floating-label">
+          <span class="input-label confirmText">Confirm Password</span>
+          <input type="password" placeholder="Confirm Password" ng-model="signup.confirmPassword" ng-change="compareTo()">
         </label>
         <label class="item item-input item-select">
           <div class="input-label">

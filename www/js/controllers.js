@@ -219,7 +219,8 @@ updateProfile();
     function shakeShakeShake() {
       //turn red
       $(".invalidText").css("opacity", "1");
-      $(".invalidHolder").addClass("invalid");
+      $('.changeRed').css("color","red");
+      //$(".invalidHolder").addClass("invalid");
 
       //shake!
       var interval = 50;                                                                                                 
@@ -277,15 +278,40 @@ updateProfile();
     });
   };
 
-
-  $scope.submitForm = function() {
-    $scope.data = {}
-    var userExists = false;
-
-    if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
-      shakeShakeShake();
-      return;
+  $scope.emailCheck = function() {
+    if(!$scope.signup.email) {
+      $('.emailText').text("Invalid Email Format");
+      $('.emailText').attr("placeholder","Please Enter a Valid Email Address");
+      $('.emailText').css("color","red");
     }
+    else {
+     $('.emailText').text("Email");
+     $('.emailText').css("color","black");
+   }
+ };
+
+ $scope.compareTo = function() {
+  if($scope.signup.password === $scope.signup.confirmPassword) {
+    $('.confirmText').text("Passwords Match");
+    $('.confirmText').css("color","green");
+  }
+
+  else {
+    $('.confirmText').text("Passwords Do Not Match");
+    $('.confirmText').css("color","red");
+  }
+
+};
+
+$scope.submitForm = function() {
+  $scope.data = {}
+  var userExists = false;
+
+  if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
+    shakeShakeShake();
+    return;
+  }
+
     //this should be same as the User schema on the server
     var user = {
       firstName : $scope.signup.firstName,
@@ -339,6 +365,9 @@ updateProfile();
           }
         }
         if(!$scope.signup.email) {
+          $('.emailText').text("Invalid Email Format");
+          $('.emailText').attr("placeholder","Please Enter a Valid Email Address");
+          $('.emailText').css("color","red");
           if(!placer) {
             placer+=".itemEmail";
           }
