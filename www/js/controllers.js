@@ -102,6 +102,7 @@ $scope.getPhoto = function(user_name) {
         text: '<b>1</b>',
         type: 'button-royal',
         onTap: function() {
+          $scope.reply.hashtag = "";
           var dataToSend = {
             bit      : 1,
             hashtag  : $scope.reply.hashtag.replace(/ /g, "").replace("#", "").split("#"),
@@ -123,6 +124,7 @@ $scope.getPhoto = function(user_name) {
         text: '<b>0</b>',
         type: 'button-royal',
         onTap: function() {
+         $scope.reply.hashtag = "";
          var dataToSend = {
           bit      : 0,
           hashtag  : $scope.reply.hashtag.replace(/ /g, "").replace("#", "").split("#"),
