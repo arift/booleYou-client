@@ -167,6 +167,10 @@ $scope.getPhoto = function(user_name) {
     $state.go('tab.bitstream');
   };
 
+  $scope.follow = function() {
+    // logic to foller user
+  }
+
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {
