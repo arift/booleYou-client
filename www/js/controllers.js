@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, ProfileFetch, $ionicPopup) {
+.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, UserService, $ionicPopup) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
 
@@ -147,10 +147,10 @@ $scope.getPhoto = function(user_name) {
 }
 })
 
-.controller('ProfileCtrl', function($scope, $state, $stateParams, ProfileFetch) {
+.controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope) {
 
   var updateProfile = function() {
-    ProfileFetch.fetchProfileData($stateParams.username, function(result){
+    UserService.fetchProfileData($stateParams.username, function(result){
       if(result) {
         $scope.profileData = result;
         var year = result.signup_date.substring(0, 4);
@@ -168,37 +168,15 @@ $scope.getPhoto = function(user_name) {
   };
 
   $scope.follow = function() {
-    ProfileFetch.fetchProfileData($stateParams.username, function(result) {
-        if(result) {
-            $scope.profileData = result;
-            ProfileFetch.addFollower(result.username, function(result) {
-                if(result) {
-                    console.log("success! " + result.username);
-                }
-            });
-        }
-    });
+    if($("#followButton").html() === "Follow") {
+        $("#followButton").html('Unfollow');
+        UserService.addFollower($scope.profileData.username, $rootScope.user.username);
+    } else {
+        $("#followButton").html('Follow');
+        UserService.removeFollower($scope.profileData.username, $rootScope.user.username);
+    }
   }
 
-})
-
-.controller('FollowingCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('FollowersCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
-})
-
-.controller('FriendDetailCtrl', function($scope, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
 })
 
 .controller('AccountCtrl', function($scope, $rootScope) {
