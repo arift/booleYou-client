@@ -149,6 +149,10 @@ $scope.getPhoto = function(user_name) {
 
 .controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope) {
 
+  if ($rootScope.user.username === $scope.profileData.username) {
+      $("#followButton").remove();
+  };
+
   var updateProfile = function() {
     UserService.fetchProfileData($stateParams.username, function(result){
       if(result) {
