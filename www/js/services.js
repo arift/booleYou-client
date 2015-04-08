@@ -218,7 +218,7 @@ angular.module('starter.services', [])
             });
     },
     addFollower: function(user_name, cb) {
-        
+                
     }
   };
 })
