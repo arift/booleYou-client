@@ -3,11 +3,11 @@
     <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh()">
     </ion-refresher>
     <ion-list type="in-set" >
-        <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
+        <div class="list card" id="test" ng-controller="BitStreamCtrl" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
             <div class="item item-avatar" >
-                <img src="img/stock_picture.png">
+                <img ng-click="toProfile(BooleOut.username)" src="img/stock_picture.png">
                 <h2><b ng-click="toProfile(BooleOut.username)">{{BooleOut.username}}</b></h2>
-                    <p ng-click="toProfile(BooleOut.username)">{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</p>
+                    <p ng-click="showChart(BooleOut.hashtag)">{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
 

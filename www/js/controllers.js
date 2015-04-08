@@ -1,6 +1,18 @@
 angular.module('starter.controllers', [])
 
 .controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch, $ionicPopup) {
+  $scope.showChart = function(booleOut) {
+  $scope.booleOut = booleOut;
+  $scope.data = {}
+
+    // An elaborate, custom popup
+    var myPopup = $ionicPopup.show({
+      templateUrl: 'templates/pieChart.html',
+      scope: $scope,
+    });
+
+  };
+
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
 

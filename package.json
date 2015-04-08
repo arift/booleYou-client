@@ -20,6 +20,6 @@
     "shelljs": "^0.3.0",
     "mocha": "latest",
     "should": "latest",
-    "supertest": "latest"
+    "supertest": "latest",
   }
 }

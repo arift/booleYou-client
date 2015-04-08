@@ -1,3 +1,7 @@
+.popup {
+  width: auto !important;
+  height: auto;
+}
 .signUpPadding {
 	margin: auto;
 	position: absolute;

@@ -50,11 +50,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     url: '/profile/:username',
     templateUrl: 'templates/profile.html',
     controller: 'ProfileCtrl',
-    // resolve: {
-    //   userName: function($stateParams, ProfileFetch) {
-    //     console.log(userName);
-    //   }
-    // }
+  })
+
+  .state('d3', {
+    url: '/d3',
+    templateUrl: 'templates/d3Test.html',
   })
 
   // setup an abstract state for the tabs directive
