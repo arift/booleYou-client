@@ -167,7 +167,7 @@ angular.module('starter.services', [])
             var dataToSend = {
               username : name,
               password  : pw
-            }
+            };
 
             $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
             success(function(data, status, headers, config) {
@@ -182,11 +182,11 @@ angular.module('starter.services', [])
             promise.success = function(fn) {
                 promise.then(fn);
                 return promise;
-            }
+            };
             promise.error = function(fn) {
                 promise.then(null, fn);
                 return promise;
-            }
+            };
             return promise;
         }
     }
@@ -216,6 +216,9 @@ angular.module('starter.services', [])
             error(function(data, status, headers, config) {
                 cb();
             });
+    },
+    addFollower: function(user_name, cb) {
+        
     }
   };
 })
@@ -239,11 +242,11 @@ angular.module('starter.services', [])
             promise.success = function(fn) {
                 promise.then(fn);
                 return promise;
-            }
+            };
             promise.error = function(fn) {
                 promise.then(null, fn);
                 return promise;
-            }
+            };
             return promise;
         }
     }

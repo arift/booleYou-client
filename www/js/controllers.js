@@ -168,7 +168,16 @@ $scope.getPhoto = function(user_name) {
   };
 
   $scope.follow = function() {
-    // logic to foller user
+    ProfileFetch.fetchProfileData($stateParams.username, function(result) {
+        if(result) {
+            $scope.profileData = result;
+            ProfileFetch.addFollower(result.username, function(result) {
+                if(result) {
+                    console.log("success! " + result.username);
+                }
+            });
+        }
+    });
   }
 
 })
