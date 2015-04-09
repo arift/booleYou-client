@@ -107,7 +107,10 @@ angular.module('starter.services', [])
         });
     },
     parseBooleOut: function(string) {
-        return string.replace(/ /g, "").replace("#", "").split("#");
+      if (string.charAt(0) != '#') {
+        string = '#' + string;
+      }
+      return string.replace(/ /g, "").replace("#", "").split("#");
     }
   }
 })
