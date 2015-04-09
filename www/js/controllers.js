@@ -149,10 +149,6 @@ $scope.getPhoto = function(user_name) {
 
 .controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope) {
 
-  if ($rootScope.user.username === $scope.profileData.username) {
-      $("#followButton").remove();
-  };
-
   var updateProfile = function() {
     UserService.fetchProfileData($stateParams.username, function(result){
       if(result) {
@@ -161,6 +157,7 @@ $scope.getPhoto = function(user_name) {
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
+        $("#followButton").html(UserService.isFollower($scope.profileData.username, $rootScope.user.username));
       }
     });
   };
@@ -172,13 +169,21 @@ $scope.getPhoto = function(user_name) {
   };
 
   $scope.follow = function() {
-    if($("#followButton").html() === "Follow") {
-        $("#followButton").html('Unfollow');
-        UserService.addFollower($scope.profileData.username, $rootScope.user.username);
-    } else {
-        $("#followButton").html('Follow');
-        UserService.removeFollower($scope.profileData.username, $rootScope.user.username);
+      // you are not following the user (api call)
+      if (!UserService.isFollowing($scope.profileData.username, $rootScope.user.username, function(result) {})) {
+        UserService.addFollower($scope.profileData.username, $rootScope.user.username, function(result){
+            if(result) {
+                console.log("Followed");
+            }
+        });
+    } else { // you are following the user (above api call)
+        UserService.removeFollower($scope.profileData.username, $rootScope.user.username, function(result){
+            if(result) {
+                console.log("Unfollowed");
+            }
+        });
     }
+      updateProfile();
   }
 
 })

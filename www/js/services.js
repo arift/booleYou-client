@@ -127,6 +127,9 @@ angular.module('starter.services', [])
     },
     removeFollower: function(following, follower, cb) {
 
+    },
+    isFollower: function(following, follower, cb) {
+
     }
   };
 })
