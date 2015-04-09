@@ -103,13 +103,16 @@ $scope.getPhoto = function(user_name) {
         text: '<b>1</b>',
         type: 'button-royal',
         onTap: function() {
-          $scope.reply.hashtag = "";
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
           var dataToSend = {
             bit      : 1,
             hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
             username : $rootScope.user.username,
             parent   : parentId
           };
+          $scope.reply.hashtag = "";
           booleOuts.postReply(dataToSend, function (data) {
            booleOuts.getReplies(parentId, function(result){
             if(result) {
@@ -125,13 +128,16 @@ $scope.getPhoto = function(user_name) {
         text: '<b>0</b>',
         type: 'button-royal',
         onTap: function() {
-         $scope.reply.hashtag = "";
+         if(!$scope.reply.hashtag) {
+          $scope.reply.hashtag = "";
+         }
          var dataToSend = {
           bit      : 0,
           hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
           username : $rootScope.user.username,
           parent   : parentId
         };
+        $scope.reply.hashtag = "";
         booleOuts.postReply(dataToSend, function (data) {
          booleOuts.getReplies(parentId, function(result){
           if(result) {
