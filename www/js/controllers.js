@@ -175,15 +175,17 @@ $scope.getPhoto = function(user_name) {
             if(result) {
                 console.log("Followed");
             }
+            updateProfile();
         });
     } else { // you are following the user (above api call)
         UserService.removeFollower($scope.profileData.username, $rootScope.user.username, function(result){
             if(result) {
                 console.log("Unfollowed");
             }
+            updateProfile();
         });
     }
-      updateProfile();
+
   }
 
 })
