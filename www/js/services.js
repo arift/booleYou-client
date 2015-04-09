@@ -129,7 +129,7 @@ angular.module('starter.services', [])
 
     },
     isFollower: function(following, follower, cb) {
-
+        
     }
   };
 })
