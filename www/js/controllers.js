@@ -1,12 +1,12 @@
 angular.module('starter.controllers', [])
 
-.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch, $ionicPopup) {
+.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, ProfileFetch, $ionicPopup) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
 
     var dataToSend = {
       bit      : bit,
-      hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+      hashtag  : booleOuts.parseBooleOut($scope.bitstream.hashtag),
       username     : $rootScope.user.username
     };
 
@@ -18,7 +18,8 @@ angular.module('starter.controllers', [])
 
   $scope.toProfile = function(username) {
     $state.go('profile', {username : username});    
-  }
+  };
+
   // function to update bit stream
   var updateBitStream = function() {
     booleOuts.getParents(function(result){
@@ -91,7 +92,7 @@ $scope.getPhoto = function(user_name) {
   };
 
   $scope.replyPopup = function(parentId) {
-    $scope.data = {}
+    $scope.data = {};
 
     var popup = $ionicPopup.show({
       template: '<input ng-model="reply.hashtag" type = "text">',
@@ -105,7 +106,7 @@ $scope.getPhoto = function(user_name) {
           $scope.reply.hashtag = "";
           var dataToSend = {
             bit      : 1,
-            hashtag  : $scope.reply.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
             username : $rootScope.user.username,
             parent   : parentId
           };
@@ -127,7 +128,7 @@ $scope.getPhoto = function(user_name) {
          $scope.reply.hashtag = "";
          var dataToSend = {
           bit      : 0,
-          hashtag  : $scope.reply.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+          hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
           username : $rootScope.user.username,
           parent   : parentId
         };
