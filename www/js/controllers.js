@@ -165,7 +165,7 @@ $scope.getPhoto = function(user_name) {
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
-        $("#followButton").html(UserService.isFollower($scope.profileData.username, $rootScope.user.username));
+        $("#followButton").html(UserService.isFollowing($scope.profileData.username, $rootScope.user.username));
       }
     });
   };
@@ -179,14 +179,14 @@ $scope.getPhoto = function(user_name) {
   $scope.follow = function() {
       // you are not following the user (api call)
       if (!UserService.isFollowing($scope.profileData.username, $rootScope.user)) {
-        UserService.addFollower($scope.profileData.username, $rootScope.user, function(result){
+        UserService.addFollowing($scope.profileData.username, $rootScope.user, function(result){
             if(result) {
                 console.log("Followed");
             }
             updateProfile();
         });
     } else { // you are following the user (above api call)
-        UserService.removeFollower($scope.profileData.username, $rootScope.user, function(result){
+        UserService.removeFollowing($scope.profileData.username, $rootScope.user, function(result){
             if(result) {
                 console.log("Unfollowed");
             }
