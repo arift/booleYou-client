@@ -122,14 +122,22 @@ angular.module('starter.services', [])
                 cb();
             });
     },
-    addFollower: function(following, follower, cb) {
-
+    addFollowing: function(following, follower, cb) {
+        var user = $http.get('http://booleyou-server.herokuapp.com/api/user/users/' + following);
+        user.f
+        $http.put('http://booleyou-server.herokuapp.com/api/user/users/' + following)
     },
-    removeFollower: function(following, follower, cb) {
-
+    removeFollowing: function(following, follower, cb) {
+        $http.put('http://booleyou-server.herokuapp.com/api/user/users/' + following)
     },
-    isFollower: function(following, follower, cb) {
-        
+    isFollowing: function(following, follower, cb) {
+        $http.get('http://booleyou-server.herokuapp.com/api/user/users/' + following).
+            success(function(data, status, headers, config) {
+                console.log(status);
+            }).
+            error(function(data, status, headers, config) {
+                console.log(status);
+            });
     }
   };
 })
