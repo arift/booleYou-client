@@ -157,8 +157,7 @@ angular.module('starter.services', [])
         return false;
       }
       else {
-        if (user.following.indexOf(isFollow) > -1) return true;
-        else return false;
+        return user.following.indexOf(isFollow) > -1
       }
     }
   };
