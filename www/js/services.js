@@ -153,8 +153,13 @@ angular.module('starter.services', [])
             });
     },
     isFollowing: function (isFollow, user) {
-        var following = user.following;
-        return following.includes(isFollow);             // checks if the specified user is in the following array
+      if(user.following === undefined){
+        return false;
+      }
+      else {
+        if (user.following.indexOf(isFollow) > -1) return true;
+        else return false;
+      }
     }
   };
 })
@@ -172,7 +177,7 @@ angular.module('starter.services', [])
             }).
             error(function(data, status, headers, config) {
               console.log("(services)Server reply: " + status);
-              deferred.reject();                
+              deferred.reject();
             });
 
             promise.success = function(fn) {
