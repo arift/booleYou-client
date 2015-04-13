@@ -155,7 +155,7 @@ $scope.getPhoto = function(user_name) {
 }
 })
 
-.controller('ProfileCtrl', function($scope, $state, $stateParams, ProfileFetch) {
+.controller('ProfileCtrl', function($scope, $rootScope, $state, $stateParams, booleOuts, ProfileFetch, $ionicPopup) {
 
   var updateProfile = function() {
     ProfileFetch.fetchProfileData($stateParams.username, function(result){
@@ -165,16 +165,141 @@ $scope.getPhoto = function(user_name) {
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
+        $scope.profileData.bits = 0;
       }
     });
   };
 
   updateProfile();
 
+  // function to update bit stream
+  var updateBitStream = function() {
+    booleOuts.getParents(function(result){
+      if(result) {
+        $scope.posts = result;
+        $scope.replyShow = [];
+
+        var booleOut;
+        for(booleOut in result){
+          $scope.replyShow[result[booleOut]._id] = false;
+        };
+      }
+    });
+
+  };
+
+  updateBitStream();
+
   $scope.goBack = function() {
     $state.go('tab.bitstream');
   };
 
+  $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
+    updateBitStream(); // to refresh the BitStream
+    updateProfile(); // to refresh the User data
+    $scope.$broadcast('scroll.refreshComplete');
+  };
+
+  var flag = true;
+  $scope.reply = function(parentId)  {
+    // this function will display a posting environment in which to reply to a booleOut
+    if(!flag) {
+      $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
+      flag = true;
+    }
+    else{
+      $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
+      flag = false;
+    }
+    booleOuts.getReplies(parentId, function(result){
+      if(result) {
+        if(!$scope.allReplies)
+          $scope.allReplies = [];
+        $scope.allReplies[parentId] = result;
+      }
+    });
+  };
+  $scope.getPhoto = function(user_name) {
+    // return the user's photo to user on the booleOut list-card
+  };
+  $scope.getBit = function(boolean) {
+    if (boolean == true) {
+      return 1;
+    }
+    return 0;
+  };
+  $scope.getHashtags = function(hashtag) {
+    var tags = "";
+    hashtag.forEach(function(entry) {
+      if(entry.trim() != "") {
+        tags += "#" + entry + " ";
+      }
+    });
+    return tags;
+  };
+
+  $scope.replyPopup = function(parentId) {
+    $scope.data = {};
+
+    var popup = $ionicPopup.show({
+      template: '<input ng-model="reply.hashtag" type = "text">',
+      title: 'Enter Reply',
+      scope: $scope,
+      buttons: [
+      {
+        text: '<b>1</b>',
+        type: 'button-royal',
+        onTap: function() {
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
+          var dataToSend = {
+            bit      : 1,
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          $scope.reply.hashtag = "";
+          booleOuts.postReply(dataToSend, function (data) {
+            booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                  $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
+          });
+        }
+      },
+      {
+        text: '<b>0</b>',
+        type: 'button-royal',
+        onTap: function() {
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
+          var dataToSend = {
+            bit      : 0,
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          $scope.reply.hashtag = "";
+          booleOuts.postReply(dataToSend, function (data) {
+            booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
+          });
+        }
+      },
+      { text: 'Exit' }
+      ]
+    });
+  }
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {
@@ -196,16 +321,142 @@ $scope.getPhoto = function(user_name) {
   $scope.friend = Friends.get($stateParams.friendId);
 })
 
-.controller('AccountCtrl', function($scope, $rootScope) {
- var updateProfile = function() {
-  $scope.profileData = $rootScope.user;
-  var year = $rootScope.user.signup_date.substring(0, 4);
-  var month = $rootScope.user.signup_date.substring(5, 7);
-  var day = $rootScope.user.signup_date.substring(8, 10);
-  $rootScope.user.signup_date=[day,month,year];
-};
+.controller('AccountCtrl', function($scope, $rootScope, $state, $stateParams, booleOuts, ProfileFetch, $ionicPopup) {
+  var updateProfile = function() {
+    $scope.profileData = $rootScope.user;
+    var year = $rootScope.user.signup_date.substring(0, 4);
+    var month = $rootScope.user.signup_date.substring(5, 7);
+    var day = $rootScope.user.signup_date.substring(8, 10);
+    $rootScope.user.signup_date=[day,month,year];
+    $scope.profileData.bits = 0;
+  };
 
-updateProfile();
+  updateProfile();
+
+  // function to update bit stream
+  var updateBitStream = function() {
+    booleOuts.getParents(function(result){
+      if(result) {
+        $scope.posts = result;
+        $scope.replyShow = [];
+
+        var booleOut;
+        for(booleOut in result){
+          $scope.replyShow[result[booleOut]._id] = false;
+        };
+      }
+    });
+
+  };
+
+  updateBitStream();
+/* This function has temporarily been commented out as it causes TypeError
+  $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
+    updateBitStream(); // to refresh the BitStream
+    updateProfile(); // to refresh the User data
+    $scope.$broadcast('scroll.refreshComplete');
+  };
+*/
+  var flag = true;
+  $scope.reply = function(parentId)  {
+    // this function will display a posting environment in which to reply to a booleOut
+    if(!flag) {
+      $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
+      flag = true;
+    }
+    else{
+      $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
+      flag = false;
+    }
+    booleOuts.getReplies(parentId, function(result){
+      if(result) {
+        if(!$scope.allReplies)
+          $scope.allReplies = [];
+        $scope.allReplies[parentId] = result;
+      }
+    });
+  };
+  $scope.getPhoto = function(user_name) {
+    // return the user's photo to user on the booleOut list-card
+  };
+  $scope.getBit = function(boolean) {
+    if (boolean == true) {
+      return 1;
+    }
+    return 0;
+  };
+  $scope.getHashtags = function(hashtag) {
+    var tags = "";
+    hashtag.forEach(function(entry) {
+      if(entry.trim() != "") {
+        tags += "#" + entry + " ";
+      }
+    });
+    return tags;
+  };
+
+  $scope.replyPopup = function(parentId) {
+    $scope.data = {};
+
+    var popup = $ionicPopup.show({
+      template: '<input ng-model="reply.hashtag" type = "text">',
+      title: 'Enter Reply',
+      scope: $scope,
+      buttons: [
+      {
+        text: '<b>1</b>',
+        type: 'button-royal',
+        onTap: function() {
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
+          var dataToSend = {
+            bit      : 1,
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          $scope.reply.hashtag = "";
+          booleOuts.postReply(dataToSend, function (data) {
+            booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                  $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
+          });
+        }
+      },
+      {
+        text: '<b>0</b>',
+        type: 'button-royal',
+        onTap: function() {
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
+          var dataToSend = {
+            bit      : 0,
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          $scope.reply.hashtag = "";
+          booleOuts.postReply(dataToSend, function (data) {
+            booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
+          });
+        }
+      },
+      { text: 'Exit' }
+      ]
+    });
+  }  
 })
 
 
