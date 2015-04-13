@@ -186,6 +186,7 @@ $scope.getPhoto = function(user_name) {
         UserService.addFollowing($scope.profileData.username, $rootScope.user, function(result){
             if(result) {
                 console.log("Followed");
+                $rootScope.user = result;
             }
             updateProfile();
         });
@@ -193,6 +194,7 @@ $scope.getPhoto = function(user_name) {
         UserService.removeFollowing($scope.profileData.username, $rootScope.user, function(result){
             if(result) {
                 console.log("Unfollowed");
+                $rootScope.user = result;
             }
             updateProfile();
         });
