@@ -165,7 +165,11 @@ $scope.getPhoto = function(user_name) {
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
-        $("#followButton").html(UserService.isFollowing($scope.profileData.username, $rootScope.user.username));
+        if (UserService.isFollowing($scope.profileData.username, $rootScope.user.username)) {
+            $("#followButton").html('Unfollow');
+        } else {
+            $("#followButton").html('Follow');
+        }
       }
     });
   };
