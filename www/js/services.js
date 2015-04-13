@@ -126,10 +126,7 @@ angular.module('starter.services', [])
             });
     },
     addFollowing: function(toFollow, user, cb) {
-        var following = user.following;
-        following.push(toFollow);                        // puts the given user to follow into the array
-        user.following = following;
-        $http.put('http://booleyou-server.herokuapp.com/api/user/users/' + user.username, user).    // puts the modified user back in the database
+        $http.get('http://booleyou-server.herokuapp.com/api/user/' + user.username + '/follow/' + toFollow).    // adds follower
             success(function(data, status, headers, config) {
                 cb(data);
             }).
@@ -138,13 +135,7 @@ angular.module('starter.services', [])
             });
     },
     removeFollowing: function(toUnFollow, user, cb) {
-        var following = user.following;
-        for (var i = 0; i < following.length; i++) {     // loop through follower array
-            if (following[i] === toUnFollow) {
-                following.splice(i, 1);                  // removes specified user from array
-            }
-        }
-        $http.put('http://booleyou-server.herokuapp.com/api/user/users/' + user.username, user).    // puts the modified user back in the database
+        $http.get('http://booleyou-server.herokuapp.com/api/user/' + user.username + '/unfollow/' + toUnFollow).    // puts the modified user back in the database
             success(function(data, status, headers, config) {
                 cb(data);
             }).
@@ -157,7 +148,7 @@ angular.module('starter.services', [])
         return false;
       }
       else {
-        return user.following.indexOf(isFollow) > -1
+        return user.following.indexOf(isFollow) > -1;
       }
     }
   };
