@@ -175,6 +175,37 @@ $scope.getPhoto = function(user_name) {
     $state.go('tab.bitstream');
   };
 
+ $scope.showSettings = function() {
+  $scope.data = {}
+
+    // An elaborate, custom popup
+    var myPopup = $ionicPopup.show({
+      templateUrl: 'templates/signupBirthday.html',
+      title: 'Enter Birthday',
+      scope: $scope,
+      buttons: [
+      { text: 'Cancel' },
+      {
+        text: '<b>Save</b>',
+        type: 'button-royal',
+        onTap: function(e) {
+          $('#bdaytext').empty();
+          var month = $('#months option:selected').text();
+          var day = $('#days option:selected').text();
+          var year = $('#years option:selected').text();
+          $('#bdaytext').text('Birthday: ' + month + ' ' + day + ', ' + year);
+        }
+      },
+      ]
+    });
+  };
+
+})
+
+.controller('SettingsCtrl', function($scope, $state, $stateParams, ProfileFetch) {
+  $scope.changeBitname = function(user_name) {
+    
+  }
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {
