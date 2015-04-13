@@ -174,7 +174,7 @@ $scope.getPhoto = function(user_name) {
 
   // function to update bit stream
   var updateBitStream = function() {
-    booleOuts.getParents(function(result){
+    booleOuts.getByUser($stateParams.username, function(result){
       if(result) {
         $scope.posts = result;
         $scope.replyShow = [];
@@ -335,7 +335,7 @@ $scope.getPhoto = function(user_name) {
 
   // function to update bit stream
   var updateBitStream = function() {
-    booleOuts.getParents(function(result){
+    booleOuts.getByUser($rootScope.user.username, function(result){
       if(result) {
         $scope.posts = result;
         $scope.replyShow = [];
