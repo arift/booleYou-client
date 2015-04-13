@@ -161,6 +161,40 @@ angular.module('starter.services', [])
   }
 })
 
+.service('SettingsService', function($q, $http) {
+    return {
+        changeUserName: function(oldUserName, newUserName) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+
+            var dataToSend = {
+              username : newUser,
+              password  : pw
+            }
+
+            $http.put('http://booleyou-server.herokuapp.com/user/users/' + oldUserName, dataToSend).
+            success(function(data, status, headers, config) {
+              console.log("Success!");
+              deferred.resolve(data);
+            }).
+            error(function(data, status, headers, config) {
+              console.log("Wrong credentials.");
+              deferred.reject('Wrong credentials.');
+            });
+
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+            return promise;
+        }
+    }
+})
+
 .service('LoginService', function($q, $http) {
     return {
         loginUser: function(name, pw) {

@@ -202,10 +202,12 @@ $scope.getPhoto = function(user_name) {
 
 })
 
-.controller('SettingsCtrl', function($scope, $state, $stateParams, ProfileFetch) {
-  $scope.changeBitname = function(user_name) {
-    
-  }
+.controller('SettingsCtrl', function($scope, $state, $stateParams, ProfileFetch, SettingsService) {
+  $scope.changeBitName = function(user) {
+    var oldUserName = user.username;
+    $scope.user.username = user.username;
+    SettingsService.changeUserName(oldUserName, user.username);
+   }
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {

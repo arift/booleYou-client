@@ -1,4 +1,4 @@
-<ion-view view-title="Settings" ng-init="doSomething()">
+<ion-view view-title="Settings">
   <ion-content>
     <div class="list">
       <div class="padding profilePadding">
@@ -10,9 +10,9 @@
        <div class="list">
         <div class="item item-input-inset">
           <label class="item-input-wrapper">
-          <input type="text" placeholder="Change Bitname">
+          <input type="text" placeholder="Change Bitname", ng-model="user.username">
           </label>
-          <button class="button button-royal">
+          <button class="button button-royal", ng-click="changeBitName(user)">
             Submit
           </button>
         </div>
