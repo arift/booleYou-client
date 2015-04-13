@@ -37,7 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   .state('signup', {
     url: '/signup',
-    templateUrl: 'templates/signup.html',
+    templateUrl: 'templates/signup.html'
   })
 
   .state('welcome', {
@@ -49,7 +49,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   .state('profile', {
     url: '/profile/:username',
     templateUrl: 'templates/profile.html',
-    controller: 'ProfileCtrl',
+    controller: 'ProfileCtrl'
     // resolve: {
     //   userName: function($stateParams, ProfileFetch) {
     //     console.log(userName);
