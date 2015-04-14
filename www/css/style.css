@@ -32,15 +32,6 @@
 	font-size: 160%;
 }
 
-.splash {
-	background: url("../img/bitcloud1.jpg") repeat 0 0;
-	background-color: #502d7f;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center center;
-
-}
-
 .button-bottom {
 	position: absolute;
 	margin-top: 135%;
@@ -83,4 +74,3 @@ ion-content {
 .loadImage {
 	background-color: #502d7f;
 }
-
