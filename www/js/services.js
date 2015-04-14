@@ -52,59 +52,59 @@ angular.module('starter.services', [])
 /**
  * factory to return booleOuts. Dummy data for now, requires a call to the database.
  */
-.service('booleOuts', function($http) {
+ .service('booleOuts', function($http) {
   // this factory returns all booleOuts currently stored in the database
-        var posts = [];
+  var posts = [];
 
   // function that returns all booleOuts in the server
   return {
     all: function(cb) {
 
-        $http.get('http://booleyou-server.herokuapp.com/api/booleout/booleOuts').
-          success(function(data, status, headers, config) {
-              cb(data);
-          }).
-          error(function(data, status, headers, config) {
-              cb();
-          });
+      $http.get('http://booleyou-server.herokuapp.com/api/booleout/booleOuts').
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb();
+      });
     },
     getParents: function(cb) {
       $http.get('http://booleyou-server.herokuapp.com/api/booleout/getParents').
-        success(function(data, status, headers, config) {
-            cb(data);
-        }).
-        error(function(data, status, headers, config) {
-            cb();
-        });
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb();
+      });
     },
     getReplies: function(parentid, cb) {
       var apiUrl = "http://booleyou-server.herokuapp.com/api/booleout/getreplies/" + parentid;
       $http.get(apiUrl).
-        success(function(data, status, headers, config) {
-            cb(data);
-        }).
-        error(function(data, status, headers, config) {
-            cb();
-        });
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb();
+      });
     },
     postBooleOut: function(booleOut, cb) {
       $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', booleOut).
-        success(function(data, status, headers, config) {
-            cb(data);
-        }).
-        error(function(data, status, headers, config) {
-          console.log("booleout NOT added");
-          cb(data);
-        });
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log("booleout NOT added");
+        cb(data);
+      });
     },
     postReply: function(booleOut, cb) {
       $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', booleOut).
-        success(function(data, status, headers, config) {
-          cb(data);
-        }).
-        error(function(data, status, headers, config) {
-          cb(data);
-        });
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb(data);
+      });
     },
     parseBooleOut: function(string) {
       if (string.charAt(0) != '#') {
@@ -118,7 +118,7 @@ angular.module('starter.services', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('Followers', function() {
+ .factory('Followers', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -162,71 +162,108 @@ angular.module('starter.services', [])
 })
 
 .service('SettingsService', function($q, $http) {
-    return {
-        changeUserName: function(oldUserName, newUserName) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
+  return {
+    changeUserName: function(oldUserName, user) {
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+      var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + oldUserName;
 
-            var dataToSend = {
-              username : newUser,
-              password  : pw
-            }
+      console.log(url);
+      $http.put(url, user).
+      success(function(data, status, headers, config) {
+        console.log("Success!");
+        deferred.resolve(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log("Wrong credentials.");
+        deferred.reject('Wrong credentials.');
+      });
 
-            $http.put('http://booleyou-server.herokuapp.com/user/users/' + oldUserName, dataToSend).
-            success(function(data, status, headers, config) {
-              console.log("Success!");
-              deferred.resolve(data);
-            }).
-            error(function(data, status, headers, config) {
-              console.log("Wrong credentials.");
-              deferred.reject('Wrong credentials.');
-            });
+      promise.success = function(fn) {
+        promise.then(fn);
+        return promise;
+      }
+      promise.error = function(fn) {
+        promise.then(null, fn);
+        return promise;
+      }
+      return promise;
+    },
 
-            promise.success = function(fn) {
-                promise.then(fn);
-                return promise;
-            }
-            promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }
-            return promise;
-        }
+    changePassword: function(user, pw) {
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+      console.log(user.username + " " + pw);
+
+      var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + user.username;
+      var dataToSend = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+        password: pw,
+        gender: user.gender,
+        following: user.following,
+        followedby: user.followedby,
+        bits: user.bits,
+        ones: user.ones,
+        zeros: user.zeros,
+        signup_date: user.signup_date
+      }
+      $http.put(url, dataToSend).
+      success(function(data, status, headers, config) {
+        console.log("Success!");
+        deferred.resolve(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log("Wrong credentials.");
+        deferred.reject('Wrong credentials.');
+      });
+
+      promise.success = function(fn) {
+        promise.then(fn);
+        return promise;
+      }
+      promise.error = function(fn) {
+        promise.then(null, fn);
+        return promise;
+      }
+      return promise;
     }
+  }
 })
 
 .service('LoginService', function($q, $http) {
-    return {
-        loginUser: function(name, pw) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
+  return {
+    loginUser: function(name, pw) {
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+      var dataToSend = {
+        username : name,
+        password  : pw
+      }
 
-            var dataToSend = {
-              username : name,
-              password  : pw
-            }
+      $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
+      success(function(data, status, headers, config) {
+        console.log("Success!");
+        deferred.resolve(data);
+      }).
+      error(function(data, status, headers, config) {
+        console.log("Wrong credentials.");
+        deferred.reject('Wrong credentials.');
+      });
 
-            $http.post('http://booleyou-server.herokuapp.com/auth/login', dataToSend).
-            success(function(data, status, headers, config) {
-              console.log("Success!");
-              deferred.resolve(data);
-            }).
-            error(function(data, status, headers, config) {
-              console.log("Wrong credentials.");
-              deferred.reject('Wrong credentials.');
-            });
-
-            promise.success = function(fn) {
-                promise.then(fn);
-                return promise;
-            }
-            promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }
-            return promise;
-        }
+      promise.success = function(fn) {
+        promise.then(fn);
+        return promise;
+      }
+      promise.error = function(fn) {
+        promise.then(null, fn);
+        return promise;
+      }
+      return promise;
     }
+  }
 })
 
 .service('ProfileFetch', function($http) {
@@ -244,46 +281,46 @@ angular.module('starter.services', [])
     // },
 
     fetchProfileData: function(user_name, cb) {
-        var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + user_name;
-        console.log(url);
-        $http.get(url).
-            success(function(data, status, headers, config) {
-                cb(data);
-            }).
-            error(function(data, status, headers, config) {
-                cb();
-            });
+      var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + user_name;
+      console.log(url);
+      $http.get(url).
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb();
+      });
     }
   };
 })
 
 .service('SignupService', function($q, $http) {
-    return {
-        signupUser: function(userData) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
+  return {
+    signupUser: function(userData) {
+      var deferred = $q.defer();
+      var promise = deferred.promise;
 
-            $http.post('http://booleyou-server.herokuapp.com/auth/signup', userData).
-            success(function(data, status, headers, config) {
-              console.log("(services)Server reply: " + status);
-              deferred.resolve();
-            }).
-            error(function(data, status, headers, config) {
-              console.log("(services)Server reply: " + status);
-              deferred.reject();                
-            });
+      $http.post('http://booleyou-server.herokuapp.com/auth/signup', userData).
+      success(function(data, status, headers, config) {
+        console.log("(services)Server reply: " + status);
+        deferred.resolve();
+      }).
+      error(function(data, status, headers, config) {
+        console.log("(services)Server reply: " + status);
+        deferred.reject();                
+      });
 
-            promise.success = function(fn) {
-                promise.then(fn);
-                return promise;
-            }
-            promise.error = function(fn) {
-                promise.then(null, fn);
-                return promise;
-            }
-            return promise;
-        }
+      promise.success = function(fn) {
+        promise.then(fn);
+        return promise;
+      }
+      promise.error = function(fn) {
+        promise.then(null, fn);
+        return promise;
+      }
+      return promise;
     }
+  }
 })
 
 ;
