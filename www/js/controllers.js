@@ -158,15 +158,21 @@ $scope.getPhoto = function(user_name) {
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
-        UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing, user) {
-          if (isFollowing) {
-            $(".followButton").html('Unfollow');
-          }
-          else {
-            $(".followButton").html('Follow');
-          }
-        });
-      }
+        //checks to see if you're looking at your own profile
+        if ($stateParams.username === $rootScope.user.username) {
+          $(".followButton").hide(); //hides follow button if looking at your own profile
+        }
+        else {
+          UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing, user) {
+            if (isFollowing) {
+              $(".followButton").html('Unfollow');
+            }
+            else {
+              $(".followButton").html('Follow');
+            }
+          });
+        }
+      }c
     });
   };
   updateProfile();
@@ -179,14 +185,13 @@ $scope.getPhoto = function(user_name) {
     UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing) {
       if (isFollowing) {
         UserService.removeFollowing($stateParams.username, $rootScope.user, function(data) {
-          console.log("Controller.scope.follow: unfollowed");
-          $rootScope.user = data.user;
+          if (typeof data.user !== 'undefined') $rootScope.user = data.user;
           updateProfile();
         });
       }
       else {
         UserService.addFollowing($stateParams.username, $rootScope.user, function(data) {
-          $rootScope.user = data.user;
+          if (typeof data.user !== 'undefined') $rootScope.user = data.user;
           updateProfile();
         });
       }
