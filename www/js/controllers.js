@@ -2,7 +2,8 @@ angular.module('starter.controllers', [])
 
 .controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts,ProfileFetch, $ionicPopup) {
   $scope.showChart = function(booleOut) {
-  $scope.booleOut = booleOut;
+  console.log(booleOut.hashtag);
+  $scope.hashtag = booleOut.hashtag;
   $scope.data = {}
 
     // An elaborate, custom popup
@@ -19,7 +20,7 @@ angular.module('starter.controllers', [])
     var dataToSend = {
       bit      : bit,
       hashtag  : booleOuts.parseBooleOut($scope.bitstream.hashtag),
-      username     : $rootScope.user.username
+      username : $rootScope.user.username
     };
 
     $scope.bitstream.hashtag = "";
