@@ -105,6 +105,12 @@ angular.module('starter.services', [])
         error(function(data, status, headers, config) {
           cb(data);
         });
+    },
+    parseBooleOut: function(string) {
+      if (string.charAt(0) != '#') {
+        string = '#' + string;
+      }
+      return string.replace(/ /g, "").replace("#", "").split("#");
     }
   }
 })

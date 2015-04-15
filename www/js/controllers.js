@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
 
     var dataToSend = {
       bit      : bit,
-      hashtag  : $scope.bitstream.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+      hashtag  : booleOuts.parseBooleOut($scope.bitstream.hashtag),
       username     : $rootScope.user.username
     };
 
@@ -30,7 +30,8 @@ angular.module('starter.controllers', [])
 
   $scope.toProfile = function(username) {
     $state.go('profile', {username : username});    
-  }
+  };
+
   // function to update bit stream
   var updateBitStream = function() {
     booleOuts.getParents(function(result){
@@ -103,7 +104,7 @@ $scope.getPhoto = function(user_name) {
   };
 
   $scope.replyPopup = function(parentId) {
-    $scope.data = {}
+    $scope.data = {};
 
     var popup = $ionicPopup.show({
       template: '<input ng-model="reply.hashtag" type = "text">',
@@ -114,12 +115,16 @@ $scope.getPhoto = function(user_name) {
         text: '<b>1</b>',
         type: 'button-royal',
         onTap: function() {
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
           var dataToSend = {
             bit      : 1,
-            hashtag  : $scope.reply.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
             username : $rootScope.user.username,
             parent   : parentId
           };
+          $scope.reply.hashtag = "";
           booleOuts.postReply(dataToSend, function (data) {
            booleOuts.getReplies(parentId, function(result){
             if(result) {
@@ -135,12 +140,16 @@ $scope.getPhoto = function(user_name) {
         text: '<b>0</b>',
         type: 'button-royal',
         onTap: function() {
+         if(!$scope.reply.hashtag) {
+          $scope.reply.hashtag = "";
+         }
          var dataToSend = {
           bit      : 0,
-          hashtag  : $scope.reply.hashtag.replace(/ /g, "").replace("#", "").split("#"),
+          hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
           username : $rootScope.user.username,
           parent   : parentId
         };
+        $scope.reply.hashtag = "";
         booleOuts.postReply(dataToSend, function (data) {
          booleOuts.getReplies(parentId, function(result){
           if(result) {
