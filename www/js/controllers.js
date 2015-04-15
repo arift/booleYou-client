@@ -166,7 +166,7 @@ angular.module('starter.controllers', [])
             }
           });
         }
-      }c
+      }
     });
   };
   updateProfile();
