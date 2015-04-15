@@ -195,22 +195,11 @@ angular.module('starter.services', [])
       var promise = deferred.promise;
       console.log(user.username + " " + pw);
 
-      var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + user.username;
+      var url = 'http://booleyou-server.herokuapp.com/api/user/changepass/' + user.username;
       var dataToSend = {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        username: user.username,
-        password: pw,
-        gender: user.gender,
-        following: user.following,
-        followedby: user.followedby,
-        bits: user.bits,
-        ones: user.ones,
-        zeros: user.zeros,
-        signup_date: user.signup_date
+        newPassword : pw
       }
-      $http.put(url, dataToSend).
+      $http.post(url, dataToSend).
       success(function(data, status, headers, config) {
         console.log("Success!");
         deferred.resolve(data);
