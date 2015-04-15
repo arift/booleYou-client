@@ -150,7 +150,6 @@ $scope.getPhoto = function(user_name) {
 })
 
 .controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope) {
-
   var updateProfile = function() {
     UserService.fetchProfileData($stateParams.username, function(result){
       if(result) {
@@ -159,17 +158,17 @@ $scope.getPhoto = function(user_name) {
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
-        if (UserService.isFollowing($scope.profileData.username, $rootScope.user)) {
-            $("#followButton").html('Unfollow');
-            console.log("unfollow");
-        } else {
-            $("#followButton").html('Follow');
-            console.log("follow");
-        }
+        UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing, user) {
+          if (isFollowing) {
+            $(".followButton").html('Unfollow');
+          }
+          else {
+            $(".followButton").html('Follow');
+          }
+        });
       }
     });
   };
-
   updateProfile();
 
   $scope.goBack = function() {
@@ -177,27 +176,22 @@ $scope.getPhoto = function(user_name) {
   };
 
   $scope.follow = function() {
-      // you are not following the user (api call)
-      if (!UserService.isFollowing($scope.profileData.username, $rootScope.user)) {
-        UserService.addFollowing($scope.profileData.username, $rootScope.user, function(result){
-            if(result) {
-                console.log("Followed");
-                $rootScope.user = result.user;
-            }
-            updateProfile();
+    UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing) {
+      if (isFollowing) {
+        UserService.removeFollowing($stateParams.username, $rootScope.user, function(data) {
+          console.log("Controller.scope.follow: unfollowed");
+          $rootScope.user = data.user;
+          updateProfile();
         });
-    } else { // you are following the user (above api call)
-        UserService.removeFollowing($scope.profileData.username, $rootScope.user, function(result){
-            if(result) {
-                console.log("Unfollowed");
-                $rootScope.user = result.user;
-            }
-            updateProfile();
+      }
+      else {
+        UserService.addFollowing($stateParams.username, $rootScope.user, function(data) {
+          $rootScope.user = data.user;
+          updateProfile();
         });
-    }
-
+      }
+    });
   }
-
 })
 
 .controller('AccountCtrl', function($scope, $rootScope) {

@@ -116,7 +116,7 @@ angular.module('starter.services', [])
 
     fetchProfileData: function(user_name, cb) {
         var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + user_name;
-        console.log(url);
+
         $http.get(url).
             success(function(data, status, headers, config) {
                 cb(data);
@@ -126,7 +126,7 @@ angular.module('starter.services', [])
             });
     },
     addFollowing: function(toFollow, user, cb) {
-        $http.get('http://booleyou-server.herokuapp.com/api/user/' + user.username + '/follow/' + toFollow).    // adds follower
+        $http.get('http://booleyou-server.herokuapp.com/api/user/' + user.username + '/follow/' + toFollow).
             success(function(data, status, headers, config) {
                 cb(data);
             }).
@@ -135,7 +135,7 @@ angular.module('starter.services', [])
             });
     },
     removeFollowing: function(toUnFollow, user, cb) {
-        $http.get('http://booleyou-server.herokuapp.com/api/user/' + user.username + '/unfollow/' + toUnFollow).    // puts the modified user back in the database
+        $http.get('http://booleyou-server.herokuapp.com/api/user/' + user.username + '/unfollow/' + toUnFollow).
             success(function(data, status, headers, config) {
                 cb(data);
             }).
@@ -143,13 +143,19 @@ angular.module('starter.services', [])
                 cb();
             });
     },
-    isFollowing: function (isFollow, user) {
-      if(user.following === undefined){
-        return false;
-      }
-      else {
-        return user.following.indexOf(isFollow) > -1;
-      }
+    isFollowing: function (isFollow, username, cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/user/users/' + username).
+      success(function(user, status, headers, config) {
+        if (user.following.indexOf(isFollow) > -1) {
+          cb(true, user);
+        }
+        else {
+          cb(false);
+        }
+      }).
+      error(function(data, status, headers, config) {
+        cb(false);
+      });
     }
   };
 })
