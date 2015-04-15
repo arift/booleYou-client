@@ -43,14 +43,8 @@ angular.module('starter.controllers', [])
     updateBitStream(); // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
   };
-  $scope.upBoole = function(btn, booleOut) {
-    // this function will add a 1 to the hashtag profile
-  };
-  $scope.downBoole = function(btn, booleOut) {
-    // this function will add a 0 to the hashtag profile
-  };
-  var flag = true;
 
+  var flag = true;
 
   $scope.reply = function(parentId)  {
     // this function will display a posting environment in which to reply to a booleOut
@@ -165,10 +159,12 @@ $scope.getPhoto = function(user_name) {
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
-        if (UserService.isFollowing($scope.profileData.username, $rootScope.user.username)) {
+        if (result.followedby.indexOf($rootScope.user.username) > -1) {
             $("#followButton").html('Unfollow');
+            console.log("unfollow");
         } else {
             $("#followButton").html('Follow');
+            console.log("follow");
         }
       }
     });
