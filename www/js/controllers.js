@@ -17,7 +17,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.toProfile = function(username) {
-    $state.go('profile', {username : username});    
+    $state.go('profile', {username : username});
   };
 
   // function to update bit stream
@@ -159,7 +159,7 @@ $scope.getPhoto = function(user_name) {
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
-        if (result.followedby.indexOf($rootScope.user.username) > -1) {
+        if (UserService.isFollowing($scope.profileData.username, $rootScope.user)) {
             $("#followButton").html('Unfollow');
             console.log("unfollow");
         } else {
@@ -227,7 +227,7 @@ updateProfile();
       $state.go('tab.bitstream');
     }).error(function(data){
       shakeShakeShake();
-    });                                                                        
+    });
 
     function shakeShakeShake() {
       //turn red
@@ -236,19 +236,19 @@ updateProfile();
       //$(".invalidHolder").addClass("invalid");
 
       //shake!
-      var interval = 50;                                                                                                 
-      var distance = 10;                                                                                                  
-      var times = 4;                                                                                                      
+      var interval = 50;
+      var distance = 10;
+      var times = 4;
 
-      $(".padding").css('position','relative');                                                                                  
+      $(".padding").css('position','relative');
 
-      for(var iter=0;iter<(times+1);iter++){                                                                              
-        $(".padding").animate({ 
+      for(var iter=0;iter<(times+1);iter++){
+        $(".padding").animate({
           left:((iter%2==0 ? distance : distance*-1))
-        },interval);                                   
-      }                                                                                                             
+        },interval);
+      }
 
-      $(".padding").animate({ left: 0},interval);  
+      $(".padding").animate({ left: 0},interval);
     }
   };
 })
@@ -340,7 +340,7 @@ $scope.submitForm = function() {
     }).error(function(data){
       userExists=true;
       shakeShakeShake();
-    }); 
+    });
 
     function shakeShakeShake() {
       //turn red
@@ -410,19 +410,19 @@ $scope.submitForm = function() {
       $(".invalidHolder").addClass("invalid");
 
       //shake!
-      var interval = 50;                                                                                                 
-      var distance = 10;                                                                                                  
-      var times = 4;                                                                                                      
+      var interval = 50;
+      var distance = 10;
+      var times = 4;
 
-      $(placer).css('position','relative');                                                                                  
+      $(placer).css('position','relative');
 
-      for(var iter=0;iter<(times+1);iter++){                                                                              
-        $(placer).animate({ 
+      for(var iter=0;iter<(times+1);iter++){
+        $(placer).animate({
           left:((iter%2==0 ? distance : distance*-1))
-        },interval);                                   
-      }                                                                                                             
+        },interval);
+      }
 
-      $(placer).animate({ left: 0},interval);  
+      $(placer).animate({ left: 0},interval);
     }
   };
 });
