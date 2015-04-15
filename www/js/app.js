@@ -47,6 +47,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   .state('profile', {
+    cache: false,
     url: '/profile/:username',
     templateUrl: 'templates/profile.html',
     controller: 'ProfileCtrl'
