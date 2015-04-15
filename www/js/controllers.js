@@ -3,13 +3,11 @@ angular.module('starter.controllers', [])
 .controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, UserService, $ionicPopup) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
-
     var dataToSend = {
       bit      : bit,
       hashtag  : booleOuts.parseBooleOut($scope.bitstream.hashtag),
       username     : $rootScope.user.username
     };
-
     $scope.bitstream.hashtag = "";
     booleOuts.postBooleOut(dataToSend, function (data) {
       updateBitStream();
@@ -20,7 +18,6 @@ angular.module('starter.controllers', [])
     $state.go('profile', {username : username});
   };
 
-  // function to update bit stream
   var updateBitStream = function() {
     booleOuts.getParents(function(result){
       if(result) {
@@ -33,42 +30,39 @@ angular.module('starter.controllers', [])
         };
       }
     });
-
   };
 
   updateBitStream();
 
-  // this function returns all the booleOuts stored in our Mongo DB
-  $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
+  // this function is executed when the user drags down the interface to refresh the BitStream
+  $scope.refresh = function() {     
     updateBitStream(); // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
   };
 
   var flag = true;
 
-  $scope.reply = function(parentId)  {
+  $scope.reply = function(parentId)  {    
     // this function will display a posting environment in which to reply to a booleOut
     if(!flag) {
-     $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
-     flag = true;
-   }
-   else{
-    $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
-    flag = false;
-  }
-  booleOuts.getReplies(parentId, function(result){
-    if(result) {
-      if(!$scope.allReplies)
-        $scope.allReplies = [];
-      $scope.allReplies[parentId] = result;
+      $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
+      flag = true;
     }
-
-
-  });
-};
-$scope.getPhoto = function(user_name) {
-    // return the user's photo to user on the booleOut list-card
+    else{
+      $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
+      flag = false;
+    }
+    booleOuts.getReplies(parentId, function(result){
+      if(result) {
+        if(!$scope.allReplies)
+          $scope.allReplies = [];
+        $scope.allReplies[parentId] = result;
+      }
+    });
   };
+  $scope.getPhoto = function(user_name) {
+      // return the user's photo to user on the booleOut list-card
+    };
   $scope.getBit = function(boolean) {
     if (boolean == true) {
       return 1;
@@ -88,20 +82,45 @@ $scope.getPhoto = function(user_name) {
   $scope.replyPopup = function(parentId) {
     $scope.data = {};
 
-    var popup = $ionicPopup.show({
-      template: '<input ng-model="reply.hashtag" type = "text">',
-      title: 'Enter Reply',
-      scope: $scope,
-      buttons: [
-      {
-        text: '<b>1</b>',
-        type: 'button-royal',
-        onTap: function() {
-          if(!$scope.reply.hashtag) {
+      var popup = $ionicPopup.show({
+        template: '<input ng-model="reply.hashtag" type = "text">',
+        title: 'Enter Reply',
+        scope: $scope,
+        buttons: [
+        {
+          text: '<b>1</b>',
+          type: 'button-royal',
+          onTap: function() {
+            if(!$scope.reply.hashtag) {
+              $scope.reply.hashtag = "";
+            }
+            var dataToSend = {
+              bit      : 1,
+              hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+              username : $rootScope.user.username,
+              parent   : parentId
+            };
+            $scope.reply.hashtag = "";
+            booleOuts.postReply(dataToSend, function (data) {
+             booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                  $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
+           });
+          }
+        },
+        {
+          text: '<b>0</b>',
+          type: 'button-royal',
+          onTap: function() {
+           if(!$scope.reply.hashtag) {
             $scope.reply.hashtag = "";
           }
           var dataToSend = {
-            bit      : 1,
+            bit      : 0,
             hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
             username : $rootScope.user.username,
             parent   : parentId
@@ -118,35 +137,10 @@ $scope.getPhoto = function(user_name) {
          });
         }
       },
-      {
-        text: '<b>0</b>',
-        type: 'button-royal',
-        onTap: function() {
-         if(!$scope.reply.hashtag) {
-          $scope.reply.hashtag = "";
-         }
-         var dataToSend = {
-          bit      : 0,
-          hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
-          username : $rootScope.user.username,
-          parent   : parentId
-        };
-        $scope.reply.hashtag = "";
-        booleOuts.postReply(dataToSend, function (data) {
-         booleOuts.getReplies(parentId, function(result){
-          if(result) {
-            if(!$scope.allReplies)
-              $scope.allReplies = [];
-            $scope.allReplies[parentId] = result;
-          }
-        });
-       });
-      }
-    },
-    { text: 'Exit' }
-    ]
-  });
-}
+      { text: 'Exit' }
+      ]
+    });
+  }
 })
 
 .controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope) {
@@ -265,8 +259,8 @@ updateProfile();
 .controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http) {
 
  // Triggered on a button click, or some other target
- $scope.showPopup = function() {
-  $scope.data = {}
+  $scope.showPopup = function() {
+    $scope.data = {}
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -299,30 +293,29 @@ updateProfile();
     else {
      $('.emailText').text("Email");
      $('.emailText').css("color","black");
-   }
- };
+    }
+  };
 
- $scope.compareTo = function() {
-  if($scope.signup.password === $scope.signup.confirmPassword) {
-    $('.confirmText').text("Passwords Match");
-    $('.confirmText').css("color","green");
-  }
+  $scope.compareTo = function() {
+    if($scope.signup.password === $scope.signup.confirmPassword) {
+      $('.confirmText').text("Passwords Match");
+      $('.confirmText').css("color","green");
+    }
 
-  else {
-    $('.confirmText').text("Passwords Do Not Match");
-    $('.confirmText').css("color","red");
-  }
+    else {
+      $('.confirmText').text("Passwords Do Not Match");
+      $('.confirmText').css("color","red");
+    }
+  };
 
-};
+  $scope.submitForm = function() {
+    $scope.data = {}
+    var userExists = false;
 
-$scope.submitForm = function() {
-  $scope.data = {}
-  var userExists = false;
-
-  if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
-    shakeShakeShake();
-    return;
-  }
+    if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
+      shakeShakeShake();
+      return;
+    }
 
     //this should be same as the User schema on the server
     var user = {
