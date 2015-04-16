@@ -130,8 +130,8 @@ $scope.getPhoto = function(user_name) {
         onTap: function() {
          if(!$scope.reply.hashtag) {
           $scope.reply.hashtag = "";
-         }
-         var dataToSend = {
+        }
+        var dataToSend = {
           bit      : 0,
           hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
           username : $rootScope.user.username,
@@ -175,8 +175,8 @@ $scope.getPhoto = function(user_name) {
     $state.go('tab.bitstream');
   };
 
- $scope.showSettings = function() {
-  $scope.data = {}
+  $scope.showSettings = function() {
+    $scope.data = {}
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -203,15 +203,33 @@ $scope.getPhoto = function(user_name) {
 })
 
 .controller('SettingsCtrl', function($scope, $state, $stateParams, ProfileFetch, SettingsService) {
+  $(".hideMe").hide();
   var oldUserName = $scope.user.username;
-
   $scope.changeUsername = function(user) {
     SettingsService.changeUserName(oldUserName, user);
-   };
+  };
 
-   $scope.changePassword = function(placer) {
+  $scope.changePassword = function(placer) {
     SettingsService.changePassword($scope.user, placer.password);
-   };
+  };
+
+  $scope.compareTo = function(password, confirmPassword) {
+    if(password === confirmPassword) {
+      $('.confirmTextSettings').text("Passwords Match");
+      $('.confirmTextSettings').css("color","green");
+    }
+
+    else {
+      $('.confirmText').text("Passwords Do Not Match");
+      $('.confirmTextSettings').css("color","red");
+    }
+  };
+
+  $scope.showConfirm = function() {
+    $(".removeMe").hide();
+    $(".hideMe").show();
+  };
+
 })
 
 .controller('FollowingCtrl', function($scope, Chats) {
