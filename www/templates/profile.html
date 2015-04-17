@@ -2,7 +2,7 @@
   <ion-content>
     <div class="list">
       <div class="padding profilePadding">
-       <div style="text-align: center"> <img src = "img/defaultProfile.png"> 
+       <div style="text-align: center"> <img src = "img/defaultProfile.png">
        <p><p>
        <i id="profileFont">{{profileData.firstName}} {{profileData.lastName}}</i>
        <br>
@@ -10,11 +10,14 @@
        </p></p></div>
        <p> <i >Sign Up Date: {{profileData.signup_date[1]}}/{{profileData.signup_date[0]}}/{{profileData.signup_date[2]}}</i> </p>
 
-      <div class="container center-children">
-        <button class="button button-royal" href="#" ng-click="goBack()">
-          Go Back
-        </button>
-      </div>
+        <div class="container center-children">
+          <button class="button button-royal" ng-click="goBack()">
+            Go Back
+          </button>
+          <button class="button button-royal followButton" ng-click="follow()">
+            
+          </button>
+        </div>
       </div>
     </div>
   </ion-content>
