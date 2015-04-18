@@ -37,7 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
   .state('signup', {
     url: '/signup',
-    templateUrl: 'templates/signup.html',
+    templateUrl: 'templates/signup.html'
   })
 
   .state('welcome', {
@@ -47,14 +47,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   .state('profile', {
+    cache: false,
     url: '/profile/:username',
     templateUrl: 'templates/profile.html',
     controller: 'ProfileCtrl',
-  })
-
-  .state('d3', {
-    url: '/d3',
-    templateUrl: 'templates/d3Test.html',
   })
 
   // setup an abstract state for the tabs directive
@@ -120,6 +116,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
         controller: 'AccountCtrl'
+      }
+    }
+  })
+
+ .state('tab.settings', {
+    url: '/settings',
+    views: {
+      'tab-settings': {
+        templateUrl: 'templates/tab-settings.html',
+        controller: 'SettingsCtrl'
       }
     }
   });
