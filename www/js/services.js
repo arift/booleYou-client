@@ -28,7 +28,17 @@ angular.module('starter.services', [])
             cb();
         });
     },
-    getReplies: function(parentid, cb) {
+    getFollowingParents: function(cb, username) {
+      $http.get('http://booleyou-server.herokuapp.com/api/booleout/getfollowerbooleouts/' + username).
+          success(function(data, status, headers, config) {
+              cb(data);
+          }).
+          error(function(data, status, headers, config) {
+              cb();
+          });
+
+    },
+    getreplies: function(parentid, cb) {
       var apiUrl = "http://booleyou-server.herokuapp.com/api/booleout/getreplies/" + parentid;
       $http.get(apiUrl).
         success(function(data, status, headers, config) {

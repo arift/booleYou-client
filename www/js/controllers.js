@@ -3,6 +3,7 @@ angular.module('starter.controllers', [])
 .controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, UserService, $ionicPopup) {
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
+    $scope.type = 'global';
 
     var dataToSend = {
       bit      : bit,
@@ -21,26 +22,79 @@ angular.module('starter.controllers', [])
   };
 
   // function to update bit stream
-  var updateBitStream = function() {
-    booleOuts.getParents(function(result){
-      if(result) {
-        $scope.posts = result;
-        $scope.replyShow = [];
+      var updateBitStream = function(type) {
+          if (type === 'this') {
+              if ($scope.type === 'global') {
+                  booleOuts.getParents(function(result) {
+                      if(result) {
+                          $scope.posts = result;
+                          $scope.replyShow = [];
 
-        var booleOut;
-        for(booleOut in result){
-          $scope.replyShow[result[booleOut]._id] = false;
-        };
-      }
-    });
+                          var booleOut;
+                          for(booleOut in result) {
+                              $scope.replyShow[result[booleOut]._id] = false;
+                          }
+                      }
+                  });
+              }
+              if ($scope.type === 'personal') {
+                  booleOuts.getFollowingParents(function(result) {
+                      if(result) {
+                          $scope.posts = result;
+                          $scope.replyShow = [];
 
-  };
+                          var booleOut;
+                          for(booleOut in result) {
+                              $scope.replyShow[result[booleOut]._id] = false;
+                          }
+                      }
+                  }, $rootScope.user.username);
+              }
+          }
+          if (type === 'global') {
+              booleOuts.getParents(function(result) {
+                  if(result) {
+                      $scope.posts = result;
+                      $scope.replyShow = [];
+
+                      var booleOut;
+                      for(booleOut in result) {
+                          $scope.replyShow[result[booleOut]._id] = false;
+                      }
+                  }
+              });
+          }
+          if (type === 'personal') {
+              booleOuts.getFollowingParents(function(result) {
+                  if(result) {
+                      $scope.posts = result;
+                      $scope.replyShow = [];
+
+                      var booleOut;
+                      for(booleOut in result) {
+                          $scope.replyShow[result[booleOut]._id] = false;
+                      }
+                  }
+              });
+          }
+          booleOuts.getParents(function(result) {
+              if(result) {
+                  $scope.posts = result;
+                  $scope.replyShow = [];
+
+                  var booleOut;
+                  for(booleOut in result) {
+                      $scope.replyShow[result[booleOut]._id] = false;
+                  }
+              }
+          });
+      };
 
   updateBitStream();
 
   // this function returns all the booleOuts stored in our Mongo DB
-  $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
-    updateBitStream(); // to refresh the BitStream
+  $scope.refresh = function(type) { // this function is executed when the user drags down the interface to refresh the BitStream
+    updateBitStream(type); // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
   };
 
