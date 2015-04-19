@@ -126,7 +126,6 @@ angular.module('starter.services', [])
 
     fetchProfileData: function(user_name, cb) {
         var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + user_name;
-
         $http.get(url).
             success(function(data, status, headers, config) {
                 cb(data);
@@ -178,11 +177,9 @@ angular.module('starter.services', [])
 
             $http.post('http://booleyou-server.herokuapp.com/auth/signup', userData).
             success(function(data, status, headers, config) {
-              console.log("(services)Server reply: " + status);
               deferred.resolve();
             }).
             error(function(data, status, headers, config) {
-              console.log("(services)Server reply: " + status);
               deferred.reject();
             });
 
