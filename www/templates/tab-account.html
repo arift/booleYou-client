@@ -9,22 +9,35 @@
        <i id="usernameFont">{{profileData.username}}</i>
        </p></p></div>
        <p> <i >Sign Up Date: {{profileData.signup_date[1]}}/{{profileData.signup_date[0]}}/{{profileData.signup_date[2]}}</i> </p>
+      <p>
+        <i>Bits: {{profileData.bits}}</i>
+      </P>
 
-<!--        <div class="list list-inset">
+      <ion-list type="in-set" >
+          <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" >
+            <div class="item item-avatar" >
+              <img src="img/stock_picture.png">
+              <h2><b>{{BooleOut.username}}</b></h2>
+              <p>{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</p>
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
 
-    <div class="item">
-      1 #SnowDay
-    </div>
-    <div class="item">
-      0 #Deadlines
-    </div>
-    <div class="item">
-      1 #Spring
-    </div>
+              <button class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]"></button>
+              <button class="button icon-left ion-chatbox" href="" ng-click="replyPopup(BooleOut._id); replyShow[BooleOut._id] = true">
+              </button>
 
-    
+            </div>
 
-</div> -->
+            <div class="list card" ng-show="replyShow[BooleOut._id]" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
+              <div class="item item-avatar" >
+                <img src="img/stock_picture.png">
+                <h2><b ng-click="toProfile(reply.username)">{{reply.username}}</b></h2>
+                <p ng-click="toProfile(reply.username)">{{getBit(reply.bit)}} {{getHashtags(reply.hashtag)}}</p>
+              </div>
+            </div>  
+          </div>
+        </ion-list>
+
       </div>
     </div>
   </ion-content>
