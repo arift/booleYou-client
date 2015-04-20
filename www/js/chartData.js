@@ -1,7 +1,7 @@
  
   var $scope = angular.element($("#dataVisual")).scope();
   var chartWidth = $("#dataVisual").width() - 40;
-  var chartHeight = $('ion-content').height() - 110;
+  var chartHeight = $('ion-content').height() - 120;
    $('.popup').css('width',chartWidth+20);
    $('.popup').css('height',chartHeight+150);
 
