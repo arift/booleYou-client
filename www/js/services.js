@@ -71,6 +71,29 @@ angular.module('starter.services', [])
   }
 })
 
+.service('HashtagService', function($http) {
+  return {
+    getbyhashtag: function(hashtag, cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/hashtag/getbyhashtag/' + hashtag).
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb(data);
+      });
+    },
+    getbyuser: function(username, cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/hashtag/getbyuser/' + username).
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb(data);
+      });
+    }
+  }
+})
+
 .service('LoginService', function($q, $http) {
   return {
     loginUser: function(name, pw) {
