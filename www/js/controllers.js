@@ -485,7 +485,6 @@ angular.module('starter.controllers', [])
 .controller('LoginCtrl', function($scope, $rootScope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
-    console.log(user);
     if (!user || !user.bitname || !user.password) {
       shakeShakeShake();
       return;
