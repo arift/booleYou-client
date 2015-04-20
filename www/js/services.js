@@ -34,6 +34,16 @@ angular.module('starter.services', [])
         cb();
       });
     },
+    getByUser: function(username, cb) {
+      var apiUrl = "http://booleyou-server.herokuapp.com/api/booleout/getbooleouts/" + username;
+      $http.get(apiUrl).
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb();
+      });
+    },
     postBooleOut: function(booleOut, cb) {
       $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', booleOut).
       success(function(data, status, headers, config) {
@@ -57,6 +67,29 @@ angular.module('starter.services', [])
         string = '#' + string;
       }
       return string.replace(/ /g, "").replace("#", "").split("#");
+    }
+  }
+})
+
+.service('HashtagService', function($http) {
+  return {
+    getbyhashtag: function(hashtag, cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/hashtag/getbyhashtag/' + hashtag).
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb(data);
+      });
+    },
+    getbyuser: function(username, cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/hashtag/getbyuser/' + username).
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb(data);
+      });
     }
   }
 })

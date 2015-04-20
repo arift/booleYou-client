@@ -1,17 +1,25 @@
 angular.module('starter.controllers', [])
 
 
-.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, UserService, $ionicPopup) {
+.controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, UserService, $ionicPopup, $ionicModal, HashtagService) {
   $scope.showChart = function(booleOut) {
-    console.log(booleOut.hashtag);
-    $scope.hashtag = booleOut.hashtag;
-    $scope.data = {}
+    HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
+    if(result){
+      var scope = angular.element($("#dataVisual")).scope();
+      console.log(result);
+      scope.hashtag = result;
 
-    // An elaborate, custom popup
-    var myPopup = $ionicPopup.show({
-      templateUrl: 'templates/pieChart.html',
-      scope: $scope,
-    });
+
+      var myPopup = $ionicPopup.show({
+        templateUrl: 'templates/pieChart.html',
+        scope: $scope,
+        buttons: [
+      { text: 'Close' }
+      ]
+      });
+
+    }
+  })
 
   };
 

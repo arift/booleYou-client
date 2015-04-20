@@ -1,9 +1,9 @@
-  var $scope = angular.element("#dataVisual").scope();
-  console.log("Test: " + $scope.hashtag.zeros);
+  var $scope = angular.element($("#dataVisual")).scope();
+  console.log($("#dataVisual").width());
   var pie = new d3pie("pie", {
     "header": {
       "title": {
-        "text": "#" + $scope.hashtag,
+        "text": "#" + $scope.hashtag.hashtag,
         "fontSize": 24,
         "font": "open sans"
       },
@@ -16,8 +16,8 @@
       "location": "bottom-left"
     },
     "size": {
-      "canvasHeight": 400,
-      "canvasWidth": 400,
+      "canvasHeight":400,
+      "canvasWidth": 350,
       "pieInnerRadius": "20%",
       "pieOuterRadius": "90%"
     },
@@ -26,12 +26,12 @@
       "content": [
       {
         "label": "1",
-        "value": 1,
+        "value": $scope.hashtag.ones,
         "color": "#a577b7"
       },
       {
         "label": "0",
-        "value": 1,
+        "value": $scope.hashtag.zeros,
         "color": "#9177b4"
       }
       ]
