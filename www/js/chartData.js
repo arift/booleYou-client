@@ -1,5 +1,11 @@
+ 
   var $scope = angular.element($("#dataVisual")).scope();
-  var chartWidth = $("#dataVisual").width() - 20;
+  var chartWidth = $("#dataVisual").width() - 40;
+  var chartHeight = $('ion-content').height() - 120;
+   $('.popup').css('width',chartWidth+20);
+   $('.popup').css('height',chartHeight+150);
+
+  console.log(chartWidth);
   var pie = new d3pie("pie", {
     "header": {
       "title": {
@@ -16,7 +22,7 @@
       "location": "bottom-left"
     },
     "size": {
-      "canvasHeight":400,
+      "canvasHeight":chartHeight,
       "canvasWidth": chartWidth,
       "pieInnerRadius": "20%",
       "pieOuterRadius": "90%"
