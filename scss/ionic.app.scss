@@ -21,11 +21,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-.signUpPadding {
-	margin: auto;
-	position: absolute;
- 	top: 0; left: 0; bottom: 0; right: 0;
+//**welcome view**//
+.welcome_content {
+	background: url("../img/bitcloud1.jpg") repeat 0 0;
+	background-color: #502d7f;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	.button-bottom {
+		position: absolute;
+		bottom: 10%;
+	}
 }
+
 
 .confirmTextSettings {
 	color: red;
@@ -59,19 +67,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	font-size: 160%;
 }
 
-.splash {
-	background: url("../img/bitcloud1.jpg") repeat 0 0;
-	background-color: #502d7f;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center center;
 
-}
 
-.button-bottom {
-	position: absolute;
-	margin-top: 135%;
-}
+
 
 
 .signUpBirthdayMonth {
