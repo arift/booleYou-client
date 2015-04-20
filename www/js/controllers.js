@@ -322,13 +322,17 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup) {
+.controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup, UserService) {
   var updateProfile = function() {
-    $scope.profileData = $rootScope.user;
-    var year = $rootScope.user.signup_date.substring(0, 4);
-    var month = $rootScope.user.signup_date.substring(5, 7);
-    var day = $rootScope.user.signup_date.substring(8, 10);
-    $rootScope.user.signup_date=[day,month,year];
+    UserService.fetchProfileData($rootScope.user.username, function(result){
+      if(result) {
+        $scope.profileData = result;
+        var year = $scope.profileData.signup_date.substring(0, 4);
+        var month = $scope.profileData.signup_date.substring(5, 7);
+        var day = $scope.profileData.signup_date.substring(8, 10);
+        $scope.profileData.signup_date=[day,month,year];
+      }
+    })
   };
 
   updateProfile();
@@ -346,17 +350,16 @@ angular.module('starter.controllers', [])
         };
       }
     });
-
   };
 
   updateBitStream();
-/* This function has temporarily been commented out as it causes TypeError
+
   $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
     updateBitStream(); // to refresh the BitStream
     updateProfile(); // to refresh the User data
     $scope.$broadcast('scroll.refreshComplete');
   };
-*/
+  
   var flag = true;
   $scope.reply = function(parentId)  {
     // this function will display a posting environment in which to reply to a booleOut
