@@ -21,3 +21,113 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+//** welcome view **//
+.welcome-content {
+	background: url("../img/bitcloud1.jpg") repeat 0 0;
+	background-color: #502d7f;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	.button-bottom {
+		position: absolute;
+		bottom: 10%;
+	}
+}
+
+//** login view **//
+.login-content {
+	.image-container {
+		text-align: center;
+		position:absolute;
+		left:0px; 
+		right:0px; 
+		top:0px; 
+		bottom:282px; //height of the login-forum
+		.logo {
+			height: 100%;
+    		width: auto;
+			max-width: 300px;
+			max-height: 300px;    		
+		}
+	}
+	.login-forum {
+		position: fixed;
+		width: 100%;
+		bottom: 0px;
+	}
+}
+
+.confirmTextSettings {
+	color: red;
+}
+
+.profilePadding {
+	margin: auto;
+	position: absolute;
+ 	top: 10%; left: 0; bottom: 0; right: 0;
+}
+
+.booleOutInput {
+    width: 80%;
+}
+
+.postOne {
+    width: 10%;
+}
+
+.postOne {
+    width: 10%;
+}
+
+#profileFont {
+	font-size: 200%;
+	font-family: Copperplate;
+}
+
+#usernameFont{
+	color: rgb(215, 208, 208);
+	font-size: 160%;
+}
+
+
+
+
+
+
+.signUpBirthdayMonth {
+	margin-right: 35%;
+}
+.signUpBirthdayDay {
+	margin-right: 18%;
+}
+
+.invalid {
+	box-shadow:0 0 4px 1px #bd1f30;
+}
+
+.invalidText {
+	color: #bd1f30;
+	opacity: 0;
+}
+
+ion-content {
+	background-color: MediumPurple;
+}
+
+.center-children {
+  text-align: center;
+}
+
+.bar.bar-royal {
+	background-color: Indigo;
+	background-image: none;
+}
+
+.item-floating-label {
+	background-color: White;
+}
+
+.loadImage {
+	background-color: #502d7f;
+}
+

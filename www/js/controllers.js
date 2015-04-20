@@ -10,7 +10,6 @@ angular.module('starter.controllers', [])
       hashtag  : booleOuts.parseBooleOut($scope.bitstream.hashtag),
       username     : $rootScope.user.username
     };
-
     $scope.bitstream.hashtag = "";
     booleOuts.postBooleOut(dataToSend, function (data) {
       updateBitStream();
@@ -20,7 +19,6 @@ angular.module('starter.controllers', [])
   $scope.toProfile = function(username) {
     $state.go('profile', {username : username});
   };
-
   // function to update bit stream
       var updateBitStream = function(type) {
           if (type === 'this') {
@@ -100,27 +98,204 @@ angular.module('starter.controllers', [])
 
   var flag = true;
 
+  $scope.reply = function(parentId)  {    
+    // this function will display a posting environment in which to reply to a booleOut
+    if(!flag) {
+      $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
+      flag = true;
+    }
+    else{
+      $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
+      flag = false;
+    }
+    booleOuts.getReplies(parentId, function(result){
+      if(result) {
+        if(!$scope.allReplies)
+          $scope.allReplies = [];
+        $scope.allReplies[parentId] = result;
+      }
+    });
+  };
+  $scope.getPhoto = function(user_name) {
+      // return the user's photo to user on the booleOut list-card
+    };
+  $scope.getBit = function(boolean) {
+    if (boolean == true) {
+      return 1;
+    }
+    return 0;
+  };
+  $scope.getHashtags = function(hashtag) {
+    var tags = "";
+    hashtag.forEach(function(entry) {
+      if(entry.trim() != "") {
+        tags += "#" + entry + " ";
+      }
+    });
+    return tags;
+  };
+
+  $scope.replyPopup = function(parentId) {
+    $scope.data = {};
+
+      var popup = $ionicPopup.show({
+        template: '<input ng-model="reply.hashtag" type = "text">',
+        title: 'Enter Reply',
+        scope: $scope,
+        buttons: [
+        {
+          text: '<b>1</b>',
+          type: 'button-royal',
+          onTap: function() {
+            if(!$scope.reply.hashtag) {
+              $scope.reply.hashtag = "";
+            }
+            var dataToSend = {
+              bit      : 1,
+              hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+              username : $rootScope.user.username,
+              parent   : parentId
+            };
+            $scope.reply.hashtag = "";
+            booleOuts.postReply(dataToSend, function (data) {
+             booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                  $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
+           });
+          }
+        },
+        {
+          text: '<b>0</b>',
+          type: 'button-royal',
+          onTap: function() {
+           if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
+          var dataToSend = {
+            bit      : 0,
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          $scope.reply.hashtag = "";
+          booleOuts.postReply(dataToSend, function (data) {
+           booleOuts.getReplies(parentId, function(result){
+            if(result) {
+              if(!$scope.allReplies)
+                $scope.allReplies = [];
+              $scope.allReplies[parentId] = result;
+            }
+          });
+         });
+        }
+      },
+      { text: 'Exit' }
+      ]
+    });
+  }
+})
+
+.controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope, booleOuts, $ionicPopup) {
+  var updateProfile = function() {
+    UserService.fetchProfileData($stateParams.username, function(result){
+      if(result) {
+        $scope.profileData = result;
+        var year = result.signup_date.substring(0, 4);
+        var month = result.signup_date.substring(5, 7);
+        var day = result.signup_date.substring(8, 10);
+        result.signup_date=[day,month,year];
+        //checks to see if you're looking at your own profile
+        if ($stateParams.username === $rootScope.user.username) {
+          $(".followButton").hide(); //hides follow button if looking at your own profile
+        }
+        else {
+          UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing, user) {
+            if (isFollowing) {
+              $(".followButton").html('Unfollow');
+            }
+            else {
+              $(".followButton").html('Follow');
+            }
+          });
+        }
+      }
+    });
+  };
+  updateProfile();
+
+  $scope.goBack = function() {
+    $state.go('tab.bitstream');
+  };
+
+  $scope.follow = function() {
+    UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing) {
+      if (isFollowing) {
+        UserService.removeFollowing($stateParams.username, $rootScope.user, function(data) {
+          if (typeof data.user !== 'undefined') $rootScope.user = data.user;
+          updateProfile();
+        });
+      }
+      else {
+        UserService.addFollowing($stateParams.username, $rootScope.user, function(data) {
+          if (typeof data.user !== 'undefined') $rootScope.user = data.user;
+          updateProfile();
+        });
+      }
+    });
+  };
+
+  // function to update bit stream
+  var updateBitStream = function() {
+    booleOuts.getByUser($stateParams.username, function(result){
+      if(result) {
+        $scope.posts = result;
+        $scope.replyShow = [];
+
+        var booleOut;
+        for(booleOut in result){
+          $scope.replyShow[result[booleOut]._id] = false;
+        };
+      }
+    });
+
+  };
+
+  updateBitStream();
+
+  $scope.goBack = function() {
+    $state.go('tab.bitstream');
+  };
+
+  $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
+    updateBitStream(); // to refresh the BitStream
+    updateProfile(); // to refresh the User data
+    $scope.$broadcast('scroll.refreshComplete');
+  };
+
+  var flag = true;
   $scope.reply = function(parentId)  {
     // this function will display a posting environment in which to reply to a booleOut
     if(!flag) {
-     $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
-     flag = true;
-   }
-   else{
-    $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
-    flag = false;
-  }
-  booleOuts.getReplies(parentId, function(result){
-    if(result) {
-      if(!$scope.allReplies)
-        $scope.allReplies = [];
-      $scope.allReplies[parentId] = result;
+      $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
+      flag = true;
     }
-
-
-  });
-};
-$scope.getPhoto = function(user_name) {
+    else{
+      $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
+      flag = false;
+    }
+    booleOuts.getReplies(parentId, function(result){
+      if(result) {
+        if(!$scope.allReplies)
+          $scope.allReplies = [];
+        $scope.allReplies[parentId] = result;
+      }
+    });
+  };
+  $scope.getPhoto = function(user_name) {
     // return the user's photo to user on the booleOut list-card
   };
   $scope.getBit = function(boolean) {
@@ -162,114 +337,189 @@ $scope.getPhoto = function(user_name) {
           };
           $scope.reply.hashtag = "";
           booleOuts.postReply(dataToSend, function (data) {
-           booleOuts.getReplies(parentId, function(result){
-            if(result) {
-              if(!$scope.allReplies)
-                $scope.allReplies = [];
-              $scope.allReplies[parentId] = result;
-            }
+            booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                  $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
           });
-         });
         }
       },
       {
         text: '<b>0</b>',
         type: 'button-royal',
         onTap: function() {
-         if(!$scope.reply.hashtag) {
-          $scope.reply.hashtag = "";
-         }
-         var dataToSend = {
-          bit      : 0,
-          hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
-          username : $rootScope.user.username,
-          parent   : parentId
-        };
-        $scope.reply.hashtag = "";
-        booleOuts.postReply(dataToSend, function (data) {
-         booleOuts.getReplies(parentId, function(result){
-          if(result) {
-            if(!$scope.allReplies)
-              $scope.allReplies = [];
-            $scope.allReplies[parentId] = result;
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
           }
-        });
-       });
-      }
-    },
-    { text: 'Exit' }
-    ]
-  });
-}
-})
-
-.controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope) {
-  var updateProfile = function() {
-    UserService.fetchProfileData($stateParams.username, function(result){
-      if(result) {
-        $scope.profileData = result;
-        var year = result.signup_date.substring(0, 4);
-        var month = result.signup_date.substring(5, 7);
-        var day = result.signup_date.substring(8, 10);
-        result.signup_date=[day,month,year];
-        //checks to see if you're looking at your own profile
-        if ($stateParams.username === $rootScope.user.username) {
-          $(".followButton").hide(); //hides follow button if looking at your own profile
-        }
-        else {
-          UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing, user) {
-            if (isFollowing) {
-              $(".followButton").html('Unfollow');
-            }
-            else {
-              $(".followButton").html('Follow');
-            }
+          var dataToSend = {
+            bit      : 0,
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          $scope.reply.hashtag = "";
+          booleOuts.postReply(dataToSend, function (data) {
+            booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
           });
         }
-      }c
-    });
-  };
-  updateProfile();
-
-  $scope.goBack = function() {
-    $state.go('tab.bitstream');
-  };
-
-  $scope.follow = function() {
-    UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing) {
-      if (isFollowing) {
-        UserService.removeFollowing($stateParams.username, $rootScope.user, function(data) {
-          if (typeof data.user !== 'undefined') $rootScope.user = data.user;
-          updateProfile();
-        });
-      }
-      else {
-        UserService.addFollowing($stateParams.username, $rootScope.user, function(data) {
-          if (typeof data.user !== 'undefined') $rootScope.user = data.user;
-          updateProfile();
-        });
-      }
+      },
+      { text: 'Exit' }
+      ]
     });
   }
 })
 
-.controller('AccountCtrl', function($scope, $rootScope) {
- var updateProfile = function() {
-  $scope.profileData = $rootScope.user;
-  var year = $rootScope.user.signup_date.substring(0, 4);
-  var month = $rootScope.user.signup_date.substring(5, 7);
-  var day = $rootScope.user.signup_date.substring(8, 10);
-  $rootScope.user.signup_date=[day,month,year];
-};
+.controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup) {
+  var updateProfile = function() {
+    $scope.profileData = $rootScope.user;
+    var year = $rootScope.user.signup_date.substring(0, 4);
+    var month = $rootScope.user.signup_date.substring(5, 7);
+    var day = $rootScope.user.signup_date.substring(8, 10);
+    $rootScope.user.signup_date=[day,month,year];
+  };
 
-updateProfile();
+  updateProfile();
+
+  // function to update bit stream
+  var updateBitStream = function() {
+    booleOuts.getByUser($rootScope.user.username, function(result){
+      if(result) {
+        $scope.posts = result;
+        $scope.replyShow = [];
+
+        var booleOut;
+        for(booleOut in result){
+          $scope.replyShow[result[booleOut]._id] = false;
+        };
+      }
+    });
+
+  };
+
+  updateBitStream();
+/* This function has temporarily been commented out as it causes TypeError
+  $scope.refresh = function() {     // this function is executed when the user drags down the interface to refresh the BitStream
+    updateBitStream(); // to refresh the BitStream
+    updateProfile(); // to refresh the User data
+    $scope.$broadcast('scroll.refreshComplete');
+  };
+*/
+  var flag = true;
+  $scope.reply = function(parentId)  {
+    // this function will display a posting environment in which to reply to a booleOut
+    if(!flag) {
+      $('.buttonDown' + parentId).removeClass('ion-chevron-up').addClass('ion-chevron-down');
+      flag = true;
+    }
+    else{
+      $('.buttonDown' + parentId).removeClass('ion-chevron-down').addClass('ion-chevron-up');
+      flag = false;
+    }
+    booleOuts.getReplies(parentId, function(result){
+      if(result) {
+        if(!$scope.allReplies)
+          $scope.allReplies = [];
+        $scope.allReplies[parentId] = result;
+      }
+    });
+  };
+  $scope.getPhoto = function(user_name) {
+    // return the user's photo to user on the booleOut list-card
+  };
+  $scope.getBit = function(boolean) {
+    if (boolean == true) {
+      return 1;
+    }
+    return 0;
+  };
+  $scope.getHashtags = function(hashtag) {
+    var tags = "";
+    hashtag.forEach(function(entry) {
+      if(entry.trim() != "") {
+        tags += "#" + entry + " ";
+      }
+    });
+    return tags;
+  };
+
+  $scope.replyPopup = function(parentId) {
+    $scope.data = {};
+
+    var popup = $ionicPopup.show({
+      template: '<input ng-model="reply.hashtag" type = "text">',
+      title: 'Enter Reply',
+      scope: $scope,
+      buttons: [
+      {
+        text: '<b>1</b>',
+        type: 'button-royal',
+        onTap: function() {
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
+          var dataToSend = {
+            bit      : 1,
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          $scope.reply.hashtag = "";
+          booleOuts.postReply(dataToSend, function (data) {
+            booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                  $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
+          });
+        }
+      },
+      {
+        text: '<b>0</b>',
+        type: 'button-royal',
+        onTap: function() {
+          if(!$scope.reply.hashtag) {
+            $scope.reply.hashtag = "";
+          }
+          var dataToSend = {
+            bit      : 0,
+            hashtag  : booleOuts.parseBooleOut($scope.reply.hashtag),
+            username : $rootScope.user.username,
+            parent   : parentId
+          };
+          $scope.reply.hashtag = "";
+          booleOuts.postReply(dataToSend, function (data) {
+            booleOuts.getReplies(parentId, function(result){
+              if(result) {
+                if(!$scope.allReplies)
+                $scope.allReplies = [];
+                $scope.allReplies[parentId] = result;
+              }
+            });
+          });
+        }
+      },
+      { text: 'Exit' }
+      ]
+    });
+  }
 })
 
 
 .controller('LoginCtrl', function($scope, $rootScope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
     $scope.data = {}
-
+    console.log(user);
     if (!user || !user.bitname || !user.password) {
       shakeShakeShake();
       return;
@@ -316,11 +566,40 @@ updateProfile();
   };
 })
 
+.controller('SettingsCtrl', function($scope, $state, $stateParams, SettingsService) {
+  $(".hideMe").hide();
+  var oldUserName = $scope.user.username;
+  $scope.changeUsername = function(user) {
+    SettingsService.changeUserName(oldUserName, user);
+  };
+
+  $scope.changePassword = function(placer) {
+    SettingsService.changePassword($scope.user, placer.password);
+  };
+
+  $scope.compareTo = function(password, confirmPassword) {
+    if(password === confirmPassword) {
+      $('.confirmTextSettings').text("Passwords Match");
+      $('.confirmTextSettings').css("color","green");
+    }
+
+    else {
+      $('.confirmText').text("Passwords Do Not Match");
+      $('.confirmTextSettings').css("color","red");
+    }
+  };
+
+  $scope.showConfirm = function() {
+    $(".removeMe").hide();
+    $(".hideMe").show();
+  };
+})
+
 .controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http) {
 
  // Triggered on a button click, or some other target
- $scope.showPopup = function() {
-  $scope.data = {}
+  $scope.showPopup = function() {
+    $scope.data = {}
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -353,30 +632,29 @@ updateProfile();
     else {
      $('.emailText').text("Email");
      $('.emailText').css("color","black");
-   }
- };
+    }
+  };
 
- $scope.compareTo = function() {
-  if($scope.signup.password === $scope.signup.confirmPassword) {
-    $('.confirmText').text("Passwords Match");
-    $('.confirmText').css("color","green");
-  }
+  $scope.compareTo = function() {
+    if($scope.signup.password === $scope.signup.confirmPassword) {
+      $('.confirmText').text("Passwords Match");
+      $('.confirmText').css("color","green");
+    }
 
-  else {
-    $('.confirmText').text("Passwords Do Not Match");
-    $('.confirmText').css("color","red");
-  }
+    else {
+      $('.confirmText').text("Passwords Do Not Match");
+      $('.confirmText').css("color","red");
+    }
+  };
 
-};
+  $scope.submitForm = function() {
+    $scope.data = {}
+    var userExists = false;
 
-$scope.submitForm = function() {
-  $scope.data = {}
-  var userExists = false;
-
-  if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
-    shakeShakeShake();
-    return;
-  }
+    if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
+      shakeShakeShake();
+      return;
+    }
 
     //this should be same as the User schema on the server
     var user = {

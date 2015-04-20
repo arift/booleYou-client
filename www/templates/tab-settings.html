@@ -1,0 +1,42 @@
+<ion-view view-title="Settings">
+  <ion-content>
+    <div class="list">
+      <div class="padding profilePadding">
+       <div style="text-align: center"> <img src = "img/yuriy.jpg">
+       <p><p>
+       <i id="usernameFont">Change Account Info</i>
+       </p></p></div>
+
+       <div class="list">
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+          <input type="text" placeholder="Change Bitname", ng-model="user.username">
+          </label>
+          <button class="button button-royal", ng-click="changeUsername(user)">
+            Submit
+          </button>
+        </div>
+
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+          <input type="password" placeholder="Change Password" ng-model="placer.password" ng-change="showConfirm()">
+          </label>
+          <button class="button button-royal removeMe">
+            Submit
+          </button>
+        </div>
+        <div class="item item-input-inset hideMe">
+          <label class="item-input-wrapper">
+          <input type="password" placeholder="Confirm Password" ng-model="placer.confirmPassword" ng-change="compareTo(placer.password, placer.confirmPassword)">
+          </label>
+          <button class="button button-royal" ng-click="changePassword(placer)">
+            Submit
+          </button>
+        </div>
+        <h4 class="confirmTextSettings hideMe" style="text-align: center"> Passwords Do Not Match </h4>
+      </div>
+
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
