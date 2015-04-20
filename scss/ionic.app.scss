@@ -57,6 +57,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	}
 }
 
+//** tab-bitstream **// 
+.bitstream-footer {
+	height:auto;
+	input{
+		width: 100%;
+	}
+}
+
 .confirmTextSettings {
 	color: red;
 }
@@ -67,17 +75,17 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
  	top: 10%; left: 0; bottom: 0; right: 0;
 }
 
-.booleOutInput {
-    width: 80%;
-}
+// .booleOutInput {
+//     width: 80%;
+// }
 
-.postOne {
-    width: 10%;
-}
+// .postOne {
+//     width: 10%;
+// }
 
-.postOne {
-    width: 10%;
-}
+// .postOne {
+//     width: 10%;
+// }
 
 #profileFont {
 	font-size: 200%;
