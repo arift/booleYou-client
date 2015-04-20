@@ -2,10 +2,10 @@ angular.module('starter.controllers', [])
 
 
 .controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, UserService, $ionicPopup) {
-$scope.showChart = function(booleOut) {
-  console.log(booleOut.hashtag);
-  $scope.hashtag = booleOut.hashtag;
-  $scope.data = {}
+  $scope.showChart = function(booleOut) {
+    console.log(booleOut.hashtag);
+    $scope.hashtag = booleOut.hashtag;
+    $scope.data = {}
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -77,24 +77,24 @@ $scope.showChart = function(booleOut) {
   $scope.getPhoto = function(user_name) {
       // return the user's photo to user on the booleOut list-card
     };
-  $scope.getBit = function(boolean) {
-    if (boolean == true) {
-      return 1;
-    }
-    return 0;
-  };
-  $scope.getHashtags = function(hashtag) {
-    var tags = "";
-    hashtag.forEach(function(entry) {
-      if(entry.trim() != "") {
-        tags += "#" + entry + " ";
+    $scope.getBit = function(boolean) {
+      if (boolean == true) {
+        return 1;
       }
-    });
-    return tags;
-  };
+      return 0;
+    };
+    $scope.getHashtags = function(hashtag) {
+      var tags = "";
+      hashtag.forEach(function(entry) {
+        if(entry.trim() != "") {
+          tags += "#" + entry + " ";
+        }
+      });
+      return tags;
+    };
 
-  $scope.replyPopup = function(parentId) {
-    $scope.data = {};
+    $scope.replyPopup = function(parentId) {
+      $scope.data = {};
 
       var popup = $ionicPopup.show({
         template: '<input ng-model="reply.hashtag" type = "text">',
@@ -154,7 +154,7 @@ $scope.showChart = function(booleOut) {
       { text: 'Exit' }
       ]
     });
-  }
+}
 })
 
 .controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope) {
@@ -299,11 +299,119 @@ updateProfile();
   };
 })
 
-.controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http) {
+.controller('imageController', function($scope, $cordovaCamera, $cordovaFile) {
+  $scope.images = [];
+  
+  $scope.addImage = function() {
+  // 2
+  var options = {
+    destinationType : Camera.DestinationType.FILE_URI,
+    sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
+    allowEdit : false,
+    encodingType: Camera.EncodingType.JPEG,
+    popoverOptions: CameraPopoverOptions,
+  };
+  
+  // 3
+  $cordovaCamera.getPicture(options).then(function(imageData) {
+   
+    // 4
+    onImageSuccess(imageData);
+    
+    function onImageSuccess(fileURI) {
+      createFileEntry(fileURI);
+    }
+    
+    function createFileEntry(fileURI) {
+      window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
+    }
+    
+    // 5
+    function copyFile(fileEntry) {
+      var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
+      var newName = makeid() + name;
+      
+      window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
+        fileEntry.copyTo(
+          fileSystem2,
+          newName,
+          onCopySuccess,
+          fail
+          );
+      },
+      fail);
+    }
+    
+    // 6
+    function onCopySuccess(entry) {
+      $scope.$apply(function () {
+        $scope.images.push(entry.nativeURL);
+        $scope.showImages();
+      });
+    }
+    
+    function fail(error) {
+      console.log("fail: " + error.code);
+    }
+    
+    function makeid() {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      
+      for (var i=0; i < 5; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
+    }
+    
+  }, function(err) {
+    console.log(err);
+  });
+}
+
+$scope.urlForImage = function(imageName) {
+  var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+  var trueOrigin = cordova.file.dataDirectory + name;
+  return trueOrigin;
+}
+
+$scope.getString = function(image) {
+  var myImage = document.getElementById('myimage');
+  var myCanvas = document.getElementById('mycanvas');
+  var ctx = myCanvas.getContext('2d');
+  ctx.drawImage(myImage, 0, 0);
+
+  var mydataURL = myCanvas.toDataURL('image/jpg');
+  return mydataURL;
+}
+})
+
+.controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http, $ionicModal) {
 
  // Triggered on a button click, or some other target
-  $scope.showPopup = function() {
-    $scope.data = {}
+
+$scope.showImages = function() {
+    $scope.showModal('templates/image-popover.html');
+  }
+ 
+  $scope.showModal = function(templateUrl) {
+    $ionicModal.fromTemplateUrl(templateUrl, {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.modal = modal;
+      $scope.modal.show();
+    });
+  }
+ 
+  // Close the modal
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+    $scope.modal.remove()
+  };
+
+$scope.showPopup = function() {
+  $scope.data = {}
 
     // An elaborate, custom popup
     var myPopup = $ionicPopup.show({
@@ -336,29 +444,29 @@ updateProfile();
     else {
      $('.emailText').text("Email");
      $('.emailText').css("color","black");
-    }
-  };
+   }
+ };
 
-  $scope.compareTo = function() {
-    if($scope.signup.password === $scope.signup.confirmPassword) {
-      $('.confirmText').text("Passwords Match");
-      $('.confirmText').css("color","green");
-    }
+ $scope.compareTo = function() {
+  if($scope.signup.password === $scope.signup.confirmPassword) {
+    $('.confirmText').text("Passwords Match");
+    $('.confirmText').css("color","green");
+  }
 
-    else {
-      $('.confirmText').text("Passwords Do Not Match");
-      $('.confirmText').css("color","red");
-    }
-  };
+  else {
+    $('.confirmText').text("Passwords Do Not Match");
+    $('.confirmText').css("color","red");
+  }
+};
 
-  $scope.submitForm = function() {
-    $scope.data = {}
-    var userExists = false;
+$scope.submitForm = function() {
+  $scope.data = {}
+  var userExists = false;
 
-    if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
-      shakeShakeShake();
-      return;
-    }
+  if(!$scope.signup || !$scope.signup.firstName || !$scope.signup.lastName || !$scope.signup.email || !$scope.signup.bitName || !$scope.signup.password){
+    shakeShakeShake();
+    return;
+  }
 
     //this should be same as the User schema on the server
     var user = {
