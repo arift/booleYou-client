@@ -1,5 +1,5 @@
   var $scope = angular.element($("#dataVisual")).scope();
-  console.log($("#dataVisual").width());
+  var chartWidth = $("#dataVisual").width() - 20;
   var pie = new d3pie("pie", {
     "header": {
       "title": {
@@ -17,7 +17,7 @@
     },
     "size": {
       "canvasHeight":400,
-      "canvasWidth": 350,
+      "canvasWidth": chartWidth,
       "pieInnerRadius": "20%",
       "pieOuterRadius": "90%"
     },

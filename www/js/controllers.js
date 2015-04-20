@@ -165,7 +165,28 @@ angular.module('starter.controllers', [])
 }
 })
 
-.controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope, booleOuts, $ionicPopup) {
+.controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope, booleOuts, $ionicPopup, HashtagService) {
+  $scope.showChart = function(booleOut) {
+    console.log(booleOut);
+    HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
+    if(result){
+      var scope = angular.element($("#dataVisual")).scope();
+      console.log(result);
+      scope.hashtag = result;
+
+
+      var myPopup = $ionicPopup.show({
+        templateUrl: 'templates/pieChart.html',
+        scope: $scope,
+        buttons: [
+      { text: 'Close' }
+      ]
+      });
+
+    }
+  })
+
+  };
   var updateProfile = function() {
     UserService.fetchProfileData($stateParams.username, function(result){
       if(result) {
@@ -344,7 +365,29 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup) {
+.controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup, HashtagService) {
+  $scope.showChart = function(booleOut) {
+    HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
+    if(result){
+      var scope = angular.element($("#dataVisual")).scope();
+      console.log(result);
+      scope.hashtag = result;
+
+
+      var myPopup = $ionicPopup.show({
+        templateUrl: 'templates/pieChart.html',
+        scope: $scope,
+        buttons: [
+      { text: 'Close' }
+      ]
+      });
+
+    }
+  })
+
+  };
+
+
   var updateProfile = function() {
     $scope.profileData = $rootScope.user;
     var year = $rootScope.user.signup_date.substring(0, 4);
