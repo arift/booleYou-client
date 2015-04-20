@@ -1,10 +1,10 @@
 <ion-view view-title="Login">
-<ion-content>
-<div class="list signUpPadding">
-
-  <div style="text-align: center"> <img src = "img/logo.png"> </div>
-  <div class="padding">
-  <a class="invalidText">Invalid Bitname/Password</a>  
+<ion-content class="login-content" scroll="false">
+  <div class="image-container">
+    <img class="logo" src = "img/logo.png">
+  </div>
+  <div class="list padding login-forum">
+    <a class="invalidText">Invalid Bitname/Password</a>  
     <label class="item item-input item-floating-label invalidHolder">
       <span class="input-label changeRed">BitName</span>
       <input type="text" placeholder="Bitname" ng-model="user.bitname">
@@ -13,13 +13,13 @@
       <span class="input-label changeRed">Password</span>
       <input type="password" placeholder="Password" ng-model="user.password">
     </label>
-  </div>
-  <div class="button-bar">
-  <a class="button button-royal" ng-click="login(user)">Login</a>
-</div>
-  <p class="text-center">
-  <a>Forgot Password</a>
-  </p>
-</div>
+    <button type="submit" class="button button-block button-royal" ng-click="login(user)">
+      Login
+    </button>
+    <p class="text-center">
+      <a>Forgot Password</a>
+    </p>
+  </div>  
+
 </ion-content>
 </ion-view>

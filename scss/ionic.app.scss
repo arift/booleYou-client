@@ -21,8 +21,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-//**welcome view**//
-.welcome_content {
+//** welcome view **//
+.welcome-content {
 	background: url("../img/bitcloud1.jpg") repeat 0 0;
 	background-color: #502d7f;
 	background-size: contain;
@@ -34,6 +34,28 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	}
 }
 
+//** login view **//
+.login-content {
+	.image-container {
+		text-align: center;
+		position:absolute;
+		left:0px; 
+		right:0px; 
+		top:0px; 
+		bottom:282px; //height of the login-forum
+		.logo {
+			height: 100%;
+    		width: auto;
+			max-width: 300px;
+			max-height: 300px;    		
+		}
+	}
+	.login-forum {
+		position: fixed;
+		width: 100%;
+		bottom: 0px;
+	}
+}
 
 .confirmTextSettings {
 	color: red;
