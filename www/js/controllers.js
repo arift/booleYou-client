@@ -196,6 +196,7 @@ angular.module('starter.controllers', [])
   var updateBitStream = function() {
     booleOuts.getByUser($stateParams.username, function(result){
       if(result) {
+        result.reverse();
         $scope.posts = result;
         $scope.replyShow = [];
 
@@ -341,6 +342,7 @@ angular.module('starter.controllers', [])
   var updateBitStream = function() {
     booleOuts.getByUser($rootScope.user.username, function(result){
       if(result) {
+        result.reverse();
         $scope.posts = result;
         $scope.replyShow = [];
 
@@ -359,7 +361,7 @@ angular.module('starter.controllers', [])
     updateProfile(); // to refresh the User data
     $scope.$broadcast('scroll.refreshComplete');
   };
-  
+
   var flag = true;
   $scope.reply = function(parentId)  {
     // this function will display a posting environment in which to reply to a booleOut
