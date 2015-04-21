@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -50,12 +50,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     cache: false,
     url: '/profile/:username',
     templateUrl: 'templates/profile.html',
-    controller: 'ProfileCtrl'
-    // resolve: {
-    //   userName: function($stateParams, ProfileFetch) {
-    //     console.log(userName);
-    //   }
-    // }
+    controller: 'ProfileCtrl',
+  })
+
+  .state('pictures', {
+    url: '/pictures',
+    templateUrl: 'templates/pictures.html',
+    controller: 'imageController'
   })
 
   // setup an abstract state for the tabs directive

@@ -7630,6 +7630,11 @@ a.button {
   width: 100%;
   bottom: 0px; }
 
+.bitstream-footer {
+  height: auto; }
+  .bitstream-footer input {
+    width: 100%; }
+
 .confirmTextSettings {
   color: red; }
 
@@ -7640,15 +7645,6 @@ a.button {
   left: 0;
   bottom: 0;
   right: 0; }
-
-.booleOutInput {
-  width: 80%; }
-
-.postOne {
-  width: 10%; }
-
-.postOne {
-  width: 10%; }
 
 #profileFont {
   font-size: 200%;

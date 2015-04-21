@@ -7,35 +7,40 @@
     <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh('this')">
     </ion-refresher>
     <ion-list type="in-set" >
-        <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
-            <div class="item item-avatar " >
-                <img src="img/stock_picture.png">
+        <div class="list card" ng-controller="BitStreamCtrl" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
+            <div class="item item-avatar" >
+                <img ng-click="toProfile(BooleOut.username)" src="img/stock_picture.png">
                 <h2><b ng-click="toProfile(BooleOut.username)">{{BooleOut.username}}</b></h2>
-                    <h1><p ng-click="toProfile(BooleOut.username)">{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</p></h1>
+                    <p ng-click="showChart(BooleOut)">{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
-
                 <button class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]"></button>
                 <button class="button icon-left ion-chatbox" href="" ng-click="replyPopup(BooleOut._id); replyShow[BooleOut._id] = true">
                 </button>
-
             </div>
 
             <div class="list card" ng-show="replyShow[BooleOut._id]" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
                 <div class="item item-avatar" >
                     <img src="img/stock_picture.png">
                     <h2><b ng-click="toProfile(reply.username)">{{reply.username}}</b></h2>
-                    <p ng-click="toProfile(reply.username)">{{getBit(reply.bit)}} {{getHashtags(reply.hashtag)}}</p>
+                    <p ng-click="showChart(reply)">{{getBit(reply.bit)}} {{getHashtags(reply.hashtag)}}</p>
                 </div>
-            </div>
-            
+            </div>            
         </div>
     </ion-list>
     </ion-content>
-    <ion-footer-bar class="bar-royal">
-        <input id="booleOutInput" type="text" name="term" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
-        <input id="postOne" type="submit" name="search" value="1" ng-click="postBooleOut(1)" />
-        <input id="postZero" type="submit" name="search" value="0" ng-click="postBooleOut(0)"/>
+    <ion-footer-bar class="bar-royal bitstream-footer">
+    <div class="row">
+        <div class="col col-66">
+            <input type="text" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
+        </div>
+        <div class="col col-33">
+            <div class="button-bar">
+                <a class="button button-royal" type="submit" ng-click="postBooleOut(1)">1</a>
+                <a class="button button-royal" type="submit" ng-click="postBooleOut(0)">0</a>
+            </div>           
+        </div>
+    </div>       
     </ion-footer-bar>
 </ion-view>
 

@@ -57,6 +57,14 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	}
 }
 
+//** tab-bitstream **// 
+.bitstream-footer {
+	height:auto;
+	input{
+		width: 100%;
+	}
+}
+
 .confirmTextSettings {
 	color: red;
 }
@@ -65,18 +73,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	margin: auto;
 	position: absolute;
  	top: 10%; left: 0; bottom: 0; right: 0;
-}
-
-.booleOutInput {
-    width: 80%;
-}
-
-.postOne {
-    width: 10%;
-}
-
-.postOne {
-    width: 10%;
 }
 
 #profileFont {
@@ -88,11 +84,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	color: rgb(215, 208, 208);
 	font-size: 160%;
 }
-
-
-
-
-
 
 .signUpBirthdayMonth {
 	margin-right: 35%;
@@ -130,4 +121,3 @@ ion-content {
 .loadImage {
 	background-color: #502d7f;
 }
-
