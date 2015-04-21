@@ -46,10 +46,11 @@ angular.module('starter.controllers', [])
                               $scope.replyShow[result[booleOut]._id] = false;
                           }
                       }
-                  }, $rootScope.user.username);
+                  }, rootScope.user.username);
               }
           }
           if (type === 'global') {
+              $scope.posts = {};
               booleOuts.getParents(function(result) {
                   if(result) {
                       $scope.posts = result;
@@ -63,6 +64,7 @@ angular.module('starter.controllers', [])
               });
           }
           if (type === 'personal') {
+              $scope.posts = {};
               booleOuts.getFollowingParents(function(result) {
                   if(result) {
                       $scope.posts = result;
@@ -73,19 +75,8 @@ angular.module('starter.controllers', [])
                           $scope.replyShow[result[booleOut]._id] = false;
                       }
                   }
-              });
+              }, $rootScope.user.username);
           }
-          booleOuts.getParents(function(result) {
-              if(result) {
-                  $scope.posts = result;
-                  $scope.replyShow = [];
-
-                  var booleOut;
-                  for(booleOut in result) {
-                      $scope.replyShow[result[booleOut]._id] = false;
-                  }
-              }
-          });
       };
 
   updateBitStream();
