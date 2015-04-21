@@ -34,7 +34,7 @@ angular.module('starter.services', [])
           });
 
     },
-    getreplies: function(parentid, cb) {
+    getReplies: function(parentid, cb) {
       var apiUrl = "http://booleyou-server.herokuapp.com/api/booleout/getreplies/" + parentid;
       $http.get(apiUrl).
       success(function(data, status, headers, config) {
