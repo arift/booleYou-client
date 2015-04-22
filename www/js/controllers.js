@@ -760,7 +760,6 @@ $scope.getString = function(image) {
 
                 if(!$scope.tag)
                     $scope.tag = {};
-                $scope.tag = "#"+hashtag;
             }
         });
 
