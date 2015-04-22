@@ -33,7 +33,7 @@ angular.module('starter.controllers', [])
     };
     $scope.bitstream.hashtag = "";
     booleOuts.postBooleOut(dataToSend, function (data) {
-      updateBitStream();
+      updateBitStream('this');
     });
   };
 
@@ -43,7 +43,7 @@ angular.module('starter.controllers', [])
   // function to update bit stream
       var updateBitStream = function(type) {
           if (type === 'this') {
-              if ($scope.type === 'global') {
+              if ($scope.type === 'global' || $scope.type == null) {
                   booleOuts.getParents(function(result) {
                       if(result) {
                           $scope.posts = result;
@@ -100,7 +100,7 @@ angular.module('starter.controllers', [])
           }
       };
 
-  updateBitStream();
+  updateBitStream('this');
 
   // this function returns all the booleOuts stored in our Mongo DB
   $scope.refresh = function(type) { // this function is executed when the user drags down the interface to refresh the BitStream
@@ -573,7 +573,7 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $rootScope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
-    $scope.data = {}
+    $scope.data = {};
     if (!user || !user.bitname || !user.password) {
       shakeShakeShake();
       return;
