@@ -100,7 +100,18 @@ angular.module('starter.services', [])
       error(function(data, status, headers, config) {
         cb(data);
       });
+    },
+
+    getbooleouts: function(hashtag, cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/hashtag//getbooleoutsbyhashtag/' + hashtag).
+          success(function(data, status, headers, config) {
+              cb(data);
+          }).
+          error(function(data, status, headers, config) {
+              cb(data);
+          });
     }
+
   }
 })
 

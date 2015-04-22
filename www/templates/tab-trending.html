@@ -1,18 +1,32 @@
-<ion-view view-title="Popular">
+<ion-view view-title="{{tag}}">
+
     <ion-content>
+
+        <div class="row">
+                <button class="button button-royal" ng-show="!showall" ng-click="showTrending()">
+                    Go back to popular hashtags
+                </button>
+        </div>
+
         <ion-list type="in-set" >
-            <div ng-controller="TrendingCtrl" ng-repeat="ht in Hashtag" type="item-text-wrap" href="#/tab/trending">
+
+            <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh()"></ion-refresher>
+
+            <div ng-show="showall" ng-repeat="ht in Hashtag" type="item-text-wrap" href="#/tab/trending">
 
                 <div class="item item-avatar" >
                     <h2><b ng-click="discover(ht.hashtag)"><a href="">#{{ht.hashtag}}</a></b></h2>
                     <p ng-click="showChart(ht.hashtag)">total bits: {{ht.totalbits}}</p>
                 </div>
 
-                <!--<div class="list card" ng-show="true" ng-repeat="booleOut in posts[ht.hashtag].booleOuts" type="item-text-wrap" href="#/tab/trending">-->
-                    <!--<div class="item item-avatar" >-->
-                        <!--<h2><b>{{booleOut}}</b></h2>-->
-                    <!--</div>-->
-                <!--</div>-->
+            </div>
+
+            <div class="list card" ng-show="!showall" ng-repeat="booleOut in posts" type="item-text-wrap" href="#/tab/trending">
+                <div class="item item-avatar" >
+                    <img src="img/stock_picture.png">
+                    <h2><b ng-click="toProfile(booleOut.username)">{{booleOut.username}}</b></h2>
+                    <p ng-click="showChart(booleOut.hashtag)">{{getBit(booleOut.bit)}} {{getHashtags(booleOut.hashtag)}}</p>
+                </div>
             </div>
         </ion-list>
     </ion-content>

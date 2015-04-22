@@ -6,7 +6,6 @@ angular.module('starter.controllers', [])
     HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
     if(result){
       var scope = angular.element($("#dataVisual")).scope();
-      console.log(result);
       scope.hashtag = result;
 
 
@@ -737,37 +736,40 @@ $scope.getString = function(image) {
 }
 })
 
-.controller('TrendingCtrl', function($scope, TrendingService, $ionicPopup, HashtagService) {
+.controller('TrendingCtrl', function($scope, $state, TrendingService, $ionicPopup, HashtagService) {
 
     var initializeTrending = function() {
-
+        $scope.tag = "Popular";
+        $scope.showall = true;
         TrendingService.getTrending(function (result) {
             if (result) {
                 var Hashtag = result;
-
                 $scope.Hashtag = Hashtag;
 
-                // set up the posts array so that it can retrieve hashtag objects by hashtag
-                var i;
-                for(i in Hashtag){
-                    if(!$scope.posts)
-                        $scope.posts = [];
-                    var ht = Hashtag[i];
-                    $scope.posts[ht.hashtag] = ht;
-                };
             }
         })
     };
 
     $scope.discover = function(hashtag){
-        console.log($scope.posts[hashtag]);
+        $scope.showall = false;
+        HashtagService.getbooleouts(hashtag, function(result){
+            if(result){
+                if(!$scope.posts)
+                    $scope.posts = {};
+                $scope.posts = result;
+
+                if(!$scope.tag)
+                    $scope.tag = {};
+                $scope.tag = "#"+hashtag;
+            }
+        });
+
     };
 
     $scope.showChart = function(ht) {
         HashtagService.getbyhashtag(ht, function(result) {
             if(result){
                 var scope = angular.element($("#dataVisual")).scope();
-                console.log(result);
                 scope.hashtag = result;
 
                 var myPopup = $ionicPopup.show({
@@ -783,7 +785,38 @@ $scope.getString = function(image) {
 
     };
 
+    // this function refreshes
+    $scope.refresh = function() { // this function is executed when the user drags down the interface to refresh the popular
+        initializeTrending();; // to refresh the popular
+        $scope.$broadcast('scroll.refreshComplete');
+    };
+
+    $scope.getBit = function(boolean) {
+        if (boolean == true) {
+            return 1;
+        }
+        return 0;
+    };
+
+    $scope.getHashtags = function(hashtag) {
+        var tags = "";
+        hashtag.forEach(function(entry) {
+            if(entry.trim() != "") {
+                tags += "#" + entry + " ";
+            }
+        });
+        return tags;
+    };
+
     initializeTrending();
+
+    $scope.showTrending = function() {
+        initializeTrending();
+    };
+
+    $scope.toProfile = function(username) {
+        $state.go('profile', {username : username});
+    };
 
 })
 
