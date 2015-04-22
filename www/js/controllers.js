@@ -750,7 +750,7 @@ $scope.getString = function(image) {
         })
     };
 
-    $scope.discover = function(hashtag){
+    var discover = function(hashtag){
         $scope.showall = false;
         HashtagService.getbooleouts(hashtag, function(result){
             if(result){
@@ -764,6 +764,10 @@ $scope.getString = function(image) {
             }
         });
 
+    };
+
+    $scope.discover = function(hashtag){
+        discover(hashtag);
     };
 
     $scope.showChart = function(ht) {
@@ -787,7 +791,13 @@ $scope.getString = function(image) {
 
     // this function refreshes
     $scope.refresh = function() { // this function is executed when the user drags down the interface to refresh the popular
-        initializeTrending();; // to refresh the popular
+
+        if($scope.showall) {
+            initializeTrending(); // to refresh the popular
+        }
+        else{
+            discover($scope.tag);
+        }
         $scope.$broadcast('scroll.refreshComplete');
     };
 
