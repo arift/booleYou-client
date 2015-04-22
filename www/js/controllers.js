@@ -660,7 +660,7 @@ angular.module('starter.controllers', [])
     sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
     allowEdit : false,
     encodingType: Camera.EncodingType.JPEG,
-    popoverOptions: CameraPopoverOptions,
+    popoverOptions: CameraPopoverOptions
   };
   
   // 3
@@ -735,6 +735,56 @@ $scope.getString = function(image) {
   var mydataURL = myCanvas.toDataURL('image/jpg');
   return mydataURL;
 }
+})
+
+.controller('TrendingCtrl', function($scope, TrendingService, $ionicPopup, HashtagService) {
+
+    var initializeTrending = function() {
+
+        TrendingService.getTrending(function (result) {
+            if (result) {
+                var Hashtag = result;
+
+                $scope.Hashtag = Hashtag;
+
+                // set up the posts array so that it can retrieve hashtag objects by hashtag
+                var i;
+                for(i in Hashtag){
+                    if(!$scope.posts)
+                        $scope.posts = [];
+                    var ht = Hashtag[i];
+                    $scope.posts[ht.hashtag] = ht;
+                };
+            }
+        })
+    };
+
+    $scope.discover = function(hashtag){
+        console.log($scope.posts[hashtag]);
+    };
+
+    $scope.showChart = function(ht) {
+        HashtagService.getbyhashtag(ht, function(result) {
+            if(result){
+                var scope = angular.element($("#dataVisual")).scope();
+                console.log(result);
+                scope.hashtag = result;
+
+                var myPopup = $ionicPopup.show({
+                    templateUrl: 'templates/pieChart.html',
+                    scope: $scope,
+                    buttons: [
+                        { text: 'Close' }
+                    ]
+                });
+
+            }
+        })
+
+    };
+
+    initializeTrending();
+
 })
 
 .controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http, $ionicModal) {
