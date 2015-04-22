@@ -25,6 +25,8 @@ angular.module('starter.controllers', [])
 
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
+    $scope.type = 'global';
+
     var dataToSend = {
       bit      : bit,
       hashtag  : booleOuts.parseBooleOut($scope.bitstream.hashtag),
@@ -39,26 +41,71 @@ angular.module('starter.controllers', [])
   $scope.toProfile = function(username) {
     $state.go('profile', {username : username});
   };
+  // function to update bit stream
+      var updateBitStream = function(type) {
+          if (type === 'this') {
+              if ($scope.type === 'global') {
+                  booleOuts.getParents(function(result) {
+                      if(result) {
+                          $scope.posts = result;
+                          $scope.replyShow = [];
 
-  var updateBitStream = function() {
-    booleOuts.getParents(function(result){
-      if(result) {
-        $scope.posts = result;
-        $scope.replyShow = [];
+                          var booleOut;
+                          for(booleOut in result) {
+                              $scope.replyShow[result[booleOut]._id] = false;
+                          }
+                      }
+                  });
+              }
+              if ($scope.type === 'personal') {
+                  booleOuts.getFollowingParents(function(result) {
+                      if(result) {
+                          $scope.posts = result;
+                          $scope.replyShow = [];
 
-        var booleOut;
-        for(booleOut in result){
-          $scope.replyShow[result[booleOut]._id] = false;
-        };
-      }
-    });
-  };
+                          var booleOut;
+                          for(booleOut in result) {
+                              $scope.replyShow[result[booleOut]._id] = false;
+                          }
+                      }
+                  }, rootScope.user.username);
+              }
+          }
+          if (type === 'global') {
+              $scope.posts = {};
+              booleOuts.getParents(function(result) {
+                  if(result) {
+                      $scope.posts = result;
+                      $scope.replyShow = [];
+
+                      var booleOut;
+                      for(booleOut in result) {
+                          $scope.replyShow[result[booleOut]._id] = false;
+                      }
+                  }
+              });
+          }
+          if (type === 'personal') {
+              $scope.posts = {};
+              booleOuts.getFollowingParents(function(result) {
+                  if(result) {
+                      $scope.posts = result;
+                      $scope.replyShow = [];
+
+                      var booleOut;
+                      for(booleOut in result) {
+                          $scope.replyShow[result[booleOut]._id] = false;
+                      }
+                  }
+              }, $rootScope.user.username);
+          }
+      };
 
   updateBitStream();
 
-  // this function is executed when the user drags down the interface to refresh the BitStream
-  $scope.refresh = function() {     
-    updateBitStream(); // to refresh the BitStream
+  // this function returns all the booleOuts stored in our Mongo DB
+  $scope.refresh = function(type) { // this function is executed when the user drags down the interface to refresh the BitStream
+    updateBitStream(type); // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
   };
 
@@ -233,7 +280,7 @@ angular.module('starter.controllers', [])
         });
       }
     });
-  }
+  };
 
   // function to update bit stream
   var updateBitStream = function() {
