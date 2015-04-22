@@ -1,0 +1,21 @@
+<ion-view view-title="Popular">
+    <ion-content>
+        <ion-list type="in-set" >
+            <div ng-controller="TrendingCtrl" ng-repeat="ht in Hashtag" type="item-text-wrap" href="#/tab/trending">
+
+                <div class="item item-avatar" >
+                    <h2><b ng-click="discover(ht.hashtag)"><a href="">#{{ht.hashtag}}</a></b></h2>
+                        total bits: {{ht.totalbits}}
+                </div>
+
+                <!--<div class="list card" ng-show="true" ng-repeat="booleOut in posts[ht.hashtag].booleOuts" type="item-text-wrap" href="#/tab/trending">-->
+                    <!--<div class="item item-avatar" >-->
+                        <!--<h2><b>{{booleOut}}</b></h2>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </ion-list>
+    </ion-content>
+
+</ion-view>
+

@@ -258,4 +258,18 @@ angular.module('starter.services', [])
       return promise;
     }
   }
-});
+})
+.service('TrendingService', function($http) {
+    return {
+        getTrending: function(cb) {
+            $http.get('http://booleyou-server.herokuapp.com/api/hashtag/trending').
+                success(function(data, status, headers, config) {
+                    cb(data);
+                }).
+                error(function(data, status, headers, config) {
+                    cb();
+                });
+        }
+    }
+})
+;
