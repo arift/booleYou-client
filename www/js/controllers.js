@@ -690,7 +690,7 @@ $scope.getString = function(image) {
 }
 })
 
-.controller('TrendingCtrl', function($scope, TrendingService) {
+.controller('TrendingCtrl', function($scope, TrendingService, $ionicPopup, HashtagService) {
 
     var initializeTrending = function() {
 
@@ -714,6 +714,26 @@ $scope.getString = function(image) {
 
     $scope.discover = function(hashtag){
         console.log($scope.posts[hashtag]);
+    };
+
+    $scope.showChart = function(ht) {
+        HashtagService.getbyhashtag(ht, function(result) {
+            if(result){
+                var scope = angular.element($("#dataVisual")).scope();
+                console.log(result);
+                scope.hashtag = result;
+
+                var myPopup = $ionicPopup.show({
+                    templateUrl: 'templates/pieChart.html',
+                    scope: $scope,
+                    buttons: [
+                        { text: 'Close' }
+                    ]
+                });
+
+            }
+        })
+
     };
 
     initializeTrending();
