@@ -24,6 +24,16 @@ angular.module('starter.services', [])
         cb();
       });
     },
+    getFollowingParents: function(cb, username) {
+      $http.get('http://booleyou-server.herokuapp.com/api/booleout/getfollowerbooleouts/' + username).
+          success(function(data, status, headers, config) {
+              cb(data);
+          }).
+          error(function(data, status, headers, config) {
+              cb();
+          });
+
+    },
     getReplies: function(parentid, cb) {
       var apiUrl = "http://booleyou-server.herokuapp.com/api/booleout/getreplies/" + parentid;
       $http.get(apiUrl).
@@ -118,7 +128,18 @@ angular.module('starter.services', [])
       error(function(data, status, headers, config) {
         cb(data);
       });
+    },
+
+    getbooleouts: function(hashtag, cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/hashtag//getbooleoutsbyhashtag/' + hashtag).
+          success(function(data, status, headers, config) {
+              cb(data);
+          }).
+          error(function(data, status, headers, config) {
+              cb(data);
+          });
     }
+
   }
 })
 
@@ -286,4 +307,18 @@ angular.module('starter.services', [])
       return promise;
     }
   }
-});
+})
+.service('TrendingService', function($http) {
+    return {
+        getTrending: function(cb) {
+            $http.get('http://booleyou-server.herokuapp.com/api/hashtag/trending').
+                success(function(data, status, headers, config) {
+                    cb(data);
+                }).
+                error(function(data, status, headers, config) {
+                    cb();
+                });
+        }
+    }
+})
+;

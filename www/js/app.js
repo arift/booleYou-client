@@ -50,7 +50,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     cache: false,
     url: '/profile/:username',
     templateUrl: 'templates/profile.html',
-    controller: 'ProfileCtrl',
+    controller: 'ProfileCtrl'
   })
 
   .state('pictures', {
@@ -124,6 +124,16 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
         controller: 'AccountCtrl'
       }
     }
+  })
+
+  .state('tab.trending', {
+      url: '/trending',
+      views: {
+          'tab-trending': {
+              templateUrl: 'templates/tab-trending.html',
+              controller: 'TrendingCtrl'
+          }
+      }
   })
 
  .state('tab.settings', {

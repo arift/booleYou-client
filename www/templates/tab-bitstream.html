@@ -1,13 +1,19 @@
 <ion-view view-title="BitStream">
   <ion-content>
-    <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh()">
+    <div class="button-bar">
+        <a class="button button-royal" ng-click="refresh('global')">Global</a>
+        <a class="button button-royal" ng-click="refresh('personal')">Personal</a>
+    </div>
+    <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh('this')">
     </ion-refresher>
     <ion-list type="in-set" >
         <div class="list card" ng-controller="BitStreamCtrl" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
             <div class="item item-avatar" >
                 <img ng-click="toProfile(BooleOut.username)" src="img/stock_picture.png">
                 <h2><b ng-click="toProfile(BooleOut.username)">{{BooleOut.username}}</b></h2>
-                    <p ng-click="showChart(BooleOut)">{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</p>
+            </div>
+            <div class="item item-text-wrap">
+                    <p ng-click="showChart(BooleOut)"><b>{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</b></p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
                 <button class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]"></button>
@@ -28,7 +34,7 @@
     <ion-footer-bar class="bar-royal bitstream-footer">
     <div class="row">
         <div class="col col-66">
-            <input type="text" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
+            <input type="text" maxlength="144" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
         </div>
         <div class="col col-33">
             <div class="button-bar">

@@ -17,7 +17,6 @@ angular.module('starter.controllers', [])
           { text: 'Close' }
           ]
         });
-
       }
     })
 
@@ -25,6 +24,8 @@ angular.module('starter.controllers', [])
 
   $scope.postBooleOut = function(bit) {
     $scope.data = {};
+    $scope.type = 'global';
+
     var dataToSend = {
       bit      : bit,
       hashtag  : booleOuts.parseBooleOut($scope.bitstream.hashtag),
@@ -32,33 +33,78 @@ angular.module('starter.controllers', [])
     };
     $scope.bitstream.hashtag = "";
     booleOuts.postBooleOut(dataToSend, function (data) {
-      updateBitStream();
+      updateBitStream('this');
     });
   };
 
   $scope.toProfile = function(username) {
     $state.go('profile', {username : username});
   };
+  // function to update bit stream
+      var updateBitStream = function(type) {
+          if (type === 'this') {
+              if ($scope.type === 'global' || $scope.type == null) {
+                  booleOuts.getParents(function(result) {
+                      if(result) {
+                          $scope.posts = result;
+                          $scope.replyShow = [];
 
-  var updateBitStream = function() {
-    booleOuts.getParents(function(result){
-      if(result) {
-        $scope.posts = result;
-        $scope.replyShow = [];
+                          var booleOut;
+                          for(booleOut in result) {
+                              $scope.replyShow[result[booleOut]._id] = false;
+                          }
+                      }
+                  });
+              }
+              if ($scope.type === 'personal') {
+                  booleOuts.getFollowingParents(function(result) {
+                      if(result) {
+                          $scope.posts = result;
+                          $scope.replyShow = [];
 
-        var booleOut;
-        for(booleOut in result){
-          $scope.replyShow[result[booleOut]._id] = false;
-        };
-      }
-    });
-  };
+                          var booleOut;
+                          for(booleOut in result) {
+                              $scope.replyShow[result[booleOut]._id] = false;
+                          }
+                      }
+                  }, rootScope.user.username);
+              }
+          }
+          if (type === 'global') {
+              $scope.posts = {};
+              booleOuts.getParents(function(result) {
+                  if(result) {
+                      $scope.posts = result;
+                      $scope.replyShow = [];
 
-  updateBitStream();
+                      var booleOut;
+                      for(booleOut in result) {
+                          $scope.replyShow[result[booleOut]._id] = false;
+                      }
+                  }
+              });
+          }
+          if (type === 'personal') {
+              $scope.posts = {};
+              booleOuts.getFollowingParents(function(result) {
+                  if(result) {
+                      $scope.posts = result;
+                      $scope.replyShow = [];
 
-  // this function is executed when the user drags down the interface to refresh the BitStream
-  $scope.refresh = function() {     
-    updateBitStream(); // to refresh the BitStream
+                      var booleOut;
+                      for(booleOut in result) {
+                          $scope.replyShow[result[booleOut]._id] = false;
+                      }
+                  }
+              }, $rootScope.user.username);
+          }
+      };
+
+  updateBitStream('this');
+
+  // this function returns all the booleOuts stored in our Mongo DB
+  $scope.refresh = function(type) { // this function is executed when the user drags down the interface to refresh the BitStream
+    updateBitStream(type); // to refresh the BitStream
     $scope.$broadcast('scroll.refreshComplete');
   };
 
@@ -233,7 +279,7 @@ angular.module('starter.controllers', [])
         });
       }
     });
-  }
+  };
 
   // function to update bit stream
   var updateBitStream = function() {
@@ -527,7 +573,7 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $rootScope, LoginService, $state, $timeout, $http) {
   $scope.login = function(user) {
-    $scope.data = {}
+    $scope.data = {};
     if (!user || !user.bitname || !user.password) {
       shakeShakeShake();
       return;
@@ -614,7 +660,7 @@ angular.module('starter.controllers', [])
     sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
     allowEdit : false,
     encodingType: Camera.EncodingType.JPEG,
-    popoverOptions: CameraPopoverOptions,
+    popoverOptions: CameraPopoverOptions
   };
   
   // 3
@@ -715,7 +761,6 @@ $scope.setString = function() {
   ctx.drawImage(myImage, 0, 0);
 
   var mydataURL=myCanvas.toDataURL('image/jpg');
-
 
   return mydataURL;
 };
@@ -890,4 +935,98 @@ $scope.submitForm = function() {
       $(placer).animate({ left: 0},interval);
     }
   };
+})
+
+.controller('TrendingCtrl', function($scope, $state, TrendingService, $ionicPopup, HashtagService) {
+
+    var initializeTrending = function() {
+        $scope.tag = "Popular";
+        $scope.showall = true;
+        TrendingService.getTrending(function (result) {
+            if (result) {
+                var Hashtag = result;
+                $scope.Hashtag = Hashtag;
+
+            }
+        })
+    };
+
+    var discover = function(hashtag){
+        $scope.showall = false;
+        HashtagService.getbooleouts(hashtag, function(result){
+            if(result){
+                if(!$scope.posts)
+                    $scope.posts = {};
+                $scope.posts = result;
+
+                if(!$scope.tag)
+                    $scope.tag = {};
+                $scope.tag = hashtag;
+            }
+        });
+
+    };
+
+    $scope.discover = function(hashtag){
+        discover(hashtag);
+    };
+
+    $scope.showChart = function(ht) {
+        HashtagService.getbyhashtag(ht, function(result) {
+            if(result){
+                var scope = angular.element($("#dataVisual")).scope();
+                scope.hashtag = result;
+
+                var myPopup = $ionicPopup.show({
+                    templateUrl: 'templates/pieChart.html',
+                    scope: $scope,
+                    buttons: [
+                        { text: 'Close' }
+                    ]
+                });
+
+            }
+        })
+
+    };
+
+    // this function refreshes
+    $scope.refresh = function() { // this function is executed when the user drags down the interface to refresh the popular
+
+        if($scope.showall) {
+            initializeTrending(); // to refresh the popular
+        }
+        else{
+            discover($scope.tag);
+        }
+        $scope.$broadcast('scroll.refreshComplete');
+    };
+
+    $scope.getBit = function(boolean) {
+        if (boolean == true) {
+            return 1;
+        }
+        return 0;
+    };
+
+    $scope.getHashtags = function(hashtag) {
+        var tags = "";
+        hashtag.forEach(function(entry) {
+            if(entry.trim() != "") {
+                tags += "#" + entry + " ";
+            }
+        });
+        return tags;
+    };
+
+    initializeTrending();
+
+    $scope.showTrending = function() {
+        initializeTrending();
+    };
+
+    $scope.toProfile = function(username) {
+        $state.go('profile', {username : username});
+    };
+
 });
