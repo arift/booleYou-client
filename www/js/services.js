@@ -71,6 +71,34 @@ angular.module('starter.services', [])
   }
 })
 
+.service('ImageService', function($http) {
+  var profileStringFinal = "";
+  return {  
+    setProfileString: function(profileString) {
+      profileStringFinal = profileString;
+    },
+
+    // getProfileString: function() {
+    //   return profileStringFinal;
+    // },
+
+    sendPhoto: function(username) {
+      var picture = {
+        username : username,
+        picture : profileStringFinal
+      }
+      console.log(picture);
+      $http.post("http://booleyou-server.herokuapp.com/api/user/addpropic/" + username, picture).
+      success(function(data, status, headers, config) {
+        //cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        //cb(data);
+      });
+    }
+  }
+})
+
 .service('HashtagService', function($http) {
   return {
     getbyhashtag: function(hashtag, cb) {

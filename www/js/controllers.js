@@ -4,22 +4,22 @@ angular.module('starter.controllers', [])
 .controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, UserService, $ionicPopup, $ionicModal, HashtagService) {
   $scope.showChart = function(booleOut) {
     HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
-    if(result){
-      var scope = angular.element($("#dataVisual")).scope();
-      console.log(result);
-      scope.hashtag = result;
+      if(result){
+        var scope = angular.element($("#dataVisual")).scope();
+        console.log(result);
+        scope.hashtag = result;
 
 
-      var myPopup = $ionicPopup.show({
-        templateUrl: 'templates/pieChart.html',
-        scope: $scope,
-        buttons: [
-      { text: 'Close' }
-      ]
-      });
+        var myPopup = $ionicPopup.show({
+          templateUrl: 'templates/pieChart.html',
+          scope: $scope,
+          buttons: [
+          { text: 'Close' }
+          ]
+        });
 
-    }
-  })
+      }
+    })
 
   };
 
@@ -169,22 +169,22 @@ angular.module('starter.controllers', [])
   $scope.showChart = function(booleOut) {
     console.log(booleOut);
     HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
-    if(result){
-      var scope = angular.element($("#dataVisual")).scope();
-      console.log(result);
-      scope.hashtag = result;
+      if(result){
+        var scope = angular.element($("#dataVisual")).scope();
+        console.log(result);
+        scope.hashtag = result;
 
 
-      var myPopup = $ionicPopup.show({
-        templateUrl: 'templates/pieChart.html',
-        scope: $scope,
-        buttons: [
-      { text: 'Close' }
-      ]
-      });
+        var myPopup = $ionicPopup.show({
+          templateUrl: 'templates/pieChart.html',
+          scope: $scope,
+          buttons: [
+          { text: 'Close' }
+          ]
+        });
 
-    }
-  })
+      }
+    })
 
   };
   var updateProfile = function() {
@@ -352,7 +352,7 @@ angular.module('starter.controllers', [])
             booleOuts.getReplies(parentId, function(result){
               if(result) {
                 if(!$scope.allReplies)
-                $scope.allReplies = [];
+                  $scope.allReplies = [];
                 $scope.allReplies[parentId] = result;
               }
             });
@@ -362,28 +362,28 @@ angular.module('starter.controllers', [])
       { text: 'Exit' }
       ]
     });
-  }
+}
 })
 
 .controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup, HashtagService) {
   $scope.showChart = function(booleOut) {
     HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
-    if(result){
-      var scope = angular.element($("#dataVisual")).scope();
-      console.log(result);
-      scope.hashtag = result;
+      if(result){
+        var scope = angular.element($("#dataVisual")).scope();
+        console.log(result);
+        scope.hashtag = result;
 
 
-      var myPopup = $ionicPopup.show({
-        templateUrl: 'templates/pieChart.html',
-        scope: $scope,
-        buttons: [
-      { text: 'Close' }
-      ]
-      });
+        var myPopup = $ionicPopup.show({
+          templateUrl: 'templates/pieChart.html',
+          scope: $scope,
+          buttons: [
+          { text: 'Close' }
+          ]
+        });
 
-    }
-  })
+      }
+    })
 
   };
 
@@ -421,7 +421,7 @@ angular.module('starter.controllers', [])
     updateProfile(); // to refresh the User data
     $scope.$broadcast('scroll.refreshComplete');
   };
-*/
+  */
   var flag = true;
   $scope.reply = function(parentId)  {
     // this function will display a posting environment in which to reply to a booleOut
@@ -511,7 +511,7 @@ angular.module('starter.controllers', [])
             booleOuts.getReplies(parentId, function(result){
               if(result) {
                 if(!$scope.allReplies)
-                $scope.allReplies = [];
+                  $scope.allReplies = [];
                 $scope.allReplies[parentId] = result;
               }
             });
@@ -521,7 +521,7 @@ angular.module('starter.controllers', [])
       { text: 'Exit' }
       ]
     });
-  }
+}
 })
 
 
@@ -603,10 +603,11 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('imageController', function($scope, $cordovaCamera, $cordovaFile) {
+.controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http, $ionicModal, ImageService, $cordovaCamera, $cordovaFile) {
   $scope.images = [];
   
   $scope.addImage = function() {
+  // 2
   // 2
   var options = {
     destinationType : Camera.DestinationType.FILE_URI,
@@ -618,23 +619,23 @@ angular.module('starter.controllers', [])
   
   // 3
   $cordovaCamera.getPicture(options).then(function(imageData) {
-   
+
     // 4
     onImageSuccess(imageData);
-    
+
     function onImageSuccess(fileURI) {
       createFileEntry(fileURI);
     }
-    
+
     function createFileEntry(fileURI) {
       window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
     }
-    
+
     // 5
     function copyFile(fileEntry) {
       var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
       var newName = makeid() + name;
-      
+
       window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
         fileEntry.copyTo(
           fileSystem2,
@@ -649,25 +650,37 @@ angular.module('starter.controllers', [])
     // 6
     function onCopySuccess(entry) {
       $scope.$apply(function () {
-        $scope.images.push(entry.nativeURL);
-        $scope.showImages();
+        //$scope.getString(entry.fullPath);
+        $scope.image = entry.nativeURL;
+        var myPopup = $ionicPopup.show({
+         templateUrl: 'templates/image-popover.html',
+         title: 'Confirm Profile Picture',
+         scope: $scope,
+         buttons: [
+         { text: 'Confirm',
+            onTap: function(e) {
+              ImageService.setProfileString($scope.setString())
+            } },
+         ]
+       });
       });
     }
-    
+
     function fail(error) {
       console.log("fail: " + error.code);
     }
-    
+
+
     function makeid() {
       var text = "";
       var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      
+
       for (var i=0; i < 5; i++) {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
       }
       return text;
     }
-    
+
   }, function(err) {
     console.log(err);
   });
@@ -679,42 +692,45 @@ $scope.urlForImage = function(imageName) {
   return trueOrigin;
 }
 
-$scope.getString = function(image) {
+function encodeImage(src, callback) {
+  var canvas = document.createElement('canvas'),
+  ctx = canvas.getContext('2d'),
+  img = new Image();
+
+  img.onload = function(){
+    canvas.width  = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    callback(canvas.toDataURL());
+  }
+  img.src = src;
+}
+
+$scope.setString = function() {
   var myImage = document.getElementById('myimage');
   var myCanvas = document.getElementById('mycanvas');
+
   var ctx = myCanvas.getContext('2d');
+
   ctx.drawImage(myImage, 0, 0);
 
-  var mydataURL = myCanvas.toDataURL('image/jpg');
+  var mydataURL=myCanvas.toDataURL('image/jpg');
+
+
   return mydataURL;
-}
-})
+};
 
-.controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http, $ionicModal) {
-
- // Triggered on a button click, or some other target
-
-$scope.showImages = function() {
-    $scope.showModal('templates/image-popover.html');
-  }
- 
-  $scope.showModal = function(templateUrl) {
-    $ionicModal.fromTemplateUrl(templateUrl, {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.modal = modal;
-      $scope.modal.show();
+$scope.getString = function(pictureURL) {
+  encodeImage(pictureURL, function(encodedImage) { 
+      //console.log(encodedImage);
+      //ImageService.setProfileString(encodedImage);
+      $scope.images[0] = encodedImage;
     });
-  }
- 
-  // Close the modal
-  $scope.closeModal = function() {
-    $scope.modal.hide();
-    $scope.modal.remove()
-  };
 
-$scope.showPopup = function() {
+  
+}
+
+ $scope.showPopup = function() {
   $scope.data = {}
 
     // An elaborate, custom popup
@@ -788,6 +804,8 @@ $scope.submitForm = function() {
       userExists=true;
       shakeShakeShake();
     });
+
+    ImageService.sendPhoto(user.username, $scope.imageURL);
 
     function shakeShakeShake() {
       //turn red
