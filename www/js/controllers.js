@@ -211,7 +211,7 @@ angular.module('starter.controllers', [])
 }
 })
 
-.controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope, booleOuts, $ionicPopup, HashtagService) {
+.controller('ProfileCtrl', function($scope, $state, $stateParams, UserService, $rootScope, booleOuts, $ionicPopup, HashtagService, ImageService) {
   $scope.showChart = function(booleOut) {
     console.log(booleOut);
     HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
@@ -241,6 +241,16 @@ angular.module('starter.controllers', [])
         var month = result.signup_date.substring(5, 7);
         var day = result.signup_date.substring(8, 10);
         result.signup_date=[day,month,year];
+
+        ImageService.getPhoto($stateParams.username, function(result) {
+          if(result.picture!=""){
+             $scope.profileData.picture = result.picture;
+          }
+          else {
+            $scope.profileData.picture = "img/defaultProfile.png";
+          }
+         
+        })
         //checks to see if you're looking at your own profile
         if ($stateParams.username === $rootScope.user.username) {
           $(".followButton").hide(); //hides follow button if looking at your own profile
@@ -411,7 +421,7 @@ angular.module('starter.controllers', [])
 }
 })
 
-.controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup, HashtagService) {
+.controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup, HashtagService, ImageService) {
   $scope.showChart = function(booleOut) {
     HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
       if(result){
@@ -440,6 +450,9 @@ angular.module('starter.controllers', [])
     var month = $rootScope.user.signup_date.substring(5, 7);
     var day = $rootScope.user.signup_date.substring(8, 10);
     $rootScope.user.signup_date=[day,month,year];
+    ImageService.getPhoto($rootScope.user.username, function(result) {
+          $scope.profileData.picture = result.picture;
+        });
   };
 
   updateProfile();
@@ -620,7 +633,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('SettingsCtrl', function($scope, $state, $stateParams, SettingsService) {
+.controller('SettingsCtrl', function($scope, $state, $stateParams, SettingsService, $cordovaCamera, $ionicPopup, $cordovaFile, ImageService) {
   $(".hideMe").hide();
   var oldUserName = $scope.user.username;
   $scope.changeUsername = function(user) {
@@ -647,20 +660,18 @@ angular.module('starter.controllers', [])
     $(".removeMe").hide();
     $(".hideMe").show();
   };
-})
 
-.controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http, $ionicModal, ImageService, $cordovaCamera, $cordovaFile) {
-  $scope.images = [];
-  
-  $scope.addImage = function() {
+    $scope.addImage = function() {
   // 2
   // 2
   var options = {
     destinationType : Camera.DestinationType.FILE_URI,
-    sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
+    sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
     allowEdit : false,
     encodingType: Camera.EncodingType.JPEG,
-    popoverOptions: CameraPopoverOptions
+    popoverOptions: CameraPopoverOptions,
+    targetWidth: 300,
+    targetHeight: 300
   };
   
   // 3
@@ -705,7 +716,10 @@ angular.module('starter.controllers', [])
          buttons: [
          { text: 'Confirm',
             onTap: function(e) {
-              ImageService.setProfileString($scope.setString())
+              ImageService.setProfileString($scope.setImageString());
+              ImageService.sendPhoto($scope.user.username);
+              $('.addPic').css("color", "green");
+              $('.addPic').text("Choose Another Photo");
             } },
          ]
        });
@@ -738,19 +752,113 @@ $scope.urlForImage = function(imageName) {
   return trueOrigin;
 }
 
-function encodeImage(src, callback) {
-  var canvas = document.createElement('canvas'),
-  ctx = canvas.getContext('2d'),
-  img = new Image();
 
-  img.onload = function(){
-    canvas.width  = img.width;
-    canvas.height = img.height;
-    ctx.drawImage(img, 0, 0, img.width, img.height);
-    callback(canvas.toDataURL());
-  }
-  img.src = src;
+$scope.setImageString = function() {
+  var myImage = document.getElementById('myimage');
+  var myCanvas = document.getElementById('mycanvas');
+
+  var ctx = myCanvas.getContext('2d');
+
+  ctx.drawImage(myImage, 0, 0);
+
+  var mydataURL=myCanvas.toDataURL('image/jpg');
+  return mydataURL;
+};
+})
+
+.controller('SignUpCtrl',function($scope, SignupService, $state, $ionicPopup, $timeout, $http, $ionicModal, ImageService, $cordovaCamera, $cordovaFile) {
+  $scope.images = [];
+  
+  $scope.addImage = function() {
+  // 2
+  // 2
+  var options = {
+    destinationType : Camera.DestinationType.FILE_URI,
+    sourceType : Camera.PictureSourceType.PHOTOLIBRARY,
+    allowEdit : false,
+    encodingType: Camera.EncodingType.JPEG,
+    popoverOptions: CameraPopoverOptions,
+    targetHeight: 300,
+    targetWidth: 300
+  };
+  
+  // 3
+  $cordovaCamera.getPicture(options).then(function(imageData) {
+
+    // 4
+    onImageSuccess(imageData);
+
+    function onImageSuccess(fileURI) {
+      createFileEntry(fileURI);
+    }
+
+    function createFileEntry(fileURI) {
+      window.resolveLocalFileSystemURL(fileURI, copyFile, fail);
+    }
+
+    // 5
+    function copyFile(fileEntry) {
+      var name = fileEntry.fullPath.substr(fileEntry.fullPath.lastIndexOf('/') + 1);
+      var newName = makeid() + name;
+
+      window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function(fileSystem2) {
+        fileEntry.copyTo(
+          fileSystem2,
+          newName,
+          onCopySuccess,
+          fail
+          );
+      },
+      fail);
+    }
+    
+    // 6
+    function onCopySuccess(entry) {
+      $scope.$apply(function () {
+        //$scope.getString(entry.fullPath);
+        $scope.image = entry.nativeURL;
+        var myPopup = $ionicPopup.show({
+         templateUrl: 'templates/image-popover.html',
+         title: 'Confirm Profile Picture',
+         scope: $scope,
+         buttons: [
+         { text: 'Confirm',
+            onTap: function(e) {
+              ImageService.setProfileString($scope.setString());
+              $('.addPic').css("color", "green");
+              $('.addPic').text("Choose Another Photo");
+            } },
+         ]
+       });
+      });
+    }
+
+    function fail(error) {
+      console.log("fail: " + error.code);
+    }
+
+
+    function makeid() {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (var i=0; i < 5; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
+    }
+
+  }, function(err) {
+    console.log(err);
+  });
 }
+
+$scope.urlForImage = function(imageName) {
+  var name = imageName.substr(imageName.lastIndexOf('/') + 1);
+  var trueOrigin = cordova.file.dataDirectory + name;
+  return trueOrigin;
+}
+
 
 $scope.setString = function() {
   var myImage = document.getElementById('myimage');
@@ -761,19 +869,9 @@ $scope.setString = function() {
   ctx.drawImage(myImage, 0, 0);
 
   var mydataURL=myCanvas.toDataURL('image/jpg');
-
   return mydataURL;
 };
 
-$scope.getString = function(pictureURL) {
-  encodeImage(pictureURL, function(encodedImage) { 
-      //console.log(encodedImage);
-      //ImageService.setProfileString(encodedImage);
-      $scope.images[0] = encodedImage;
-    });
-
-  
-}
 
  $scope.showPopup = function() {
   $scope.data = {}
@@ -850,7 +948,7 @@ $scope.submitForm = function() {
       shakeShakeShake();
     });
 
-    ImageService.sendPhoto(user.username, $scope.imageURL);
+    ImageService.sendPhoto(user.username);
 
     function shakeShakeShake() {
       //turn red

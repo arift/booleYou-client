@@ -1,60 +1,60 @@
 <ion-view class="bar-royal" view-title="Sign Up">
-  <ion-content>
-    <div class="list">
-      <div class="itemWhole padding signUpPadding" ng-controller="SignUpCtrl">
-        <label class="itemFirst item item-input item-floating-label">
-          <span class="input-label">First Name</span>
-          <input type="text" placeholder="First Name" ng-model="signup.firstName">
-        </label>
-        <label class="itemLast item item-input item-floating-label">
-          <span class="input-label">Last Name</span>
-          <input type="text" placeholder="Last Name" ng-model="signup.lastName">
-        </label>
-        <label class="itemEmail item item-input item-floating-label">
-          <span class="emailText input-label">Email</span>
-          <input type="email" placeholder="Email" ng-model="signup.email" ng-change="emailCheck()">
-        </label>
-        <label class="itemBit item item-input item-floating-label">
-          <span class="input-label bitText">BitName</span>
-          <input type="text" placeholder="BitName" ng-model="signup.bitName">
-        </label>
-        <label class="itemPass item item-input item-floating-label">
-          <span class="input-label">Password</span>
-          <input type="password" placeholder="Password" ng-model="signup.password">
-        </label>
-         <label class="itemPass item item-input item-floating-label">
-          <span class="input-label confirmText">Confirm Password</span>
-          <input type="password" placeholder="Confirm Password" ng-model="signup.confirmPassword" ng-change="compareTo()">
-        </label>
-        <label class="item item-input item-select">
-          <div class="input-label">
-            Gender
-          </div>
-          <select>
-            <option selected>Optional</option ng-model="signup.gender">
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </label>
-        <label id="bdaytext" class="item item-input item-select" ng-click="showPopup()" >
-          <div class="input-label" >
-            Birthday
-          </div>
-        </label>
-        <p></p>
-         <label class="list" ng-click="addImage()">
-           <a class="item item-icon-left">
-    <i class="icon ion-camera"></i>
-    Add Profile Picture
-  </a>
-        </label>          
+<ion-content>
+<div class="list">
+  <div class="itemWhole padding signUpPadding" ng-controller="SignUpCtrl">
+    <label class="itemFirst item item-input item-floating-label">
+      <span class="input-label">First Name</span>
+      <input type="text" placeholder="First Name" ng-model="signup.firstName">
+    </label>
+    <label class="itemLast item item-input item-floating-label">
+      <span class="input-label">Last Name</span>
+      <input type="text" placeholder="Last Name" ng-model="signup.lastName">
+    </label>
+    <label class="itemEmail item item-input item-floating-label">
+      <span class="emailText input-label">Email</span>
+      <input type="email" placeholder="Email" ng-model="signup.email" ng-change="emailCheck()">
+    </label>
+    <label class="itemBit item item-input item-floating-label">
+      <span class="input-label bitText">BitName</span>
+      <input type="text" placeholder="BitName" ng-model="signup.bitName">
+    </label>
+    <label class="itemPass item item-input item-floating-label">
+      <span class="input-label">Password</span>
+      <input type="password" placeholder="Password" ng-model="signup.password">
+    </label>
+    <label class="itemPass item item-input item-floating-label">
+      <span class="input-label confirmText">Confirm Password</span>
+      <input type="password" placeholder="Confirm Password" ng-model="signup.confirmPassword" ng-change="compareTo()">
+    </label>
+    <label class="item item-input item-select">
+      <div class="input-label">
+        Gender
+      </div>
+      <select>
+        <option selected>Optional</option ng-model="signup.gender">
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </label>
+      <label id="bdaytext" class="item item-input item-select" ng-click="showPopup()" >
+        <div class="input-label" >
+          Birthday
+        </div>
+      </label>
+      <p></p>
+      <label class="list" ng-click="addImage()">
+       <a class="addPic item item-icon-left">
+        <i class="icon ion-camera"></i>
+        Add Profile Picture
+      </a>
+    </label>          
 
   </label>
 
-        <button ng-controller="SignUpCtrl" class="button button-block button-royal" ng-click="submitForm()">
-          Create Account
-        </button>
-      </div>
-    </div>
-  </ion-content>
+  <button ng-controller="SignUpCtrl" class="button button-block button-royal" ng-click="submitForm()">
+    Create Account
+  </button>
+</div>
+</div>
+</ion-content>
 </ion-view>

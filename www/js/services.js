@@ -93,17 +93,27 @@ angular.module('starter.services', [])
     // },
 
     sendPhoto: function(username) {
-      var picture = {
+      var image = {
         username : username,
         picture : profileStringFinal
       }
-      console.log(picture);
-      $http.post("http://booleyou-server.herokuapp.com/api/user/addpropic/" + username, picture).
+
+      $http.post("http://booleyou-server.herokuapp.com/api/user/addpropic/" + username, image).
       success(function(data, status, headers, config) {
         //cb(data);
       }).
       error(function(data, status, headers, config) {
         //cb(data);
+      });
+    },
+
+    getPhoto: function(username, cb) { 
+      $http.get('http://booleyou-server.herokuapp.com/api/user/getpropic/' + username).
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb(data);
       });
     }
   }
