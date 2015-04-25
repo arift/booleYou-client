@@ -93,6 +93,9 @@ angular.module('starter.services', [])
     // },
 
     sendPhoto: function(username) {
+      if(profileStringFinal.length < 10) {
+        profileStringFinal = "img/defaultProfile.png";
+      }
       var image = {
         username : username,
         picture : profileStringFinal
