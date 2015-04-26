@@ -81,6 +81,47 @@ angular.module('starter.services', [])
   }
 })
 
+.service('ImageService', function($http) {
+  var profileStringFinal = "";
+  return {  
+    setProfileString: function(profileString) {
+      profileStringFinal = profileString;
+    },
+
+    // getProfileString: function() {
+    //   return profileStringFinal;
+    // },
+
+    sendPhoto: function(username) {
+      if(profileStringFinal.length < 10) {
+        profileStringFinal = "img/defaultProfile.png";
+      }
+      var image = {
+        username : username,
+        picture : profileStringFinal
+      }
+
+      $http.post("http://booleyou-server.herokuapp.com/api/user/addpropic/" + username, image).
+      success(function(data, status, headers, config) {
+        //cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        //cb(data);
+      });
+    },
+
+    getPhoto: function(username, cb) { 
+      $http.get('http://booleyou-server.herokuapp.com/api/user/getpropic/' + username).
+      success(function(data, status, headers, config) {
+        cb(data);
+      }).
+      error(function(data, status, headers, config) {
+        cb(data);
+      });
+    }
+  }
+})
+
 .service('HashtagService', function($http) {
   return {
     getbyhashtag: function(hashtag, cb) {
@@ -100,7 +141,18 @@ angular.module('starter.services', [])
       error(function(data, status, headers, config) {
         cb(data);
       });
+    },
+
+    getbooleouts: function(hashtag, cb) {
+      $http.get('http://booleyou-server.herokuapp.com/api/hashtag//getbooleoutsbyhashtag/' + hashtag).
+          success(function(data, status, headers, config) {
+              cb(data);
+          }).
+          error(function(data, status, headers, config) {
+              cb(data);
+          });
     }
+
   }
 })
 
