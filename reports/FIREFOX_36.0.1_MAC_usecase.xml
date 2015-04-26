@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="1"
+            tests="1">
+
+  <testsuite name="usecase"
+    errors="1" failures="1" hostname="" id="" package="usecase" skipped="0"
+    tests="1" time="7.916" timestamp="Sun, 26 Apr 2015 17:11:29 GMT">
+  
+    <testcase name="login and see the global bitstream" time="7.916" assertions="4">
+
+    
+
+    
+
+      <failure message="Timed out while waiting for element &lt;button[name=btnG]&gt; to be present for 1000 milliseconds.">Timed out while waiting for element &lt;button[name=btnG]&gt; to be present for 1000 milliseconds.: Expected &quot;visible&quot; but got: &quot;not found&quot;
+    at F.WaitForElement.fail (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/api/commands/_waitForElement.js:194:15)
+    at F.WaitForElementPresent.elementNotFound (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/api/commands/waitForElementPresent.js:57:15)
+    at Object.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/api/commands/_waitForElement.js:221:17)
+    at HttpRequest.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/index.js:299:20)
+    at HttpRequest.EventEmitter.emit (events.js:98:17)
+    at HttpRequest.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/index.js:322:15)
+    at HttpRequest.EventEmitter.emit (events.js:106:17)
+    at IncomingMessage.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/http/request.js:148:16)
+    at IncomingMessage.EventEmitter.emit (events.js:117:20)
+    at _stream_readable.js:920:16</failure>
+
+    
+    </testcase>
+      <system-err>
+        Unable to locate element: &quot;input[type=text]&quot; using: css selector
+      </system-err>
+  
+  
+  </testsuite>
+</testsuites>
