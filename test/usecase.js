@@ -8,11 +8,10 @@ module.exports = {
             .url('http://booleyou-client.herokuapp.com')
             .waitForElementVisible('body', 1000)
             .assert.title('Welcome') // check if go to the welcome screen
-            .assert.visible('a[ng-click]')
-            .setValue('input[type=text]', 'rembrandt van rijn')
-            .waitForElementVisible('button[name=btnG]', 1000)
-            .click('button[name=btnG]')
-            .pause(1000)
+            .assert.visible('a[name=login]')
+            //.assert.visible('a[name=login]')
+            .click('a[name=login]')
+            .pause(2000)
             .assert.containsText('ol#rso li:first-child',
             'Rembrandt - Wikipedia')
             .end();
