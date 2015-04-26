@@ -50,9 +50,9 @@ module.exports = {
             .assert.visible('ion-view[view-title=BitStream]')
 
             .assert.visible('ion-nav-view[name=tab-bitstream]') // check if the Profile tab icon
-            .assert.visible('ion-nav-view') // check if the Profile tab icon
+            .assert.visible('div[name=testing]') // check if the Profile tab icon
             .pause(2000)
-            .click('ion-nav-view') // Click on the Profile tab icon
+            .click('div[name=testing]') // Click on the Profile tab icon
             .pause(5000)
             .assert.visible('ion-view[view-title=Profile]') // check if the Profile page renders
 
