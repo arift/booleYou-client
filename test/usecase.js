@@ -46,13 +46,15 @@ module.exports = {
             .setValue('input[type=password]', 'test1')// set the test user password, in this case "test1"
             .assert.visible('button[type=submit]') // check if the login box is shown
             .click('button[type=submit]') // submit the login information
-            .pause(2000)
+            .pause(4000)
             .assert.visible('ion-view[view-title=BitStream]')
+            .assert.visible('ion-nav-view[name=tab-bitstream]')
+            .assert.visible('div[type=item-text-wrap]') // check if the Profile tab icon
+            .assert.visible('ion-list[type=in-set]')
+            .assert.visible('ion-footer-bar')
 
-            .assert.visible('ion-nav-view[name=tab-bitstream]') // check if the Profile tab icon
-            .assert.visible('div[name=testing]') // check if the Profile tab icon
-            .pause(2000)
-            .click('div[name=testing]') // Click on the Profile tab icon
+            .assert.visible('div[name=profile]') //
+
             .pause(5000)
             .assert.visible('ion-view[view-title=Profile]') // check if the Profile page renders
 
