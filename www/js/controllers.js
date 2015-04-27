@@ -67,7 +67,7 @@ angular.module('starter.controllers', [])
                               $scope.replyShow[result[booleOut]._id] = false;
                           }
                       }
-                  }, rootScope.user.username);
+                  }, $rootScope.user.username);
               }
           }
           if (type === 'global') {

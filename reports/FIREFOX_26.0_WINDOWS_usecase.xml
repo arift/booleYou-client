@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="4">
+
+  <testsuite name="usecase"
+    errors="0" failures="0" hostname="" id="" package="usecase" skipped="0"
+    tests="4" time="109.8" timestamp="Sun, 26 Apr 2015 22:36:56 GMT">
+  
+    <testcase name="login and see the global bitstream" time="31.23" assertions="8">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="login and see the Profile" time="26.13" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="login and see the Popular posts" time="26.81" assertions="10">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="login and post BooleOut" time="25.58" assertions="11">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+  
+  </testsuite>
+</testsuites>
