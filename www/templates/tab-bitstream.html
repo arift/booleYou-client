@@ -18,7 +18,7 @@
                     <p ng-click="showChart(BooleOut)"><b>{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</b></p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <button class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]"></button>
+                <button ng-show="BooleOut.noOfReplies > 0" class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]">({{BooleOut.noOfReplies}})</button>
                 <button class="button icon-left ion-chatbox" href="" ng-click="replyPopup(BooleOut._id); replyShow[BooleOut._id] = true">
                 </button>
             </div>
