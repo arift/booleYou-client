@@ -421,7 +421,7 @@ angular.module('starter.controllers', [])
 }
 })
 
-.controller('AccountCtrl', function($scope, $rootScope, booleOuts, $ionicPopup, HashtagService, ImageService) {
+.controller('AccountCtrl', function($scope, $rootScope, UserService, booleOuts, $ionicPopup, HashtagService, ImageService) {
   $scope.showChart = function(booleOut) {
     HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
       if(result){
@@ -437,22 +437,22 @@ angular.module('starter.controllers', [])
           { text: 'Close' }
           ]
         });
-
       }
-    })
-
+    });
   };
 
-
   var updateProfile = function() {
-    $scope.profileData = $rootScope.user;
-    var year = $rootScope.user.signup_date.substring(0, 4);
-    var month = $rootScope.user.signup_date.substring(5, 7);
-    var day = $rootScope.user.signup_date.substring(8, 10);
-    $rootScope.user.signup_date=[day,month,year];
-    ImageService.getPhoto($rootScope.user.username, function(result) {
-          $scope.profileData.picture = result.picture;
-        });
+    UserService.fetchProfileData($rootScope.user.username, function(user) {
+      $rootScope.user = user;
+      $scope.profileData = user;
+      var year = user.signup_date.substring(0, 4);
+      var month = user.signup_date.substring(5, 7);
+      var day = user.signup_date.substring(8, 10);
+      $rootScope.user.signup_date=[day,month,year];
+      ImageService.getPhoto($rootScope.user.username, function(result) {
+        $scope.profileData.picture = result.picture;
+      });
+    });    
   };
 
   updateProfile();
@@ -636,6 +636,12 @@ angular.module('starter.controllers', [])
 .controller('SettingsCtrl', function($scope, $state, $stateParams, SettingsService, $cordovaCamera, $ionicPopup, $cordovaFile, ImageService) {
   $(".hideMe").hide();
   var oldUserName = $scope.user.username;
+  
+  ImageService.getPhoto(oldUserName, function(result) {
+           $scope.pictureResult = result;         
+        });
+        
+        
   $scope.changeUsername = function(user) {
     SettingsService.changeUserName(oldUserName, user);
   };
