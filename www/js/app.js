@@ -117,6 +117,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     })
 
   .state('tab.account', {
+    cache:false,
     url: '/account',
     views: {
       'tab-account': {

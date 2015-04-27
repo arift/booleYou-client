@@ -11,7 +11,16 @@
        <p> <i >Sign Up Date: {{profileData.signup_date[1]}}/{{profileData.signup_date[0]}}/{{profileData.signup_date[2]}}</i> </p>
       <p>
         <i>Bits: {{profileData.bits}}</i>
-      </P>
+      </p>
+      <p>
+        <i>Ones: {{profileData.ones}}</i>
+      </p>
+      <p>
+        <i>Zeros: {{profileData.zeros}}</i>
+      </p>
+      <p>
+        <i>Total: {{profileData.ones + profileData.zeros}}</i>
+      </p>
 
       <ion-list type="in-set" >
           <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" >
