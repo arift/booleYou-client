@@ -3,9 +3,9 @@ angular.module('starter.services', [])
 /**
  * factory to return booleOuts. Dummy data for now, requires a call to the database.
  */
- .service('booleOuts', function($http) {
+ .service('booleOuts', function($http) { // factory (and other) methods which return different subsets of booleOuts
   return {
-    all: function(cb) {
+    all: function(cb) { // returns all booleOuts in database
 
       $http.get('http://booleyou-server.herokuapp.com/api/booleout/booleOuts').
       success(function(data, status, headers, config) {
@@ -15,7 +15,7 @@ angular.module('starter.services', [])
         cb();
       });
     },
-    getParents: function(cb) {
+    getParents: function(cb) { // returns booleOuts that are not replies
       $http.get('http://booleyou-server.herokuapp.com/api/booleout/getParents').
       success(function(data, status, headers, config) {
         cb(data);
@@ -24,7 +24,7 @@ angular.module('starter.services', [])
         cb();
       });
     },
-    getFollowingParents: function(cb, username) {
+    getFollowingParents: function(cb, username) { // returns booleOuts that are not replies and also are posted by those in following list
       $http.get('http://booleyou-server.herokuapp.com/api/booleout/getfollowerbooleouts/' + username).
           success(function(data, status, headers, config) {
               cb(data);
@@ -34,7 +34,7 @@ angular.module('starter.services', [])
           });
 
     },
-    getReplies: function(parentid, cb) {
+    getReplies: function(parentid, cb) { // returns all reply-type booleOuts
       var apiUrl = "http://booleyou-server.herokuapp.com/api/booleout/getreplies/" + parentid;
       $http.get(apiUrl).
       success(function(data, status, headers, config) {
@@ -44,7 +44,7 @@ angular.module('starter.services', [])
         cb();
       });
     },
-    getByUser: function(username, cb) {
+    getByUser: function(username, cb) { // returns all booleOuts belonging to a particular user
       var apiUrl = "http://booleyou-server.herokuapp.com/api/booleout/getbooleouts/" + username;
       $http.get(apiUrl).
       success(function(data, status, headers, config) {
@@ -54,7 +54,7 @@ angular.module('starter.services', [])
         cb();
       });
     },
-    postBooleOut: function(booleOut, cb) {
+    postBooleOut: function(booleOut, cb) { // method to post a booleOut to the database
       $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', booleOut).
       success(function(data, status, headers, config) {
         cb(data);
@@ -63,7 +63,7 @@ angular.module('starter.services', [])
         cb(data);
       });
     },
-    postReply: function(booleOut, cb) {
+    postReply: function(booleOut, cb) { // method to post a reply-type booleOut to the database
       $http.post('http://booleyou-server.herokuapp.com/api/booleout/booleOuts', booleOut).
       success(function(data, status, headers, config) {
         cb(data);
@@ -72,7 +72,7 @@ angular.module('starter.services', [])
         cb(data);
       });
     },
-    parseBooleOut: function(string) {
+    parseBooleOut: function(string) { // method to convert text in input box to a properly formatted booleOut string
       if (string.charAt(0) != '#') {
         string = '#' + string;
       }
@@ -81,7 +81,7 @@ angular.module('starter.services', [])
   }
 })
 
-.service('ImageService', function($http) {
+.service('ImageService', function($http) { // methods to work with photo objects
   var profileStringFinal = "";
   return {  
     setProfileString: function(profileString) {
@@ -92,14 +92,14 @@ angular.module('starter.services', [])
     //   return profileStringFinal;
     // },
 
-    sendPhoto: function(username) {
+    sendPhoto: function(username) { // method to post picture to database
       if(profileStringFinal.length < 10) {
         profileStringFinal = "img/defaultProfile.png";
       }
       var image = {
         username : username,
         picture : profileStringFinal
-      }
+      };
 
       $http.post("http://booleyou-server.herokuapp.com/api/user/addpropic/" + username, image).
       success(function(data, status, headers, config) {
@@ -110,7 +110,7 @@ angular.module('starter.services', [])
       });
     },
 
-    getPhoto: function(username, cb) { 
+    getPhoto: function(username, cb) { // method to retrieve photo from database
       $http.get('http://booleyou-server.herokuapp.com/api/user/getpropic/' + username).
       success(function(data, status, headers, config) {
         cb(data);
@@ -122,9 +122,9 @@ angular.module('starter.services', [])
   }
 })
 
-.service('HashtagService', function($http) {
+.service('HashtagService', function($http) { // factory methods to work with hashtag objects
   return {
-    getbyhashtag: function(hashtag, cb) {
+    getbyhashtag: function(hashtag, cb) { // method to get a particular hashtag object
       $http.get('http://booleyou-server.herokuapp.com/api/hashtag/getbyhashtag/' + hashtag).
       success(function(data, status, headers, config) {
         cb(data);
@@ -133,7 +133,7 @@ angular.module('starter.services', [])
         cb(data);
       });
     },
-    getbyuser: function(username, cb) {
+    getbyuser: function(username, cb) { // method that returns all hashtags associated with a user
       $http.get('http://booleyou-server.herokuapp.com/api/hashtag/getbyuser/' + username).
       success(function(data, status, headers, config) {
         cb(data);
@@ -143,7 +143,7 @@ angular.module('starter.services', [])
       });
     },
 
-    getbooleouts: function(hashtag, cb) {
+    getbooleouts: function(hashtag, cb) { // method that retrieves all booleOuts containing a particular hashtag
       $http.get('http://booleyou-server.herokuapp.com/api/hashtag//getbooleoutsbyhashtag/' + hashtag).
           success(function(data, status, headers, config) {
               cb(data);
@@ -156,7 +156,7 @@ angular.module('starter.services', [])
   }
 })
 
-.service('LoginService', function($q, $http) {
+.service('LoginService', function($q, $http) { // service to login a user, creates singleton object via passport.js
   return {
     loginUser: function(name, pw) {
       var deferred = $q.defer();
@@ -190,9 +190,9 @@ angular.module('starter.services', [])
   }
 })
 
-.service('UserService', function($http) {
+.service('UserService', function($http) { // methods that allow the client to get profile data, and to work with following logic
   return {
-    fetchProfileData: function(user_name, cb) {
+    fetchProfileData: function(user_name, cb) { // method to retrieve the data of a profile upon visiting a profile page
       var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + user_name;
       $http.get(url).
       success(function(data, status, headers, config) {
@@ -202,7 +202,7 @@ angular.module('starter.services', [])
         cb();
       });
     },
-    addFollowing: function(toFollow, user, cb) {
+    addFollowing: function(toFollow, user, cb) { // method to add a user to the following array
       $http.get('http://booleyou-server.herokuapp.com/api/user/' + user.username + '/follow/' + toFollow).
       success(function(data, status, headers, config) {
         cb(data);
@@ -211,7 +211,7 @@ angular.module('starter.services', [])
         cb();
       });
     },
-    removeFollowing: function(toUnFollow, user, cb) {
+    removeFollowing: function(toUnFollow, user, cb) { // method to remove a user from the following array
       $http.get('http://booleyou-server.herokuapp.com/api/user/' + user.username + '/unfollow/' + toUnFollow).
       success(function(data, status, headers, config) {
         cb(data);
@@ -220,7 +220,7 @@ angular.module('starter.services', [])
         cb();
       });
     },
-    isFollowing: function (isFollow, username, cb) {
+    isFollowing: function (isFollow, username, cb) { // method to check if you are currently following a user
       $http.get('http://booleyou-server.herokuapp.com/api/user/users/' + username).
       success(function(user, status, headers, config) {
         if (user.following.indexOf(isFollow) > -1) {
@@ -237,9 +237,9 @@ angular.module('starter.services', [])
   };
 })
 
-.service('SettingsService', function($q, $http) {
+.service('SettingsService', function($q, $http) { // method heads to change account settings
   return {
-    changeUserName: function(oldUserName, user) {
+    changeUserName: function(oldUserName, user) { // change user name
       var deferred = $q.defer();
       var promise = deferred.promise;
       var url = 'http://booleyou-server.herokuapp.com/api/user/users/' + oldUserName;
@@ -258,15 +258,15 @@ angular.module('starter.services', [])
       promise.success = function(fn) {
         promise.then(fn);
         return promise;
-      }
+      };
       promise.error = function(fn) {
         promise.then(null, fn);
         return promise;
-      }
+      };
       return promise;
     },
 
-    changePassword: function(user, pw) {
+    changePassword: function(user, pw) { // change password
       var deferred = $q.defer();
       var promise = deferred.promise;
       console.log(user.username + " " + pw);
@@ -274,7 +274,7 @@ angular.module('starter.services', [])
       var url = 'http://booleyou-server.herokuapp.com/api/user/changepass/' + user.username;
       var dataToSend = {
         newPassword : pw
-      }
+      };
       $http.post(url, dataToSend).
       success(function(data, status, headers, config) {
         console.log("Success!");
@@ -288,16 +288,16 @@ angular.module('starter.services', [])
       promise.success = function(fn) {
         promise.then(fn);
         return promise;
-      }
+      };
       promise.error = function(fn) {
         promise.then(null, fn);
         return promise;
-      }
+      };
       return promise;
     }
   }
 })
-.service('SignupService', function($q, $http) {
+.service('SignupService', function($q, $http) { // service to register a user and create a new user object that is put into the database
   return {
     signupUser: function(userData) {
       var deferred = $q.defer();
@@ -321,9 +321,9 @@ angular.module('starter.services', [])
     }
   }
 })
-.service('TrendingService', function($http) {
+.service('TrendingService', function($http) { // methods to work with trending retrieval
     return {
-        getTrending: function(cb) {
+        getTrending: function(cb) { // gets the trending hashtags in order of most posted
             $http.get('http://booleyou-server.herokuapp.com/api/hashtag/trending').
                 success(function(data, status, headers, config) {
                     cb(data);
