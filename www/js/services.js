@@ -15,6 +15,15 @@ angular.module('starter.services', [])
         cb();
       });
     },
+    getBooleOut: function(_id, cb) { // returns booleOuts that are not replies and also are posted by those in following list
+      $http.get('http://booleyou-server.herokuapp.com/api/booleout/booleOuts/' + _id).
+      success(function(data, status, headers, config) {
+          cb(data);
+      }).
+      error(function(data, status, headers, config) {
+          cb();
+      });
+    },
     getParents: function(cb) { // returns booleOuts that are not replies
       $http.get('http://booleyou-server.herokuapp.com/api/booleout/getParents').
       success(function(data, status, headers, config) {
