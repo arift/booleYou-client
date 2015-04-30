@@ -24,7 +24,7 @@ angular.module('starter.services', [])
         cb();
       });
     },
-    getFollowingParents: function(cb, username) {
+    getFollowingParents: function(username, cb) {
       $http.get('http://booleyou-server.herokuapp.com/api/booleout/getfollowerbooleouts/' + username).
           success(function(data, status, headers, config) {
               cb(data);

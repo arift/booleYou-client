@@ -2,6 +2,7 @@ angular.module('starter.controllers', [])
 
 
 .controller('BitStreamCtrl', function($scope, $rootScope, $http, $state, booleOuts, UserService, $ionicPopup, $ionicModal, HashtagService) {
+  var state = 'global'; //default state
   $scope.showChart = function(booleOut) {
     HashtagService.getbyhashtag(booleOut.hashtag[0], function(result) {
       if(result){
@@ -19,7 +20,6 @@ angular.module('starter.controllers', [])
         });
       }
     })
-
   };
 
   $scope.postBooleOut = function(bit) {
@@ -41,70 +41,46 @@ angular.module('starter.controllers', [])
     $state.go('profile', {username : username});
   };
   // function to update bit stream
-      var updateBitStream = function(type) {
-          if (type === 'this') {
-              if ($scope.type === 'global' || $scope.type == null) {
-                  booleOuts.getParents(function(result) {
-                      if(result) {
-                          $scope.posts = result;
-                          $scope.replyShow = [];
+  var updateBitStream = function(type) {
+    console.log("Updating " + type);
+    if (type === 'global') {
+      booleOuts.getParents(function(result) {
+          if(result) {
+              $scope.posts = result;
+              $scope.replyShow = [];
 
-                          var booleOut;
-                          for(booleOut in result) {
-                              $scope.replyShow[result[booleOut]._id] = false;
-                          }
-                      }
-                  });
-              }
-              if ($scope.type === 'personal') {
-                  booleOuts.getFollowingParents(function(result) {
-                      if(result) {
-                          $scope.posts = result;
-                          $scope.replyShow = [];
-
-                          var booleOut;
-                          for(booleOut in result) {
-                              $scope.replyShow[result[booleOut]._id] = false;
-                          }
-                      }
-                  }, $rootScope.user.username);
+              var booleOut;
+              for(booleOut in result) {
+                  $scope.replyShow[result[booleOut]._id] = false;
               }
           }
-          if (type === 'global') {
-              $scope.posts = {};
-              booleOuts.getParents(function(result) {
-                  if(result) {
-                      $scope.posts = result;
-                      $scope.replyShow = [];
+      });
+    } 
+    else if (type === 'personal') {
+      $scope.posts = {};
+      booleOuts.getFollowingParents($rootScope.user.username, function(result) {
+          if(result) {
+              $scope.posts = result;
+              $scope.replyShow = [];
 
-                      var booleOut;
-                      for(booleOut in result) {
-                          $scope.replyShow[result[booleOut]._id] = false;
-                      }
-                  }
-              });
+              var booleOut;
+              for(booleOut in result) {
+                  $scope.replyShow[result[booleOut]._id] = false;
+              }
           }
-          if (type === 'personal') {
-              $scope.posts = {};
-              booleOuts.getFollowingParents(function(result) {
-                  if(result) {
-                      $scope.posts = result;
-                      $scope.replyShow = [];
+      });
+    }
+  };
 
-                      var booleOut;
-                      for(booleOut in result) {
-                          $scope.replyShow[result[booleOut]._id] = false;
-                      }
-                  }
-              }, $rootScope.user.username);
-          }
-      };
+  updateBitStream(state);
 
-  updateBitStream('this');
+  $scope.getStream = function(type) {
+    state = type;
+    $scope.refresh();
+  };
 
-  // this function returns all the booleOuts stored in our Mongo DB
-  $scope.refresh = function(type) { // this function is executed when the user drags down the interface to refresh the BitStream
-    updateBitStream(type); // to refresh the BitStream
+  $scope.refresh = function() { 
+    updateBitStream(state); 
     $scope.$broadcast('scroll.refreshComplete');
   };
 
