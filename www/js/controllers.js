@@ -32,7 +32,7 @@ angular.module('starter.controllers', [])
     };
     $scope.bitstream.hashtag = "";
     booleOuts.postBooleOut(dataToSend, function (data) {
-      updateBitStream('this');
+      updateBitStream(state); 
     });
   };
 
