@@ -227,10 +227,10 @@ angular.module('starter.controllers', [])
             $scope.profileData.picture = "img/defaultProfile.png";
           }
          
-        })
-        //checks to see if you're looking at your own profile
+        });
+        // checks to see if you're looking at your own profile
         if ($stateParams.username === $rootScope.user.username) {
-          $(".followButton").hide(); //hides follow button if looking at your own profile
+          $(".followButton").hide(); // hides follow button if looking at your own profile
         }
         else {
           UserService.isFollowing($stateParams.username, $rootScope.user.username, function(isFollowing, user) {
@@ -269,7 +269,7 @@ angular.module('starter.controllers', [])
   };
 
   // function to update bit stream
-  var updateBitStream = function() {
+  var updateBitStream = function() { // iterates over all booleOuts you have posted
     booleOuts.getByUser($stateParams.username, function(result){
       if(result) {
         $scope.posts = result;
@@ -1019,7 +1019,7 @@ angular.module('starter.controllers', [])
 
 .controller('TrendingCtrl', function($scope, $state, TrendingService, $ionicPopup, HashtagService) {
 
-    var initializeTrending = function() {
+    var initializeTrending = function() { // method that iterates over all hashtags in order of popularity
         $scope.tag = "Popular";
         $scope.showall = true;
         TrendingService.getTrending(function (result) {
@@ -1031,7 +1031,7 @@ angular.module('starter.controllers', [])
         })
     };
 
-    var discover = function(hashtag){
+    var discover = function(hashtag){ // method that iterates over all posts containing a particular hashtag
         $scope.showall = false;
         HashtagService.getbooleouts(hashtag, function(result){
             if(result){
