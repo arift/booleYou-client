@@ -2,16 +2,18 @@
   <ion-content>
     <div class="list">
       <div class="padding profilePadding">
-       <div style="text-align: center"> <img src = "{{profileData.picture}}">
-       <p><p>
-       <i id="profileFont">{{profileData.firstName}} {{profileData.lastName}}</i>
-       <br>
-       <i id="usernameFont">{{profileData.username}}</i>
-       </p></p></div>
-       <p> <i >Sign Up Date: {{profileData.signup_date[1]}}/{{profileData.signup_date[0]}}/{{profileData.signup_date[2]}}</i> </p>
-      <p>
-        <i>Bits: {{profileData.bits}}</i>
-      </P>
+        <div style="text-align: center"> <img src = "{{profileData.picture}}">
+        <p><p>
+        <i id="profileFont">{{profileData.firstName}} {{profileData.lastName}}</i>
+        <br>
+        <i id="usernameFont">{{profileData.username}}</i>
+        </p></p></div>
+        <p> <i >Sign Up Date: {{profileData.signup_date[1]}}/{{profileData.signup_date[0]}}/{{profileData.signup_date[2]}}</i><br>
+        <i>Bits: {{profileData.bits}}</i><br>
+        <i>Ones: {{profileData.ones}}</i><br>
+        <i>Zeros: {{profileData.zeros}}</i><br>
+        <i>Total: {{profileData.ones + profileData.zeros}}</i>
+        </p>
 
         <div class="container center-children">
           <button class="button button-royal" ng-click="goBack()">
@@ -23,29 +25,27 @@
         </div>
 
         <ion-list type="in-set" >
-          <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" >
-            <div class="item item-avatar" >
-              <img src="img/stock_picture.png">
-              <h2><b>{{BooleOut.username}}</b></h2>
-            </div>
-            <div class="item item-text-wrap">
-              <p ng-click="showChart(BooleOut)"><b>{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</b></p>
-            </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-
-              <button class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]"></button>
-              <button class="button icon-left ion-chatbox" href="" ng-click="replyPopup(BooleOut._id); replyShow[BooleOut._id] = true">
-              </button>
-
-            </div>
-
-            <div class="list card" ng-show="replyShow[BooleOut._id]" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
+          <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
               <div class="item item-avatar" >
-                <img src="img/stock_picture.png">
-                <h2><b ng-click="toProfile(reply.username)">{{reply.username}}</b></h2>
-                <p ng-click="showChart(reply)">{{getBit(reply.bit)}} {{getHashtags(reply.hashtag)}}</p>
+                  <img ng-click="toProfile(BooleOut.username)" src="img/stock_picture.png">
+                  <h2><b ng-click="toProfile(BooleOut.username)">{{BooleOut.username}}</b></h2>
               </div>
-            </div>  
+              <div class="item item-text-wrap">
+                      <p ng-click="showChart(BooleOut)"><b>{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</b></p>
+              </div>
+              <div class="item tabs tabs-secondary tabs-icon-left">
+                  <button ng-show="BooleOut.noOfReplies > 0" class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]">({{BooleOut.noOfReplies}})</button>
+                  <button class="button icon-left ion-chatbox" href="" ng-click="replyPopup(BooleOut._id); replyShow[BooleOut._id] = true">
+                  </button>
+              </div>
+
+              <div class="list card" ng-show="replyShow[BooleOut._id]" ng-repeat="reply in allReplies[BooleOut._id]" type="item-text-wrap" href="#/tab/bitstream">
+                  <div class="item item-avatar" >
+                      <img src="img/stock_picture.png">
+                      <h2><b ng-click="toProfile(reply.username)">{{reply.username}}</b></h2>
+                      <p ng-click="showChart(reply)">{{getBit(reply.bit)}} {{getHashtags(reply.hashtag)}}</p>
+                  </div>
+              </div>            
           </div>
         </ion-list>
         

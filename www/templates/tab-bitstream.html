@@ -1,13 +1,15 @@
 <ion-view view-title="BitStream">
+
   <ion-content>
+
     <div class="button-bar">
-        <a class="button button-royal" ng-click="refresh('global')">Global</a>
-        <a class="button button-royal" ng-click="refresh('personal')">Personal</a>
+        <a class="button button-royal" ng-click="getStream('global')">Global</a>
+        <a class="button button-royal" ng-click="getStream('personal')">Personal</a>
     </div>
-    <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh('this')">
+    <ion-refresher pulling-text="Pull to Refresh" on-refresh="refresh()">
     </ion-refresher>
     <ion-list type="in-set" >
-        <div class="list card" ng-controller="BitStreamCtrl" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
+        <div class="list card" ng-repeat="BooleOut in posts" type="item-text-wrap" href="#/tab/bitstream">
             <div class="item item-avatar" >
                 <img ng-click="toProfile(BooleOut.username)" src="img/stock_picture.png">
                 <h2><b ng-click="toProfile(BooleOut.username)">{{BooleOut.username}}</b></h2>
@@ -16,7 +18,7 @@
                     <p ng-click="showChart(BooleOut)"><b>{{getBit(BooleOut.bit)}} {{getHashtags(BooleOut.hashtag)}}</b></p>
             </div>
             <div class="item tabs tabs-secondary tabs-icon-left">
-                <button class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]"></button>
+                <button ng-show="BooleOut.noOfReplies > 0" class="buttonDown{{BooleOut._id}} button icon-left ion-chevron-down" href="#" ng-click="reply(BooleOut._id); replyShow[BooleOut._id] = !replyShow[BooleOut._id]">({{BooleOut.noOfReplies}})</button>
                 <button class="button icon-left ion-chatbox" href="" ng-click="replyPopup(BooleOut._id); replyShow[BooleOut._id] = true">
                 </button>
             </div>
@@ -34,15 +36,17 @@
     <ion-footer-bar class="bar-royal bitstream-footer">
     <div class="row">
         <div class="col col-66">
-            <input type="text" maxlength="144" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
+            <input name="booleOutBox" type="text" maxlength="144" ng-model="bitstream.hashtag" placeholder="Enter Hashtag(s) (or not)"/>
         </div>
         <div class="col col-33">
             <div class="button-bar">
-                <a class="button button-royal" type="submit" ng-click="postBooleOut(1)">1</a>
-                <a class="button button-royal" type="submit" ng-click="postBooleOut(0)">0</a>
-            </div>           
+                <a name="post1" class="button button-royal" type="submit" ng-click="postBooleOut(1)">1</a>
+                <a name="post2" class="button button-royal" type="submit" ng-click="postBooleOut(0)">0</a>
+            </div>
         </div>
-    </div>       
+    </div>
+        <a name="Profile" visibility="hidden" href="#/tab/account">.</a>
+        <a name="Popular" visibility="hidden" href="#/tab/trending">.</a>
     </ion-footer-bar>
 </ion-view>
 
