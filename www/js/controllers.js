@@ -231,7 +231,7 @@ angular.module('starter.controllers', [])
           else {
             $scope.profileData.picture = "img/defaultProfile.png";
           }
-         
+
         if ($stateParams.username === $rootScope.user.username) {
           $(".followButton").hide(); // hides follow button if looking at your own profile
         }
@@ -615,13 +615,11 @@ angular.module('starter.controllers', [])
 .controller('SettingsCtrl', function($scope, $state, $stateParams, SettingsService, $cordovaCamera, $ionicPopup, $cordovaFile, ImageService) {
   $(".hideMe").hide();
   var oldUserName = $scope.user.username;
-
   
   ImageService.getPhoto(oldUserName, function(result) {
            $scope.pictureResult = result;         
         });
-        
-        
+
   $scope.changeUsername = function(user) {
     SettingsService.changeUserName(oldUserName, user);
   };
