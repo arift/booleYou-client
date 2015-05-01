@@ -117,6 +117,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
     })
 
   .state('tab.account', {
+    cache:false,
     url: '/account',
     views: {
       'tab-account': {
@@ -127,13 +128,14 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
   })
 
   .state('tab.trending', {
-      url: '/trending',
-      views: {
-          'tab-trending': {
-              templateUrl: 'templates/tab-trending.html',
-              controller: 'TrendingCtrl'
-          }
+    cache:false,
+    url: '/trending',
+    views: {
+      'tab-trending': {
+          templateUrl: 'templates/tab-trending.html',
+          controller: 'TrendingCtrl'
       }
+    }
   })
 
  .state('tab.settings', {

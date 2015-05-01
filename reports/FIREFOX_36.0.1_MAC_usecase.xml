@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="1"
+            tests="1">
+
+  <testsuite name="usecase"
+    errors="1" failures="1" hostname="" id="" package="usecase" skipped="0"
+    tests="1" time="7.575" timestamp="Sun, 26 Apr 2015 17:20:54 GMT">
+  
+    <testcase name="login and see the global bitstream" time="7.575" assertions="4">
+
+    
+
+    
+
+      <failure message="Testing if element &lt;ol#rso li:first-child&gt; contains text: &quot;Rembrandt - Wikipedia&quot;. Element could not be located.">Testing if element &lt;ol#rso li:first-child&gt; contains text: &quot;Rembrandt - Wikipedia&quot;. Element could not be located.: Expected &quot;Rembrandt - Wikipedia&quot; but got: &quot;null&quot;
+    at Object.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/core/assertion.js:105:19)
+    at Object.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/api/element-commands.js:341:22)
+    at HttpRequest.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/index.js:299:20)
+    at HttpRequest.EventEmitter.emit (events.js:98:17)
+    at HttpRequest.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/index.js:346:15)
+    at HttpRequest.EventEmitter.emit (events.js:106:17)
+    at IncomingMessage.&lt;anonymous&gt; (/Users/hugo/projects/booleyou/booleYou-client/node_modules/nightwatch/lib/http/request.js:150:16)
+    at IncomingMessage.EventEmitter.emit (events.js:117:20)
+    at _stream_readable.js:920:16
+    at process._tickCallback (node.js:415:13)</failure>
+
+    
+    </testcase>
+      <system-err>
+        Unable to locate element: &quot;ol#rso li:first-child&quot; using: css selector
+      </system-err>
+  
+  
+  </testsuite>
+</testsuites>
